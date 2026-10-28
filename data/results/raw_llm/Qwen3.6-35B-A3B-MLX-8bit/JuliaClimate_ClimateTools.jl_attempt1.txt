@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 2, "confidence": "HIGH", "reasoning": "The README provides explicit, actionable installation commands using Julia's Pkg manager (Pkg.add and Pkg.develop) and states the Julia version prerequisite (1.10+)."},
+  "D2_usage": {"score": 2, "confidence": "HIGH", "reasoning": "The README includes a Quick Start section with multiple concrete, executable Julia code snippets that demonstrate opening datasets, performing bias correction, and computing climate indicators."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README explicitly defines the software as a climate-analysis toolkit for gridded observations, reanalyses, and climate-model simulations, and clearly outlines its intended domain and typical climate-services workflow."},
+  "D4_dependencies": {"score": 1, "confidence": "HIGH", "reasoning": "The README explicitly mentions YAXArrays as the core dependency and provides its compatibility version (0.7), but does not provide a complete list of other required or optional dependencies."},
+  "D5_examples": {"score": 2, "confidence": "HIGH", "reasoning": "The README contains a Quick Start section with inline, meaningful usage examples that demonstrate the main workflow (opening data, bias-correcting, and computing indicators), satisfying the criteria for examples."},
+  "D6_contribution": {"score": 0, "confidence": "HIGH", "reasoning": "The README contains no information regarding contribution guidelines, code of conduct, issue reporting, or community/support channels."}
+}

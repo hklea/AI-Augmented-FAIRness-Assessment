@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides complete and actionable installation \u001b[K steps in section 'Install', including instructions for setup, installation,\u001b[13D\u001b[K installation, and checking the installation."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "LOW",
+    "reasoning": "The README contains code snippets and examples of usage, \u001b[K but they are not explicitly linked to a tutorial or example gallery; howeve\u001b[6D\u001b[K however, the 'Check installation' section provides an executable example."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what nilearn does and its int\u001b[3D\u001b[K intended domain or audience in the first paragraph: 'Nilearn enables approa\u001b[6D\u001b[K approachable and versatile analyses of brain volumes and surfaces.'"
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly lists required dependencies, includ\u001b[6D\u001b[K including Python version, matplotlib, scikit-learn, plotly, kaleido, pytest\u001b[6D\u001b[K pytest, and pytest-cov in the 'Dependencies' section."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "LOW",
+    "reasoning": "The README explicitly references an example gallery or tu\u001b[2D\u001b[K tutorial demonstrating software use, but their content is not supplied; how\u001b[3D\u001b[K however, it provides executable examples and code snippets in the 'Install'\u001b[9D\u001b[K 'Install' section."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README partially presents contribution guidance, incl\u001b[4D\u001b[K including a link to the 'contribution guide' but lacks explicit information\u001b[11D\u001b[K information about support or community channels; however, it mentions drop-\u001b[5D\u001b[K drop-in hours and provides contact information."
+  }
+}

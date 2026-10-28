@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 2, "confidence": "HIGH", "reasoning": "Provides clear, actionable installation commands for macOS/Linux (`python -m pip install plasmapy`) and Windows (`py -3.14 -m pip install plasmapy`), along with explicit notes on specifying Python versions. Python is identified as the primary prerequisite."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "No inline code snippets, workflows, or executable usage examples are present in the README. Usage information is only accessible via external links to the online documentation and example gallery."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "Clearly states that PlasmaPy is an open-source Python package for plasma research and education, explicitly targeting plasma scientists and researchers globally, and draws a direct functional analogy to Astropy in astronomy."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "The README does not explicitly list required or optional dependencies in human-readable form. It only references the broader scientific Python ecosystem and links to external documentation for installation details."},
+  "D5_examples": {"score": 1, "confidence": "HIGH", "reasoning": "Explicitly references an external example gallery of Jupyter notebooks to demonstrate capabilities, but the actual example content is not included in the README itself."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "Provides clear contribution guidance with direct links to a contributor guide and code of conduct, alongside multiple active community and support channels including Matrix chat, Mastodon, GitHub discussions, a mailing list, email contact, and community meetings."}
+}

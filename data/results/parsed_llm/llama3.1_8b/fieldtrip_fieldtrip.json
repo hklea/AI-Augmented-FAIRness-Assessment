@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides installation instructions, but they a\u001b[1D\u001b[K are incomplete and mainly link externally. The instructions mention cloning\u001b[7D\u001b[K cloning the repository or downloading the zip file, unzipping it, and addin\u001b[5D\u001b[K adding it to the MATLAB path, but do not provide a complete, actionable ste\u001b[3D\u001b[K step-by-step guide."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions that FieldTrip contains high-level fu\u001b[2D\u001b[K functions that can be used for constructing analysis protocols in MATLAB, b\u001b[1D\u001b[K but it does not provide a concrete command, code snippet, workflow, or exec\u001b[4D\u001b[K executable example."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what FieldTrip is (a MATLAB s\u001b[1D\u001b[K software toolbox for MEG, EEG and iEEG analysis) and its intended domain or\u001b[2D\u001b[K or audience (researchers in the field of electrophysiology)."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not explicitly list required and/or optio\u001b[5D\u001b[K optional dependencies in human-readable form."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions that FieldTrip contains high-level fu\u001b[2D\u001b[K functions, but it does not provide a meaningful usage example or link to an\u001b[2D\u001b[K an example gallery or tutorial demonstrating software use."
+  },
+  "D6_contribution": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not provide contribution guidance togethe\u001b[7D\u001b[K together with at least one support or community channel."
+  }
+}

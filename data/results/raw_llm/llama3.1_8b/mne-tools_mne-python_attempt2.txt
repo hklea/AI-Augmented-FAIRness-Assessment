@@ -1,0 +1,44 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides clear and complete installation steps[5D[K
+steps for the latest stable version of MNE-Python, including a command to i[1D[K
+install with minimal dependencies only."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No concrete command, code snippet, workflow, or executabl[9D[K
+executable example is present in the README to demonstrate software use."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README clearly explains what MNE-Python does (an open[4D[K
+open-source Python package for exploring, visualizing, and analyzing human [K
+neurophysiological data) and its intended domain or audience (human neuroph[7D[K
+neurophysiological data analysis)."
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly lists the required dependencies to [K
+run MNE-Python in human-readable form."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No meaningful usage example or tutorial is present in the[3D[K
+the README, and no explicit link to an example gallery or tutorial is provi[5D[K
+provided."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "Contribution guidelines are partially present, but only a[1D[K
+a reference to external documentation (https://mne.tools/dev/development/co[37D[K
+(https://mne.tools/dev/development/contributing.html) is given without any [K
+additional information."
+  }
+}

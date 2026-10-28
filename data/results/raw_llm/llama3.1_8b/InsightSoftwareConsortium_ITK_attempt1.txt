@@ -1,0 +1,48 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly states that ITK is distributed in b[1D[K
+binary Python packages and provides installation instructions via pip or co[2D[K
+conda."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No concrete command, code snippet, workflow, or executabl[9D[K
+executable example is present in the README to demonstrate usage of the sof[3D[K
+software."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains that ITK is an open-source, c[1D[K
+cross-platform toolkit for N-dimensional scientific image processing, segme[5D[K
+segmentation, and registration, which includes descriptions of both segment[7D[K
+segmentation and registration."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README states that ITK uses CMake to build from sourc[5D[K
+source, but does not explicitly list required dependencies in human-readabl[13D[K
+human-readable form; however, it is mentioned that ITK is distributed in bi[2D[K
+binary Python packages."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README references external links to examples and a tu[2D[K
+tutorial, but the content of these resources is not supplied; however, it d[1D[K
+does contain an inline example for installation instructions via pip or con[3D[K
+conda."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README partially mentions that contribution guidance [K
+is provided together with at least one support or community channel (the of[2D[K
+official Discussion space), but does not provide a clear link to the contri[6D[K
+contribution documentation."
+  }
+}

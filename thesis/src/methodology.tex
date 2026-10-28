@@ -1,0 +1,667 @@
+\section{Overall Research Design}
+
+This thesis proposes and evaluates a hybrid approach to automated
+FAIRness assessment of research software repositories. The approach
+combines two complementary assessment components: a rule-based
+component that evaluates structured repository evidence against
+indicators derived from the FAIR4RS principles
+\cite{barker2022fair4rs}, and an LLM-based component that evaluates
+predefined qualitative characteristics of README documentation.
+Together, these components provide complementary evidence for
+assessing different aspects of software FAIRness.
+
+The motivation for a hybrid design stems from the complementary
+strengths and limitations of existing assessment approaches.
+Rule-based tools such as F-UJI \cite{fuji2021} and howfairis assess
+machine-detectable evidence such as licensing, persistent
+identifiers, citation information, and other structured repository
+characteristics, but do not assess qualitative README characteristics
+such as installation guidance, usage instructions, examples, or
+contribution information. The rule-based component therefore provides
+deterministic and reproducible assessments, while the LLM-based
+component addresses documentation characteristics that are difficult
+to capture through fixed presence-based rules.
+
+The research design follows four main phases. First, a dataset of 
+188 research software repositories is collected from GitHub using 
+a systematic topic-based search strategy. Second, a ground truth 
+set of 30 repositories is manually annotated against a structured 
+rubric derived from FAIR4RS principles, providing a reference for 
+evaluating the accuracy of both assessment components. 
+Third, the rule-based and LLM-based components are implemented 
+and validated against the ground-truth annotations, with the LLM-based 
+component evaluated using two separate large language model configurations.
+The rule-based component is subsequently applied to the full 188-repository 
+dataset, while the LLM-based evaluation is conducted on the 30-repository 
+annotated corpus for both LLM configurations. Fourth, the outputs of both 
+components are evaluated to assess agreement between automated assessments and manual 
+annotations, and to compare the proposed approach with existing baseline tools.
+The following sections describe each component of the methodology 
+in detail.
+
+\section{Dataset Collection}
+
+\subsection{Research Software Definition}
+
+Research software is defined in this work as software developed to 
+support, enable, or conduct scientific research, including data 
+analysis tools, simulation software, computational pipelines, 
+scientific frameworks, and domain-specific research libraries 
+\cite{barker2022fair4rs}. Repositories were considered research 
+software if they demonstrated a clear scientific or research context 
+through their descriptions, repository topics, README documentation, 
+associated publications, or the affiliation of the owning organisation.
+
+\subsection{Collection Strategy}
+
+To obtain a diverse dataset, repositories were collected from ten 
+research domains: bioinformatics, computational biology, astronomy, 
+neuroscience, climate science, scientific computing, research 
+software, cheminformatics, computational physics, and reproducible 
+research. Each domain was queried using the GitHub Search API with 
+the following pattern:
+
+\begin{quote}
+\texttt{topic:<domain> stars:>20 archived:false}
+\end{quote}
+
+A minimum threshold of 20 GitHub stars was applied to filter out 
+inactive or personal experimental repositories. Archived repositories 
+were excluded as they are no longer actively maintained. The 
+collection was capped at 20 repositories per topic to ensure balanced 
+domain representation, yielding an initial dataset of 198 repositories.
+
+\subsection{Filtering and Cleaning}
+
+Following collection, repositories were automatically filtered 
+according to predefined inclusion criteria. Forks, archived 
+repositories, repositories whose most recent push occurred before 
+1 January 2023, and repositories whose names or descriptions 
+contained predefined keywords --- such as \textit{awesome}, 
+\textit{tutorial}, \textit{course}, \textit{template}, 
+\textit{workshop}, \textit{lecture}, \textit{homework}, 
+\textit{assignment}, and \textit{cheatsheet} --- were excluded, 
+as these typically represent curated lists, educational materials, 
+or project templates rather than executable research software. 
+These filtering steps reduced the initial dataset from 198 to 
+188 repositories.
+
+\subsection{Dataset Characteristics}
+
+The final dataset contains 188 research software repositories 
+spanning 10 research domains and multiple programming language 
+ecosystems. Python is the most common language (86 repositories, 
+46\%), followed by C++ (29, 15\%) and Jupyter Notebook (18, 10\%). 
+Additional languages include Julia, R, Rust, Java, Fortran, Go, 
+and JavaScript, providing diversity beyond a single programming 
+ecosystem. All repositories were publicly accessible on GitHub and 
+had been actively maintained at the time of collection, whose latest 
+repository activity occurred on or after 1 January 2023.
+
+For each repository, the following data were collected via the 
+GitHub API: repository metadata (name, owner, description, primary 
+language, star count, topics, and last push date), README file 
+content, and the presence of FAIR-related repository files including 
+license files, citation files, dependency specifications, structured 
+metadata files, and contribution guidelines.
+
+\section{Ground Truth Construction}
+
+\subsection{Purpose and Scope}
+
+To evaluate the performance of both the rule-based and LLM-based
+assessment components, a manually annotated reference corpus of
+30 research software repositories was constructed. Of these,
+23 repositories are also included in the final 188-repository
+dataset, while seven originate from the earlier annotation corpus
+and are not members of the final collected dataset. Manual
+annotations provide reference scores against which the automated
+assessments can be compared, enabling the computation of agreement
+metrics and the identification of systematic scoring errors.
+
+\subsection{Repository Selection}
+
+The annotated corpus was constructed in two stages. An initial set
+of 10 repositories was annotated during the pilot phase of system
+development and was used to refine the annotation guidelines and
+assessment procedure. The corpus was subsequently expanded to
+30 repositories to increase diversity across research domains and
+programming-language ecosystems, including C++, Java, MATLAB,
+Fortran, Julia, Go, Rust, and Groovy in addition to Python.
+
+The final annotated corpus therefore contains both repositories from
+the initial pilot and repositories added during the subsequent
+expansion. Of the 30 annotated repositories, 23 are also represented
+in the final 188-repository dataset. The remaining seven were retained
+from the earlier annotation corpus but are not members of the final
+188-repository collection.
+
+Because the original 10 pilot repositories contributed to rubric
+development and prompt refinement, evaluation on the full
+30-repository corpus is not treated as a fully independent test of
+the LLM-based component. Chapter~5 therefore additionally reports a
+pilot-exclusion sensitivity analysis in which these repositories are
+excluded from the LLM agreement calculations, leaving 20 repositories
+that were not used during the original pilot phase.
+\subsection{Annotation Guidelines}
+
+Annotations were performed using a structured rubric developed 
+specifically for this thesis, covering both the rule-based 
+indicators (F1, F2, A1, I1, R1, R2) and the AI-based documentation 
+quality dimensions (D1--D6). The rubric defines precise scoring 
+criteria for each indicator and dimension, including edge case 
+handling for non-standard license filenames, alternative citation 
+file formats, and the treatment of external documentation links.
+
+The annotation guidelines were developed iteratively during the
+pilot phase. Comparison with automated scorer outputs was used to
+identify ambiguous cases and inconsistencies in the operational
+definitions, which were then resolved against repository evidence and
+the intended FAIR4RS interpretation. The final version, v1.4, clarified the distinction between 
+structured citation metadata (F2) and explicit citation instructions 
+(R2), and resolved ambiguities identified during ground truth 
+annotation. All 30 repositories were annotated against the 
+finalised v1.4 guidelines to ensure consistency.
+
+\subsection{Annotation Process}
+
+Each repository was annotated by the thesis author by examining 
+the repository root file structure and README content. Rule-based 
+indicators (F1--R2) were scored by checking for the presence of 
+specific files and patterns in the README text. AI-based dimensions 
+(D1--D6) were scored on a 0--2 scale by reading the README and 
+assessing the clarity and completeness of installation instructions, 
+usage guidance, purpose description, dependency information, 
+examples, and contribution information.
+
+Each annotation record includes the assigned score together with 
+evidence notes justifying the decision. For the AI-based dimensions, 
+annotations additionally record the annotator's confidence level 
+(HIGH, MEDIUM, or LOW), reflecting the degree of ambiguity 
+encountered when applying the rubric criteria.
+
+\subsection{Inter-Annotator Agreement}
+
+To assess annotation reliability, a second annotator was provided 
+with the finalised v1.4 annotation guidelines, the list of 30 
+repositories with GitHub links, pre-fetched README files, 
+FAIR-related file presence summaries, and blank annotation forms. 
+The annotation package was designed to enable fully independent 
+annotation without requiring access to the primary annotations or 
+the GitHub repositories directly.
+
+Upon completion of the independent annotation process,
+inter-annotator agreement was quantified using Cohen's weighted
+Kappa for the AI-based dimensions (D1--D6), where partial agreement
+is meaningful, and Cohen's unweighted Kappa for the binary
+rule-based indicators (F1--R2). Exact agreement was additionally
+reported to aid interpretation in cases where Kappa was undefined
+because of a lack of class variation.
+
+Disagreements and anomalous results were subsequently reviewed
+against the final annotation guidelines and the collected repository
+evidence. This validation identified, among other cases, an
+inconsistency between the file-detection schema originally used for
+the ground-truth collection and the expanded schema used for the
+full dataset. The ground-truth file inventories and affected primary
+annotations were corrected where the repository evidence
+unambiguously supported the correction. The final agreement results
+are reported in Chapter~5.
+
+\section{Rule-Based Assessment}
+
+\subsection{Overview}
+
+The rule-based assessment component evaluates each repository against 
+six binary indicators derived from the FAIR4RS principles 
+\cite{barker2022fair4rs} and the FAIR-IMPACT research software 
+metrics \cite{chuehong2025frsm}. Each indicator checks for the 
+presence of repository files or textual patterns that provide 
+evidence for selected FAIR4RS indicators. The component produces a 
+score of 0 or 1 per indicator, with a maximum total score of 6.
+
+\subsection{Indicators}
+
+The six rule-based indicators are defined as follows:
+
+\begin{description}
+\item[F1 --- Persistent Identifier] Score 1 if evidence of a persistent identifier (e.g., DOI, Zenodo,
+or Software Heritage identifier) is detected in the repository
+documentation or metadata. Detected patterns include 
+doi.org URLs, Zenodo badges, Software Heritage identifiers, and 
+DOI badge URL formats.
+
+\item[F2 --- Structured Metadata] Score 1 if a structured metadata 
+file is present in the repository root. Accepted metadata files are 
+\texttt{CITATION.cff} and \texttt{codemeta.json}, both of which 
+provide machine-readable software metadata.
+
+\item[A1 --- License] Score 1 if licensing information is explicitly
+declared for the repository. This condition is satisfied if a
+recognized license file is present in the repository root, if a
+license is declared in the GitHub repository metadata, or if the
+README explicitly states the applicable license. Accepted license
+filenames include \texttt{LICENSE}, \texttt{LICENSE.md},
+\texttt{LICENSE.txt}, \texttt{LICENSE.rst}, \texttt{COPYING}, and
+\texttt{COPYING.txt}.
+
+
+\item[I1 --- Dependency Specification] Score 1 if a dependency 
+specification file is present in the repository root. Accepted 
+files cover multiple language ecosystems, including 
+\texttt{requirements.txt}, \texttt{pyproject.toml}, 
+\texttt{environment.yml}, \texttt{setup.py}, \texttt{Cargo.toml}, 
+\texttt{go.mod}, \texttt{pom.xml}, \texttt{Project.toml}, and 
+\texttt{package.json}.
+
+\item[R1 --- README Present] Score 1 if a README file is present 
+in the repository root. Accepted filenames include README.md, 
+README.rst, README.txt, and README.
+
+\item[R2 --- Citation Information] Score 1 if explicit citation 
+instructions are present in the repository. This includes dedicated 
+citation files (CITATION.md, CITATION.bib, CITATION.txt, CITATION, 
+CITATION.cff) and explicit citation instructions in the README text, 
+such as phrases containing ``please cite'', ``how to cite'', ``if you 
+use \ldots{} cite'', or ``we would appreciate citations''.
+\end{description}
+
+\subsection{Implementation}
+
+Repository data were collected in a preprocessing step and stored 
+locally as JSON files. The scorer operates exclusively on these 
+locally stored artefacts rather than querying the GitHub API during 
+scoring, ensuring deterministic and reproducible execution. For each 
+repository, the scorer reads the FAIR file presence record 
+(\texttt{fair\_file\_checks.json}), the repository metadata 
+(\texttt{metadata.json}), and the README file. File presence checks are performed against the stored JSON record,
+while selected indicators additionally inspect repository metadata
+and textual evidence. In particular, F1 searches for persistent
+identifier patterns, A1 checks repository metadata and explicit
+license statements in the README, and R2 searches for explicit
+citation instructions in the README text.
+
+The scorer was validated against the 30 manually annotated ground
+truth repositories. Initial validation revealed discrepancies in
+several indicators. Detection logic for F1 and R2 was refined to
+cover additional DOI representations, citation file formats, and
+citation instruction phrasings identified during manual validation.
+
+Accordingly, the rule-based validation against this corpus is
+interpreted primarily as a consistency check between the finalised
+rubric, repository evidence, and deterministic implementation rather
+than as a fully independent held-out evaluation.
+
+A subsequent consistency check also identified schema drift between
+the collector originally used for the ground-truth repositories and
+the collector used for the full dataset. The earlier collector did
+not check several language-specific dependency and build files,
+including \texttt{Cargo.toml}, \texttt{go.mod}, \texttt{pom.xml},
+\texttt{Project.toml}, and \texttt{build.gradle}. The ground-truth
+file inventories were therefore aligned with the expanded schema
+used for the full dataset, and affected annotations were corrected
+where the repository evidence unambiguously satisfied the final
+rubric. Additional manual annotation inconsistencies identified
+during validation were likewise corrected against the finalised
+guidelines. The final validation results, including precision,
+recall, and F1-score per indicator, are reported in Chapter~5.
+
+\subsection{Output}
+
+The rule-based scorer produces a CSV file containing one row per 
+repository with individual indicator scores and the aggregated 
+rule-based score. The scorer was subsequently applied to all 188
+repositories in the dataset, producing the rule-based assessment 
+results used in the evaluation presented in Chapter~5.
+
+\section{LLM-Based Assessment}
+
+\subsection{Overview}
+
+The LLM-based assessment component evaluates the quality and 
+completeness of repository README documentation against six 
+documentation quality dimensions derived from FAIR4RS reusability 
+indicators \cite{barker2022fair4rs} and the software documentation 
+quality framework proposed by Treude et al. \cite{treude2020beyond}. 
+Unlike the rule-based component, which checks for the presence of 
+files and patterns, the LLM-based component assesses the content 
+and clarity of documentation that a potential user would encounter 
+when attempting to reuse the software.
+
+\subsection{Documentation Assessment Dimensions}
+
+Six qualitative documentation dimensions are evaluated, each scored
+on a 0--2 ordinal scale:
+
+\begin{description}
+\item[D1 --- Installation Clarity] Assesses whether a new user can
+install the software from the README alone. Score 2 if complete and
+actionable installation instructions, including relevant
+prerequisites, are provided; score 1 if installation information is
+present but incomplete or relies on external documentation; score 0
+if no installation instructions are present.
+
+\item[D2 --- Usage Clarity] Assesses whether a new user can 
+understand how to run or use the software from the README. Score 
+2 if a concrete command, code snippet, or executable example is 
+present; score 1 if external documentation is clearly linked but 
+no inline example appears; score 0 if no usage information is 
+present.
+
+\item[D3 --- Purpose Description] Assesses whether the README 
+clearly explains what the software does and its intended domain or 
+audience. Score 2 if the purpose is clearly described; score 1 if 
+a description is present but vague or incomplete; score 0 if no 
+description is present.
+
+\item[D4 --- Dependency Description] Assesses whether the README 
+describes the environment or dependencies required to use the 
+software. Score 2 if dependencies are explicitly listed in 
+human-readable form; score 1 if dependency information is only 
+partially provided; score 0 if no dependency information is present.
+
+\item[D5 --- Examples and Tutorials] Assesses whether the README
+provides concrete examples that demonstrate software use. Score 2 if
+a meaningful usage example is provided directly in the README.
+Score 1 if the README explicitly references example-oriented
+resources such as tutorials, galleries, cookbooks, or notebooks, but
+their content is not included in the supplied evidence. Generic
+documentation, installation, testing, contribution, or development
+links alone do not count as examples. Score 0 if no qualifying
+examples or tutorials are present.
+
+\item[D6 --- Contribution Information] Assesses whether the README 
+explains how to contribute to or get support for the software. 
+Score 2 if contribution guidance is provided together with at 
+least one community or support channel; score 1 if contribution 
+or support information is only partially present; score 0 if 
+neither is available.
+\end{description}
+
+\subsection{Model Selection}
+
+The open-source Llama 3.1 8B model was selected because it can be 
+executed locally through Ollama, ensuring reproducibility and 
+eliminating dependence on commercial APIs. Running the model locally 
+also avoids API usage costs and enables repeated experiments under 
+identical inference settings. Temperature was set to 0 to reduce sampling variability and promote
+more consistent outputs across runs.
+To examine whether findings observed with the primary Llama
+configuration were specific to that model, a second model,
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}, from the Qwen model family
+\cite{yang2025qwen3}, was evaluated using the same substantive
+rubric, README evidence policy, and ground-truth corpus. The exact
+identifier refers to the model configuration exposed by the
+university KISTE service and is reported for reproducibility; the
+cited Qwen family publication does not document this exact
+KISTE-hosted configuration.
+
+The model was accessed through an OpenAI-compatible API endpoint
+hosted on a departmental GPU server rather than executed locally.
+Recurring patterns across both models are interpreted as evidence
+that the corresponding finding is not unique to Llama~3.1~8B,
+whereas divergent results indicate sensitivity to model choice.
+The comparison is limited to two model configurations and is not
+intended to establish model-independent properties of LLM-based
+FAIRness assessment.
+
+\subsection{Prompt Design}
+
+The LLM is provided with the repository name and README content as 
+input and instructed to score each dimension according to the 
+defined rubric. The prompt specifies that the model must evaluate 
+only evidence explicitly present in the README text, and must not 
+assume content exists behind external links. Each score must be 
+accompanied by a confidence level (HIGH, MEDIUM, or LOW) and a 
+one-sentence reasoning statement citing specific README evidence.
+
+The final prompt was developed through iterative experimentation on 
+the pilot repository set, with refinements improving the specificity 
+of dimension definitions, particularly for D5, where generic 
+documentation links were being incorrectly treated as usage examples.
+
+For the Qwen evaluation, the same substantive dimension definitions, 
+scoring criteria, and README-only evidence restrictions were retained. 
+Backend-specific output instructions were used from the outset to obtain 
+the required JSON structure; no change to the rubric or scoring criteria 
+was made when adapting the prompt to this model.
+
+\subsection{Implementation}
+
+For the primary Llama evaluation, the LLM-based scorer uses the
+Ollama HTTP API with structured JSON output enforced through a JSON
+schema supplied to the API, ensuring that every response conforms to
+the expected structure and that scores are restricted to the
+permitted values (0, 1, or 2).
+README content is supplied directly to the model as assessment
+evidence. To bound the amount of input passed to the model and keep
+preprocessing consistent across repositories, the implementation
+applies a fixed upper limit of 12,000 characters. For READMEs
+exceeding this threshold, only the first 12,000 characters are
+supplied to the model.
+
+The threshold is a practical implementation-level preprocessing
+choice rather than a limit derived from the model's maximum context
+capacity or a threshold selected through experimental optimisation.
+Character count was used because it provides a simple and
+deterministic way to bound input without introducing an additional
+tokenization step. However, language models process tokens rather
+than characters, and the relationship between character count and
+token count varies with the content of the README. A token-based
+limit would therefore provide a more direct measure of the actual
+model input size.
+
+The implementation also applies the limit as a sequential cutoff
+rather than selecting content according to README structure. This
+approach is reproducible across repositories but may exclude relevant
+documentation when important sections occur after the cutoff. A
+section-aware strategy that identifies and preserves relevant
+sections, such as installation, usage, dependencies, examples, and
+contribution guidance, would be more closely aligned with the D1--D6
+assessment dimensions.
+
+Within the 30-repository ground-truth corpus, only one README
+(\texttt{Ouranosinc/xclim}) exceeded the 12,000-character threshold,
+with a total length of 14,262 characters. Inspection of the excluded
+portion showed that it consisted of reStructuredText definitions for
+images, badges, logos, and associated links rather than substantive
+documentation corresponding to D1--D6. No relevant assessment
+evidence was therefore identified as lost through truncation in this
+case. Nevertheless, this observation concerns a single repository
+and does not establish that fixed character-based truncation is
+generally safe for longer READMEs. Token-aware and section-aware
+input handling are therefore more principled alternatives for future
+versions of the framework.
+
+For Qwen3.6-35B-A3B-MLX-8bit, the same rubric and dimension definitions 
+were used, but the scorer was implemented against an OpenAI-compatible chat 
+completion endpoint rather than the Ollama HTTP API, since the model was hosted 
+remotely rather than executed locally. Unlike the Ollama API, this endpoint offered 
+no verified mechanism for enforcing a JSON schema on the response, so structured output 
+relied on explicit prompt instructions combined with post-hoc validation of the returned 
+JSON, including defensive stripping of Markdown code-fence wrappers that this model occasionally 
+produced. This model additionally returns an internal reasoning trace as a separate field from its 
+final answer; only the final answer content was used for scoring, and the reasoning trace was not 
+incorporated into the D1--D6 dimensions.
+
+An initial output-length limit of 4{,}096 tokens resulted in invalid, incomplete, or unparsable 
+outputs for seven of the 30 repositories. These seven requests were retried with an increased 
+output limit of 16{,}000 tokens and an additional instruction constraining each per-dimension 
+reasoning statement to a short sentence. The README input, D1--D6 rubric, score definitions, 
+evidence policy, and temperature remained unchanged. The 23 previously successful outputs 
+were retained, and the recovery run produced valid outputs for the seven remaining repositories, 
+resulting in a complete 30-repository Qwen result set.
+
+Confidence labels and reasoning statements were retained for
+qualitative error analysis. Confidence labels were not incorporated
+into the D1--D6 documentation scores themselves; instead, their
+relationship with assessment correctness was evaluated separately
+through the confidence analysis described below.
+
+\subsection{External Link Policy}
+
+The LLM receives only the README text as input and does not retrieve
+external documentation linked from the README. Consequently, linked
+resources whose content is not included in the supplied evidence are
+not treated as equivalent to documentation directly available in the
+README. The scoring rubric accounts for such references explicitly;
+for example, a clearly linked external resource may provide partial
+evidence for dimensions where the referenced content itself is not
+available to the model.
+
+Human annotators could account for references to such resources
+according to the annotation procedure, whereas the automated
+assessment was restricted to the README text supplied to the model.
+This evidence-boundary difference is therefore considered when
+interpreting disagreements between human and automated assessments.
+
+\subsection{Output}
+
+The LLM scorer produces a CSV file per evaluated model, containing 
+one row per repository with scores, confidence levels, and reasoning 
+for each of the six dimensions, together with the model name and a 
+timestamp. Both scorers were applied to all 30 ground truth repositories, 
+producing the two LLM-based assessment result sets used in the evaluation 
+presented in Chapter~5.
+
+\section{Repository FAIRness Profile}
+
+The hybrid assessment framework reports the outputs of the
+rule-based and LLM-based components together as a unified FAIRness
+profile for each repository. This representation maintains the
+interpretability of both structural FAIR indicators and qualitative
+documentation characteristics, allowing users to identify strengths
+and weaknesses across different aspects of software FAIRness.
+
+The rule-based component contributes six binary indicator scores 
+(F1--R2) covering structural metadata compliance, together with 
+an aggregated rule-based total. The LLM-based component contributes 
+six documentation quality scores (D1--D6) on a 0--2 ordinal scale, 
+each accompanied by a confidence level and a reasoning statement.
+
+Rather than aggregating these heterogeneous structural and semantic
+indicators into a single scalar score, the framework preserves them
+as separate dimensions. This avoids introducing arbitrary weights
+across dimensions with fundamentally different evidence types ---
+binary file-presence checks versus qualitative, LLM-derived
+documentation judgments --- and prevents this incomparable evidence
+from being collapsed into a potentially misleading overall FAIRness
+value. Both components are stored together within a structured assessment
+record for each repository. The generated results are persisted as
+CSV output for subsequent analysis and are additionally exposed
+through the web-based prototype described in Chapter~4. The interface
+presents the structural and documentation components separately and
+allows the underlying documentation assessment reasoning, confidence
+labels, scoring criteria, and available README evidence to be
+inspected.
+
+This parallel representation provides more actionable feedback than 
+a single aggregated score would allow. A repository may score 
+highly on structural metadata indicators while exhibiting weak 
+documentation quality, or conversely may have well-written 
+documentation but lack persistent identifiers or structured 
+citation metadata. Presenting both dimensions separately makes 
+these patterns visible and directly supports the identification 
+of specific FAIRness gaps.
+
+The resulting hybrid FAIRness profiles constitute the primary
+output of the proposed framework, providing a unified representation
+of structural and documentation-based assessment results that is
+used throughout the evaluation presented in Chapter~5.
+
+In addition to presenting the saved assessments used in the empirical
+study, the implemented prototype can apply the assessment procedure
+to a newly supplied public GitHub repository. For live documentation
+assessment, the prototype supports Llama~3.1~8B through a local
+Ollama instance and \texttt{Qwen3.6-35B-A3B-MLX-8bit} through the
+university KISTE service. Such live assessments use current repository
+content and are kept separate from the fixed datasets and evaluation
+results used in this thesis.
+
+\section{Evaluation Strategy}
+
+The evaluation strategy assesses the performance, reliability, and
+complementary contribution of the proposed hybrid assessment
+framework through quantitative and qualitative analyses. The evaluation is
+structured around the two research questions defined in
+Chapter~1 and is conducted against the 30-repository ground-truth
+corpus described in Section~3.3.
+
+Where applicable, this evaluation is conducted separately for each 
+of the two evaluated LLM configurations, Llama~3.1~8B and Qwen3.6-35B-A3B-MLX-8bit. 
+For both configurations, agreement is additionally recomputed after excluding 
+the ten repositories used during pilot development; this 20-repository analysis 
+is treated as a pilot-exclusion sensitivity analysis rather than an independent 
+held-out evaluation.
+
+\subsection{Ground Truth Comparison}
+
+The primary evaluation compares the automated scores produced by
+both the rule-based and LLM-based components against the manual
+ground truth annotations. For the rule-based indicators (F1--R2),
+which are binary, performance against the manual ground truth is
+evaluated using precision, recall, and F1-score. Exact agreement and
+Cohen's unweighted Kappa are additionally reported to characterise
+agreement between assessments. For the LLM-based dimensions
+(D1--D6), which use a 0--2 ordinal scale, agreement is measured
+using exact match accuracy, Mean Absolute Error (MAE), and Cohen's
+weighted Kappa per dimension, where partial agreement is given
+proportional credit.
+
+\subsection{Inter-Annotator Agreement}
+
+To assess the reliability of the manual ground truth annotations,
+inter-annotator agreement between the primary annotator and the
+second annotator was quantified using Cohen's unweighted Kappa for
+binary indicators and Cohen's weighted Kappa for ordinal dimensions.
+Exact agreement was also reported, particularly because Kappa is
+undefined when both annotators assign only a single class. These
+results establish the reliability of the manual reference
+annotations and contextualise the agreement observed between the
+automated assessments and the ground truth.
+
+\subsection{Baseline Comparison}
+
+The proposed approach is compared with existing FAIR assessment
+tools. A direct comparison with howfairis is performed on the
+ground truth repositories, examining indicator coverage, agreements
+and disagreements, and FAIRness aspects not represented by the
+existing tool. F-UJI is separately evaluated in a pilot experiment
+by submitting plain GitHub repository URLs directly, to investigate
+whether a dataset-oriented FAIR assessment tool can serve as a
+meaningful quantitative baseline when applied to research software
+repositories without a mediating dataset record.
+
+\subsection{Qualitative Error Analysis}
+
+In addition to quantitative agreement metrics, representative 
+cases of agreement and disagreement between the automated 
+assessments and the manual annotations are analysed. The 
+confidence levels and reasoning statements produced by the LLM 
+are used to help interpret discrepancies and identify common 
+sources of scoring differences.
+
+\subsection{Confidence Analysis}
+
+The usefulness of each LLM's self-reported confidence labels is
+evaluated separately by comparing prediction correctness across HIGH,
+MEDIUM, and LOW confidence outputs. Agreement with the primary human
+annotations is examined both across all documentation dimensions
+and within individual dimensions where sufficient observations are
+available. This analysis assesses whether confidence can be
+interpreted as an indicator of prediction reliability or should
+instead be treated only as contextual information.
+
+\subsection{README Length and Verbosity Bias}
+
+To investigate whether LLM scoring errors are associated with README
+length, the analysis is performed separately for each evaluated LLM
+configuration. For each model, the difference between the LLM and
+human documentation scores is compared with the effective README
+length supplied to the model.
+README length is measured after applying the same
+12,000-character input limit used during inference. Spearman's rank
+correlation is computed for the aggregate documentation score and
+separately for D1--D6. This analysis tests whether longer README
+files are systematically associated with higher LLM scores
+independently of the corresponding human assessments.

@@ -1,0 +1,22 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "The R[1D[K
+README contains a 'Quick installation with Pip' section with an executable [K
+pip command."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "There is no [K
+concrete command, code snippet, workflow, or executable example in the READ[4D[K
+README."},
+  "D3_purpose": {"score": 2, "confidence": "MEDIUM", "reasoning": "The READ[4D[K
+README clearly explains what the software does and its intended domain or a[1D[K
+audience, stating that it's a Python wrapper for HEALPix and its target aud[3D[K
+audience is anyone interested in handling pixelated data on the sphere."},
+  "D4_dependencies": {"score": 2, "confidence": "HIGH", "reasoning": "The R[1D[K
+README explicitly lists required dependencies (Python, NumPy, Matplotlib, A[1D[K
+Astropy) and optional dependencies (HEALPix C++ and cfitsio C libraries) in[2D[K
+in human-readable form."},
+  "D5_examples": {"score": 1, "confidence": "MEDIUM", "reasoning": "The REA[3D[K
+README explicitly references an example gallery or tutorial (mybinder), but[3D[K
+but its content is not supplied."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "The R[1D[K
+README provides contribution guidance and support information through GitHu[5D[K
+GitHub issues and StackOverflow questions."}
+}

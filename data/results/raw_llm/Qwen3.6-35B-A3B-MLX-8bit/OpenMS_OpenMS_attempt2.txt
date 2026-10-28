@@ -1,0 +1,5 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "The README provides badges and links for installation via Bioconda/Conda and external links for building from source on Linux, Windows, and macOS, but lacks complete, actionable installation steps or prerequisites directly in the text."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "The README describes features and links to external documentation (ReadTheDocs, pyOpenMS docs, API reference) but does not contain any concrete command, code snippet, or executable usage example within the README itself."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README clearly explains that OpenMS is an open-source C++ library for LC-MS data management and analysis, specifically targeting proteomics and metabolomics, and serves both users and developers."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "The README mentions the use of modern C++20 and integrations with workflow engines, but does not provide an explicit, human-readable list of required or optional software dependencies or

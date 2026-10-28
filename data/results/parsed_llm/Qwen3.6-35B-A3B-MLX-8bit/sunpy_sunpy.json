@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README does not provide inline installation steps or prerequisites; it only links to an external installation guide in the documentation."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README lacks inline code snippets or executable examples for usage; it only provides links to an external tutorial and example gallery."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly states that sunpy is a Python package for solar physics data, detailing its core functionalities like accessing, loading, and analyzing solar data, along with specific tools like coordinate frames and data containers."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README mentions dependencies in the context of the installation guide but does not explicitly list any required or optional dependencies in human-readable form within the provided text."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly references an external tutorial and example gallery but does not include the actual example or tutorial content within the provided text."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides clear contribution guidance pointing to the Developers Guide, Newcomers' guide, and issues page, and explicitly includes community/support channels such as the Matrix chat room and mailing list."
+  }
+}

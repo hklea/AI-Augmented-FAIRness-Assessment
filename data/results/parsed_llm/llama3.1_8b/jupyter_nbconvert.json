@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "Installation information exists but is incomplete or main\u001b[4D\u001b[K mainly links externally. For example, the README mentions to install nbconv\u001b[6D\u001b[K nbconvert for development using `git clone https://github.com/jupyter/nbcon\u001b[32D\u001b[K https://github.com/jupyter/nbconvert.git` and then `pip install -e .`, but \u001b[K does not provide a clear installation process."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "External documentation or tutorials are clearly linked, b\u001b[1D\u001b[K but no inline example appears. The README links to the Documentation for Ju\u001b[2D\u001b[K Jupyter nbconvert at https://nbconvert.readthedocs.io/en/latest/, which lik\u001b[3D\u001b[K likely contains usage information, but it is not included in the README its\u001b[3D\u001b[K itself."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what the software does and it\u001b[2D\u001b[K its intended domain or audience: \"The nbconvert tool, `jupyter nbconvert`,\u001b[11D\u001b[K nbconvert`, converts notebooks to various other formats via [Jinja] templat\u001b[7D\u001b[K templates.\""
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "Dependency information is only partially provided. The RE\u001b[2D\u001b[K README mentions the need for pandoc, but does not list all required depende\u001b[7D\u001b[K dependencies."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "LOW",
+    "reasoning": "No meaningful usage example or tutorial is present in the\u001b[3D\u001b[K the README itself. Although the README links to nbconvert examples on GitHu\u001b[5D\u001b[K GitHub, this link alone does not support a score of 1."
+  },
+  "D6_contribution": {
+    "score": 0,
+    "confidence": "LOW",
+    "reasoning": "Neither contribution nor support information is available\u001b[9D\u001b[K available in the README itself. Although the README links to the Issues and\u001b[3D\u001b[K and Bug Reports, Community Technical Support and Discussion - Discourse, an\u001b[2D\u001b[K and Jupyter mailing list, these external links alone do not support a score\u001b[5D\u001b[K score of 1."
+  }
+}

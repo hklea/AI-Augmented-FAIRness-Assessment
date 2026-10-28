@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides a direct, actionable installation command ('pip install --user healpy') and explicitly lists required prerequisites (Python 3.10-3.14, Numpy, Matplotlib, Astropy, python-dev). It also details optional dependencies and notes platform limitations, fulfilling the criteria for complete installation clarity."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README lists software capabilities but does not include any inline code snippets, commands, or executable examples demonstrating how to import or use the package. It only provides external links to documentation, a tutorial, and a mybinder instance."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly states that 'healpy is a Python package to handle pixelated data on the sphere', explains its basis on the HEALPix scheme, and clearly identifies its intended domain (Cosmology and Astrophysics) and target audience (scientific community handling all-sky survey data)."
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README contains dedicated 'Requirements' and 'Optional' sections that explicitly list all required dependencies (Python versions, Numpy, Matplotlib, Astropy, python-dev) and optional dependencies (HEALPix C++, cfitsio, pkg-config) in human-readable form with version notes where applicable."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly references an external tutorial and a mybinder execution link, but the actual content of these examples or tutorials is not provided in the supplied README text. Therefore, it meets the criteria for a score of 1."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides clear contribution guidance ('fork the project on github and send pull requests') and explicitly lists support channels, including StackOverflow for HOWTO questions and GitHub issues for bugs or installation problems."
+  }
+}

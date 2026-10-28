@@ -1,0 +1,1274 @@
+\section{Experimental Setup}
+
+This chapter presents the quantitative evaluation of the proposed 
+hybrid FAIRness assessment framework. The results assess the 
+reliability of the framework and compare its outputs against 
+manually annotated ground truth and an existing baseline approach.
+
+\subsection{Dataset}
+
+The full dataset comprises 188 research software repositories
+collected from GitHub across 10 research domains, as described in
+Chapter~3. In addition, a manually annotated corpus of 30 repositories
+was constructed to provide ground truth for quantitative evaluation.
+The annotated corpus was selected to provide diversity across research
+domains and programming languages, including repositories implemented
+in Python, C++, Java, MATLAB, Fortran, Julia, Go, Rust, and Groovy.
+
+Ten of the 30 annotated repositories were initially used during a
+pilot phase to refine the annotation guidelines and assessment
+procedure. These repositories were retained in the final annotated
+corpus. To assess the effect of this original pilot overlap, the
+remaining 20 repositories were additionally analysed as a
+pilot-exclusion subset. For the LLM-based dimensions, these
+repositories had not been used during pilot-phase refinement and
+therefore provide a pilot-exclusion sensitivity check of LLM--human
+agreement that is unaffected by the original pilot-phase refinement.
+For the rule-based indicators, the same subset is used
+only as an internal consistency check because some rule-based
+annotations were corrected during final scorer validation.
+
+\subsection{Evaluation Metrics}
+
+The following metrics are used throughout this chapter:
+
+\begin{description}
+\item[Exact Match Accuracy] The proportion of repositories for 
+which the automated score exactly matches the manual annotation. 
+Reported as a percentage.
+
+\item[Mean Absolute Error (MAE)] The average absolute difference 
+between the automated assessment and the corresponding manual 
+annotation, computed per dimension across all 30 ground truth 
+repositories. Applied to the ordinal LLM-based dimensions (D1--D6).
+
+\item[Cohen's Unweighted Kappa] Used for binary rule-based 
+indicators (F1--R2), where any disagreement is treated equally 
+regardless of magnitude.
+
+\item[Cohen's Linearly Weighted Kappa] Used for ordinal AI-based 
+dimensions (D1--D6), where partial agreement is given proportional 
+credit. A disagreement of 1 point is penalised less than a 
+disagreement of 2 points.
+\end{description}
+
+Kappa values are interpreted following the scale proposed by
+Landis and Koch~\cite{landis1977kappa}: values below 0 indicate poor
+agreement, 0.00--0.20 slight agreement, 0.21--0.40 fair agreement,
+0.41--0.60 moderate agreement, 0.61--0.80 substantial agreement,
+and 0.81--1.00 almost perfect agreement.
+
+\subsection{Models and Tools}
+
+The LLM-based component was evaluated using two model configurations.
+The primary configuration uses \texttt{llama3.1:8b}, executed locally
+through the Ollama HTTP API at temperature 0. The model was selected
+because it can be executed locally without external API calls,
+supporting reproducible assessment within the local experimental
+environment. Structured JSON output is enforced through a schema that
+constrains scores to the permitted values (0, 1, or 2).
+
+To examine whether the observed LLM assessment behaviour was specific
+to this model configuration, a second evaluation was conducted using
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}. The model was accessed through a
+university-hosted OpenAI-compatible chat completion API and was applied
+to the same 30-repository annotated corpus. The same D1--D6 dimensions,
+scoring rubric, README-only evidence policy, 12,000-character input
+limit, and temperature setting were retained. Backend-specific output
+handling differed as described in Chapters~3 and~4.
+
+The rule-based component operates deterministically on locally stored
+repository snapshots. The howfairis tool is used as a software-oriented
+baseline comparison. F-UJI, an automated FAIR assessment tool designed
+primarily for research data objects, is additionally used in a pilot
+experiment to investigate the applicability of an external,
+data-oriented FAIR assessment baseline to research software
+repositories.
+
+\subsection{Experimental Environment}
+
+The evaluation pipeline was implemented in Python. The primary Llama
+configuration was executed locally on Windows using Ollama, with the
+\texttt{llama3.1:8b} model (4.9~GB). The second model configuration,
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}, was accessed through the
+university-hosted OpenAI-compatible API. All assessment scripts, input
+data, parsed outputs, and derived evaluation results are stored in the
+project repository to support reproducibility. Model-specific result
+files are kept separate so that evaluations can be reproduced and
+analysed independently.
+
+
+\subsection{Evaluation Procedure}
+
+The evaluation was conducted in the following order:
+
+\begin{enumerate}
+
+\item The thesis author manually annotated 30 ground truth
+repositories against the finalised annotation guidelines (v1.4).
+
+\item A second annotator independently annotated the same 30
+repositories using the same guidelines.
+
+\item Inter-annotator agreement was computed between the two
+human annotators to validate the reliability of the ground truth.
+
+\item The Llama-based scorer was applied to the 30 annotated
+repositories and its outputs were compared against both human
+annotators.
+
+\item The Qwen-based scorer was independently applied to the same
+30 repositories using the same documentation dimensions and scoring
+rubric, and its outputs were likewise compared against both human
+annotators.
+
+\item The rule-based scorer was applied to all 188 repositories
+to produce a complete set of structural FAIR indicator scores.
+
+\item Hybrid FAIRness profiles were generated by combining the
+shared rule-based results with the corresponding LLM results for
+the 30 ground truth repositories. Separate profile sets were retained
+for the two evaluated LLM configurations.
+
+\item The howfairis baseline was executed on the 30 ground truth
+repositories and compared against the proposed framework.
+
+\item F-UJI was applied directly to a subset of five ground truth
+repositories to investigate its applicability as an external
+data-oriented FAIRness assessment baseline for research software.
+
+\item As a sensitivity analysis, LLM--human agreement was recomputed
+for both model configurations on the 20-repository pilot-exclusion
+subset after excluding the 10 repositories used during pilot-phase
+refinement. Rule-based performance was also recomputed on this subset
+as an internal consistency check.
+
+\end{enumerate}
+
+\section{Ground Truth Validation}
+
+\subsection{Annotation Process}
+
+Manual annotations were created by the thesis author for all 30 
+ground truth repositories following the finalised annotation 
+guidelines (v1.4), as described in Chapter~3. Each repository was 
+annotated by examining the repository root file structure and README 
+content. Rule-based indicators (F1--R2) were assigned binary scores 
+according to the annotation guidelines based on evidence obtained 
+from the repository structure and README content. AI-based dimensions 
+(D1--D6) were scored on a 0--2 ordinal scale based on the clarity 
+and completeness of the README documentation.
+
+To assess annotation reliability, a second annotator independently 
+annotated the same 30 repositories using identical guidelines and 
+pre-fetched repository data, without access to the primary 
+annotations.
+
+\subsection{Inter-Annotator Agreement}
+
+Inter-annotator agreement between the two annotators was quantified 
+using Cohen's unweighted Kappa for binary rule-based indicators and 
+Cohen's linearly weighted Kappa for ordinal AI-based dimensions. 
+Table~\ref{tab:iaa} presents the results.
+
+\begin{table}[h]
+\centering
+\caption{Inter-annotator agreement for rule-based indicators and 
+AI-based dimensions (n=30).}
+\label{tab:iaa}
+\begin{tabular}{llrrr}
+\hline
+\textbf{Indicator/Dimension} & \textbf{Type} & \textbf{$\kappa$} & 
+\textbf{Exact} & \textbf{Interpretation} \\
+\hline
+F1 --- Persistent identifier & Binary & 0.710 & 90.0\% & Substantial \\
+F2 --- Structured metadata   & Binary & 1.000 & 100.0\% & Almost perfect \\
+A1 --- License               & Binary & undef. & 100.0\% & Single class \\
+I1 --- Dependency file       & Binary & 0.634 & 93.3\% & Substantial \\
+R1 --- README present        & Binary & undef. & 100.0\% & Single class \\
+R2 --- Citation information  & Binary & 0.658 & 83.3\% & Substantial \\
+\hline
+\textbf{Rule macro-avg}      & & \textbf{0.750} & & \\
+\hline
+D1 --- Installation          & Ordinal & 0.539 & 70.0\% & Moderate \\
+D2 --- Usage                 & Ordinal & 0.747 & 83.3\% & Substantial \\
+D3 --- Purpose               & Ordinal & 0.789 & 96.7\% & Substantial \\
+D4 --- Dependencies          & Ordinal & 0.743 & 80.0\% & Substantial \\
+D5 --- Examples              & Ordinal & 0.585 & 70.0\% & Moderate \\
+D6 --- Contribution          & Ordinal & 0.849 & 90.0\% & Almost perfect \\
+\hline
+\textbf{AI macro-avg}        & & \textbf{0.709} & & \\
+\hline
+\end{tabular}
+\end{table}
+
+Overall, the agreement results indicate that both the binary 
+rule-based indicators and the ordinal documentation quality 
+dimensions can be annotated consistently using the proposed 
+guidelines.
+
+The AI-based dimensions achieved a macro-average weighted Kappa of 
+0.709, indicating substantial overall agreement between annotators. 
+The strongest agreement was observed for D6 (contribution 
+information, $\kappa$=0.849) and D3 (purpose description, 
+$\kappa$=0.789). The weakest agreement was observed for D1 
+(installation clarity, $\kappa$=0.539) and D5 (examples and 
+tutorials, $\kappa$=0.585), suggesting greater ambiguity when 
+assessing partially documented functionality or documentation 
+provided through external links.
+
+For the rule-based indicators, F2 achieved perfect agreement, while 
+F1, I1, and R2 showed substantial agreement. Two indicators are 
+mathematically undefined: R1 (README present), because all 30 
+repositories have a README file, and A1 (license), because both 
+annotators agreed on the presence of a license for all 30 
+repositories following a correction described below. Both indicators 
+demonstrate consistent annotation in practice, as reflected by their 
+100\% exact agreement.
+
+The rule-based macro-average of 0.750 excludes the two undefined 
+values (A1 and R1).
+
+I1 (dependency file present) initially showed disagreement on seven 
+repositories, predominantly projects using non-Python language 
+ecosystems (C++, Java, Go, Rust, Groovy, Julia), following the 
+pattern that the primary annotator assigned a score of 0 while the 
+second annotator assigned a score of 1. Investigation traced this to 
+an incomplete file-detection schema used during ground-truth 
+collection: the collector script for the 30 ground-truth repositories 
+predated the expanded dependency-file list (including 
+\texttt{go.mod}, \texttt{Cargo.toml}, \texttt{pom.xml}, 
+\texttt{build.gradle}, and \texttt{Project.toml}) later adopted for 
+the full 188-repository collection, and consequently could not 
+detect language-specific dependency files for non-Python projects. 
+Five of the seven affected repositories were confirmed via the 
+corrected file inventory to genuinely contain a dependency 
+specification file, and the corresponding primary annotations were 
+corrected accordingly. Following this correction, I1 agreement 
+improved from $\kappa$=0.286 (fair) to $\kappa$=0.634 (substantial).
+
+A1 (license) was also corrected during validation: one repository 
+(\texttt{rust-ml/linfa}) had been annotated as lacking a license, 
+despite both the GitHub repository metadata and the README text 
+explicitly identifying an Apache-2.0 license. This annotation was 
+corrected, resulting in full agreement between annotators for A1.
+
+Overall, these inter-annotator agreement results indicate a level of
+annotation consistency that supports using the manual annotations as
+the reference ground truth for the subsequent evaluation, while the
+dimension-level differences are considered when interpreting the
+LLM--human agreement results.
+
+\section{Rule-Based Assessment Results}
+
+The rule-based scorer was applied to all 188 repositories in the 
+full dataset, producing binary scores for each of the six FAIR 
+indicators (F1--R2). This section presents the distribution of 
+rule-based assessment results across the full dataset and 
+evaluates the rule-based component against the manually annotated 
+ground truth repositories.
+
+\subsection{Full Dataset Results}
+
+Table~\ref{tab:rb_full} summarises the frequency of positive scores 
+for each indicator across all 188 repositories.
+
+\begin{table}[h]
+\centering
+\caption{Rule-based indicator frequencies across the full dataset 
+(n=188).}
+\label{tab:rb_full}
+\begin{tabular}{llrr}
+\hline
+\textbf{Indicator} & \textbf{Description} & \textbf{Positive} & 
+\textbf{Percentage} \\
+\hline
+F1 & Persistent identifier & 95 & 51\% \\
+F2 & Software metadata     & 58 & 31\% \\
+A1 & License               & 182 & 97\% \\
+I1 & Dependency file       & 123 & 65\% \\
+R1 & README present        & 188 & 100\% \\
+R2 & Citation information  & 79 & 42\% \\
+\hline
+\end{tabular}
+\end{table}
+
+All 188 repositories contain a README file (R1=100\%), and 97\% 
+have a license file (A1=97\%). In contrast, dedicated software 
+metadata files such as \texttt{CITATION.cff} or 
+\texttt{codemeta.json} are present in only 31\% of repositories 
+(F2), and persistent identifiers such as DOIs or Zenodo badges 
+are present in only 51\% (F1). Citation information is available 
+in 42\% of repositories (R2), suggesting that fewer than half of 
+the evaluated repositories provide explicit guidance on how to 
+cite the software. Overall, the results indicate that basic 
+repository documentation practices, such as providing README and 
+license files, are widespread, whereas richer FAIR-related metadata 
+and citation support remain considerably less common.
+
+The mean rule-based score across the full dataset was 3.86 out of 
+a maximum possible score of 6. The score distribution is shown in 
+Table~\ref{tab:rb_dist}.
+
+\begin{table}[h]
+\centering
+\caption{Distribution of rule-based total scores across the full 
+dataset (n=188).}
+\label{tab:rb_dist}
+\begin{tabular}{rrr}
+\hline
+\textbf{Score} & \textbf{Count} & \textbf{Percentage} \\
+\hline
+6/6 & 15  & 8\%  \\
+5/6 & 43  & 23\% \\
+4/6 & 61  & 32\% \\
+3/6 & 42  & 22\% \\
+2/6 & 23  & 12\% \\
+1/6 & 4   & 2\%  \\
+\hline
+\end{tabular}
+\end{table}
+
+The score distribution spans the full range from 1 to 6, indicating
+substantial variability in the structural FAIR-related indicators
+assessed across the dataset. Only 15 repositories (8\%) satisfy all
+six rule-based indicators, while 27 repositories (14\%) satisfy two
+or fewer, indicating gaps in the structural evidence captured by the
+assessment.
+
+
+\subsection{Validation Against Ground Truth}
+
+The rule-based scorer was validated against the final manual
+annotations for the 30 ground truth repositories. During validation,
+differences between automated predictions and manual annotations
+were inspected individually and resolved according to the finalised
+annotation guidelines (v1.4).
+
+This process identified both implementation-level detection gaps and
+manual annotation inconsistencies, particularly affecting the citation
+(R2), persistent identifier (F1), and license (A1) indicators. The
+rule-based detection logic was refined to recognise additional valid
+citation and persistent identifier patterns, including
+\texttt{CITATION.cff} files, generic DOI representations, and explicit
+citation wording. Manual annotations that were inconsistent with the
+final rubric were corrected and documented in the corresponding
+repository annotation files.
+
+After these refinements, the final rule-based scorer achieved exact
+agreement with the final ground truth annotations across all 30
+repositories. Precision, recall, and F1-score were 1.000 for each of
+the six binary indicators (F1--R2), as shown in
+Table~\ref{tab:rule_prf}.
+
+\begin{table}[h]
+\centering
+\caption{Rule-based validation against manual ground truth (n=30).}
+\label{tab:rule_prf}
+\begin{tabular}{lrrr}
+\hline
+\textbf{Indicator} & \textbf{Precision} & \textbf{Recall} &
+\textbf{F1-score} \\
+\hline
+F1 --- Persistent identifier & 1.000 & 1.000 & 1.000 \\
+F2 --- Software metadata     & 1.000 & 1.000 & 1.000 \\
+A1 --- License               & 1.000 & 1.000 & 1.000 \\
+I1 --- Dependency file       & 1.000 & 1.000 & 1.000 \\
+R1 --- README present        & 1.000 & 1.000 & 1.000 \\
+R2 --- Citation information  & 1.000 & 1.000 & 1.000 \\
+\hline
+\end{tabular}
+\end{table}
+
+The final results demonstrate that the rule-based implementation
+faithfully reproduces the operational definitions encoded in the
+finalised manual annotation rubric for the evaluated ground-truth
+corpus. Because scorer refinements and corrections to some rule-based
+annotations were made during final validation, the resulting perfect
+agreement should not be interpreted as an unbiased estimate of
+performance on unseen repositories. The additional pilot-exclusion
+analysis in Section~\ref{sec:pilot_exclusion_sensitivity} therefore
+serves as an internal consistency check for the rule-based component 
+rather than as independent validation.
+\section{LLM-Based Assessment Results}
+Two model configurations, \texttt{llama3.1:8b} and
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}, were evaluated on the same
+30-repository ground-truth corpus. Both configurations assessed
+the same six documentation dimensions (D1--D6) using the same scoring
+rubric and README-only evidence policy.
+
+The following analysis compares each model independently against both
+human annotators. The purpose of the second model evaluation is not to
+establish a general ranking between models, but to examine whether the
+observed reliability and failure patterns are specific to the primary
+Llama configuration or recur under a different LLM configuration.
+
+\subsection{Agreement with the Primary Annotator}
+
+Table~\ref{tab:llm_a1} presents the agreement of both LLM
+configurations with the primary annotator. Weighted Cohen's Kappa,
+exact agreement, and mean absolute error are reported independently
+for each documentation dimension.
+
+\begin{table}[htbp]
+\centering
+\caption{Agreement of the two LLM configurations with the primary
+annotator (n=30).}
+\label{tab:llm_a1}
+\small
+\begin{tabular}{lrrrrrr}
+\hline
+& \multicolumn{3}{c}{\textbf{Llama 3.1 8B}}
+& \multicolumn{3}{c}{\textbf{Qwen3.6-35B-A3B-MLX-8bit}} \\
+\cline{2-4}\cline{5-7}
+\textbf{Dimension}
+& \textbf{$\kappa$} & \textbf{Exact} & \textbf{MAE}
+& \textbf{$\kappa$} & \textbf{Exact} & \textbf{MAE} \\
+\hline
+D1 --- Installation
+& 0.605 & 70.0\% & 0.333
+& 0.799 & 86.7\% & 0.133 \\
+D2 --- Usage
+& 0.274 & 46.7\% & 0.567
+& 0.516 & 70.0\% & 0.300 \\
+D3 --- Purpose
+& $-$0.071 & 86.7\% & 0.133
+& 0.789 & 96.7\% & 0.033 \\
+D4 --- Dependencies
+& 0.480 & 60.0\% & 0.433
+& 0.487 & 56.7\% & 0.433 \\
+D5 --- Examples
+& 0.192 & 36.7\% & 0.700
+& 0.320 & 43.3\% & 0.567 \\
+D6 --- Contribution
+& 0.494 & 63.3\% & 0.400
+& 0.759 & 83.3\% & 0.167 \\
+\hline
+\textbf{Macro-avg. $\kappa$}
+& \textbf{0.329} & & 
+& \textbf{0.612} & & \\
+\hline
+\end{tabular}
+\end{table}
+
+The results differ substantially between the two model
+configurations. Llama achieved a macro-average weighted Kappa of
+0.329 against the primary annotator, whereas Qwen achieved 0.612.
+The latter therefore showed substantially stronger agreement with
+the manual annotations in this experiment.
+
+For Qwen, the strongest agreement was observed for installation
+(D1, $\kappa$=0.799), purpose (D3, $\kappa$=0.789), and contribution
+information (D6, $\kappa$=0.759). Usage documentation achieved
+moderate agreement (D2, $\kappa$=0.516), while dependencies
+(D4, $\kappa$=0.487) and examples (D5, $\kappa$=0.320) remained
+more difficult.
+
+The contrast for D3 is particularly pronounced. Llama achieved a
+weighted Kappa of $-$0.071 despite 86.7\% exact agreement, whereas
+Qwen achieved $\kappa$=0.789 with 96.7\% exact agreement. The
+negative Llama value occurs in a dimension with strongly imbalanced
+human scores and should therefore be interpreted together with its
+high exact agreement. At the same time, the substantially stronger
+Qwen result shows that the weak Kappa observed for Llama is not a
+consistent property of LLM-based purpose assessment across the two
+evaluated configurations.
+
+Overall, these results indicate that agreement with human assessment
+is both model-dependent and dimension-dependent. The second model
+substantially improves agreement for several dimensions, but the
+remaining variation across D1--D6 shows that stronger overall
+performance does not remove dimension-specific assessment
+difficulties.
+
+\subsection{Agreement with the Second Annotator}
+
+To examine whether the model--human agreement patterns depend on the
+choice of human reference, both model configurations were also
+compared with the second annotator. Table~\ref{tab:llm_a2} presents
+the results.
+
+\begin{table}[htbp]
+\centering
+\caption{Agreement of the two LLM configurations with the second
+annotator (n=30).}
+\label{tab:llm_a2}
+\small
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Dimension}
+& \textbf{Llama $\kappa$}
+& \textbf{Llama Exact}
+& \textbf{Qwen $\kappa$}
+& \textbf{Qwen Exact} \\
+\hline
+D1 --- Installation & 0.480 & 70.0\% & 0.429 & 63.3\% \\
+D2 --- Usage        & 0.276 & 50.0\% & 0.488 & 66.7\% \\
+D3 --- Purpose      & $-$0.056 & 86.7\% & 1.000 & 100.0\% \\
+D4 --- Dependencies & 0.338 & 53.3\% & 0.481 & 60.0\% \\
+D5 --- Examples     & 0.156 & 30.0\% & 0.133 & 13.3\% \\
+D6 --- Contribution & 0.454 & 60.0\% & 0.809 & 86.7\% \\
+\hline
+\textbf{Macro-avg. $\kappa$}
+& \textbf{0.275} & & \textbf{0.557} & \\
+\hline
+\end{tabular}
+\end{table}
+
+The comparison with the second annotator shows the same broad
+model-level pattern. Llama achieved a macro-average weighted Kappa
+of 0.275, whereas Qwen achieved 0.557. Qwen again showed particularly
+strong agreement for purpose (D3, $\kappa$=1.000) and contribution
+information (D6, $\kappa$=0.809).
+
+However, the second-annotator comparison also highlights the
+sensitivity of dimension-level results to the human reference.
+Most notably, Qwen agreement for examples (D5) decreased to
+$\kappa$=0.133, compared with 0.320 against the primary annotator.
+This is consistent with the lower human--human agreement previously
+observed for D5 and reinforces that some documentation dimensions
+contain greater interpretive variation than others.
+
+Taken together, the two annotator comparisons show that Qwen achieved
+higher macro-average agreement than Llama against both human
+references, while the magnitude of agreement remained dependent on
+both the assessed dimension and the human reference annotation.
+
+\subsection{Pilot-Exclusion Sensitivity Analysis}
+\label{sec:pilot_exclusion_sensitivity}
+
+Because 10 of the 30 annotated repositories had been used during
+pilot-phase refinement, final-system results were additionally
+examined after excluding these repositories. The resulting
+20-repository subset provides a pilot-exclusion sensitivity check for
+the LLM-based dimensions, which were not modified during this
+validation process. For the rule-based component, however, the
+analysis should be interpreted more cautiously: several manual
+rule-based annotations within this subset were corrected during
+final scorer validation after inconsistencies in the annotation
+evidence and detection schema were identified. The rule-based
+20-repository result is therefore reported as an internal consistency
+check rather than as independent validation.
+
+For the rule-based component, precision, recall, and F1-score were
+1.000 for all six indicators after exclusion of the 10 original
+pilot repositories. Because some rule-based annotations in this
+subset were corrected during final validation, this result confirms
+consistency between the final scorer and finalised annotation rubric
+but should not be interpreted as an unbiased estimate of performance
+on unseen repositories.
+
+For the LLM-based component, Table~\ref{tab:llm_pilot_exclusion}
+compares agreement with the primary annotator on the full annotated
+corpus and the 20-repository pilot-exclusion subset for both model
+configurations.
+
+\begin{table}[htbp]
+\centering
+\caption{LLM agreement with the primary annotator on the full
+annotated corpus and the 20-repository pilot-exclusion subset.}
+\label{tab:llm_pilot_exclusion}
+\small
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Dimension}
+& \textbf{Llama (n=30)}
+& \textbf{Llama (n=20)}
+& \textbf{Qwen (n=30)}
+& \textbf{Qwen (n=20)} \\
+\hline
+D1 --- Installation
+& 0.605 & 0.659 & 0.799 & 0.787 \\
+D2 --- Usage
+& 0.274 & 0.474 & 0.516 & 0.531 \\
+D3 --- Purpose
+& $-$0.071 & $-$0.071 & 0.789 & 0.783 \\
+D4 --- Dependencies
+& 0.480 & 0.337 & 0.487 & 0.405 \\
+D5 --- Examples
+& 0.192 & 0.286 & 0.320 & 0.367 \\
+D6 --- Contribution
+& 0.494 & 0.556 & 0.759 & 0.815 \\
+\hline
+\textbf{Macro-avg.}
+& \textbf{0.329}
+& \textbf{0.373}
+& \textbf{0.612}
+& \textbf{0.615} \\
+\hline
+\end{tabular}
+\end{table}
+
+For Llama, excluding the 10 pilot repositories did not reduce
+agreement with the primary annotator. The macro-average weighted
+Kappa increased from 0.329 on the complete 30-repository corpus to
+0.373 on the 20-repository pilot-exclusion subset. Agreement increased
+for D1, D2, D5, and D6, remained unchanged for D3, and decreased for
+D4.
+
+The Qwen results were even more stable across the two populations.
+Its macro-average weighted Kappa was 0.612 on the complete annotated
+corpus and 0.615 after exclusion of the 10 pilot repositories.
+Dimension-level agreement also remained broadly similar: D1 and D3
+decreased only slightly, D2 and D5 increased slightly, D6 increased
+from 0.759 to 0.815, and D4 decreased from 0.487 to 0.405.
+
+Since neither LLM scorer nor the D1--D6 annotations in the
+20-repository subset were modified as part of the rule-based
+validation corrections, these results provide a sensitivity check
+for the effect of the original pilot overlap on LLM--human agreement.
+For both model configurations, exclusion of the pilot repositories
+did not weaken the overall agreement result. In particular, the
+near-identical Qwen macro-average values on the full corpus and the
+pilot-exclusion subset indicate that its observed agreement was not
+primarily driven by the 10 repositories involved in the original
+pilot phase.
+
+The rule-based results likewise remain internally consistent after
+pilot exclusion. However, their perfect performance should not be
+interpreted as independent generalisation evidence because some
+rule-based annotations within this subset were corrected during final
+scorer validation.
+
+\subsection{Systematic Scoring Patterns}
+\label{sec:llm_systematic_patterns}
+
+Analysis of the direction of disagreements reveals that both model
+configurations tended to assign lower scores than the primary human
+annotator, although the dimensions in which this behaviour was most
+pronounced differed between models. Table~\ref{tab:llm_dir}
+summarises the direction of disagreements for both configurations.
+
+\begin{table}[htbp]
+\centering
+\caption{Direction of LLM scoring disagreements relative to the
+primary annotator (n=30). Lower indicates model score $<$ human score;
+higher indicates model score $>$ human score.}
+\label{tab:llm_dir}
+\small
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Dimension}
+& \textbf{Llama lower}
+& \textbf{Llama higher}
+& \textbf{Qwen lower}
+& \textbf{Qwen higher} \\
+\hline
+D1 --- Installation  & 8  & 1 & 2  & 2 \\
+D2 --- Usage         & 14 & 2 & 6  & 3 \\
+D3 --- Purpose       & 2  & 2 & 1  & 0 \\
+D4 --- Dependencies  & 8  & 4 & 13 & 0 \\
+D5 --- Examples      & 17 & 2 & 17 & 0 \\
+D6 --- Contribution  & 9  & 2 & 4  & 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+For Llama, the most pronounced underscoring occurred for D5
+(examples and tutorials), with 17 lower scores compared with two
+higher scores, and D2 (usage clarity), with 14 lower scores compared
+with two higher scores. These dimensions are particularly sensitive
+to the README-only evidence policy adopted in this study. Relevant
+usage guidance, tutorials, and example material may be provided
+through external documentation links that are not followed during
+the automated assessment.
+
+Qwen reduced the frequency of disagreement for several dimensions,
+particularly D1, D2, D3, and D6. However, systematic underscoring
+remained pronounced for D4 and D5. For dependency documentation
+(D4), Qwen assigned a lower score than the primary annotator in
+13 of 30 repositories and never assigned a higher score. For examples
+and tutorials (D5), it assigned a lower score in 17 repositories and
+again never assigned a higher score. Against the second annotator,
+the D5 tendency was even more pronounced, with Qwen assigning a lower
+score in 26 of 30 repositories.
+
+The persistence of the D5 pattern across both model configurations
+indicates that examples and tutorial evidence remain particularly
+difficult under the implemented README-only assessment design.
+The Qwen results additionally identify dependency documentation
+(D4) as a recurring source of conservative scoring for the second
+model configuration. These patterns show that stronger aggregate
+agreement does not eliminate systematic dimension-specific
+disagreements.
+
+Purpose description (D3) illustrates a different form of
+model-dependent behaviour. Llama produced a negative weighted Kappa
+($\kappa=-0.071$) despite 86.7\% exact agreement with the primary
+annotator. Human scores for this dimension were strongly concentrated
+at score 2, with 28 of 30 repositories receiving that score, making
+Kappa particularly sensitive to the small number of disagreements.
+Qwen, however, agreed with the primary annotator on 29 of 30
+repositories and achieved $\kappa=0.789$, while reaching exact
+agreement with the second annotator on all 30 repositories
+($\kappa=1.000$). The contrast demonstrates that the weak Llama D3
+Kappa was not reproduced by the second model configuration.
+
+Overall, the disagreement patterns reinforce the distinction between
+model-level and dimension-level reliability. Qwen achieved stronger
+aggregate agreement than Llama in this experiment, but dependencies
+and examples remained substantially more difficult than dimensions
+such as installation, purpose, and contribution information.
+
+\subsection{Comparison with Inter-Annotator Agreement}
+
+Table~\ref{tab:agreement_summary} places the model--human agreement
+results alongside the agreement observed between the two human
+annotators.
+
+\begin{table}[htbp]
+\centering
+\caption{Agreement summary for human--human and model--human
+comparisons (macro-average weighted $\kappa$, D1--D6).}
+\label{tab:agreement_summary}
+\begin{tabular}{lr}
+\hline
+\textbf{Comparison} & \textbf{Macro-avg. $\kappa$} \\
+\hline
+Human A1 vs Human A2 & 0.709 \\
+Llama vs Human A1    & 0.329 \\
+Llama vs Human A2    & 0.275 \\
+Qwen vs Human A1     & 0.612 \\
+Qwen vs Human A2     & 0.557 \\
+\hline
+\end{tabular}
+\end{table}
+
+The two model configurations show substantially different levels of
+agreement with the human annotations. Llama achieved macro-average
+weighted Kappa values of 0.329 and 0.275 against the primary and
+second annotators, respectively. Qwen achieved higher values of
+0.612 and 0.557 against the same two references.
+
+Human--human agreement was 0.709. This value provides useful context
+for interpreting the model results, but it should not be treated as
+a formal upper bound on achievable model performance. The Qwen
+results nevertheless lie considerably closer to the observed
+human--human agreement than the Llama results.
+
+The same broad ordering is observed against both human references,
+while the dimension-level results vary substantially. This indicates
+that reliability cannot be characterised solely as a property of
+``LLM-based assessment'' in general. Within the present experiment,
+agreement depends materially on the model configuration, the
+documentation dimension being assessed, and, to a lesser extent,
+the human annotation used as the reference.
+
+\subsection{Model-Reported Confidence Analysis}
+
+Both LLM configurations produced a self-reported confidence label
+(HIGH, MEDIUM, or LOW) for each documentation-quality score. To
+examine whether these labels provide information about assessment
+reliability, the 180 dimension-level predictions produced by each
+model (30 repositories $\times$ 6 dimensions) were analysed relative
+to the primary human annotations.
+
+For Llama, predictions were distributed across all three confidence
+levels. Table~\ref{tab:confidence_calibration} reports exact
+agreement, mean absolute error (MAE), and linearly weighted Cohen's
+Kappa within each confidence group.
+
+\begin{table}[htbp]
+\centering
+\caption{Llama agreement with the primary human annotations grouped
+by model-reported confidence across all documentation dimensions.}
+\label{tab:confidence_calibration}
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Confidence} & \textbf{n} & \textbf{Exact} &
+\textbf{MAE} & \textbf{$\kappa$} \\
+\hline
+HIGH   & 113 & 56.6\% & 0.460 & 0.520 \\
+MEDIUM & 60  & 71.7\% & 0.283 & 0.478 \\
+LOW    & 7   & 28.6\% & 1.143 & $-$0.120 \\
+\hline
+\end{tabular}
+\end{table}
+
+For Llama, the reported confidence levels were not monotonically
+associated with prediction accuracy. MEDIUM-confidence predictions
+achieved the highest exact agreement (71.7\%) and lowest MAE (0.283),
+whereas HIGH-confidence predictions achieved lower exact agreement
+(56.6\%) and a higher MAE (0.460). LOW-confidence predictions
+performed worst, with 28.6\% exact agreement and an MAE of 1.143,
+although this group contained only seven predictions and should
+therefore be interpreted cautiously.
+
+The dimension-level results also show that HIGH confidence did not
+consistently indicate stronger agreement. For example, Llama's
+HIGH-confidence predictions for D3 achieved 94.4\% exact agreement,
+whereas HIGH-confidence predictions for D5 achieved only 29.4\%.
+MEDIUM-confidence predictions also exceeded HIGH-confidence
+predictions in exact agreement for D1, D2, D4, and D5.
+
+The Qwen configuration exhibited a different confidence pattern.
+All 180 dimension-level predictions were assigned HIGH confidence;
+no MEDIUM- or LOW-confidence predictions were produced. Consequently,
+confidence calibration across confidence levels could not be
+evaluated for this model. Across the pooled HIGH-confidence
+predictions, exact agreement with the primary annotator was 72.8\%,
+MAE was 0.272, and weighted Kappa was 0.662. These pooled values
+describe overall performance among predictions that all received the
+same confidence label and should not be interpreted as evidence of
+confidence calibration.
+
+The uniform Qwen confidence assignment was not reflective of the
+substantial variation in observed dimension-level agreement. Exact
+agreement ranged from 43.3\% for examples and tutorials (D5) to
+96.7\% for purpose description (D3), despite both dimensions
+receiving HIGH confidence for every assessed repository. Thus,
+Qwen's self-reported confidence did not provide a discriminative
+reliability signal in this experiment.
+
+Taken together, the two configurations demonstrate different
+limitations of self-reported confidence. Llama produced multiple
+confidence levels, but these were not monotonically related to
+agreement with human assessment. Qwen produced no confidence
+variation at all, preventing discrimination between more and less
+reliable predictions. Model-reported confidence is therefore retained
+as contextual information in the hybrid FAIRness profile rather than
+treated as a calibrated quantitative estimate of assessment
+correctness.
+
+
+\subsection{README Length and Verbosity Bias}
+
+To investigate whether either LLM configuration systematically
+assigned relatively higher or lower scores to repositories with
+longer README files, README length was compared with the difference
+between each model's total documentation score and the corresponding
+primary human total. README length was measured as the number of words
+in the effective README text supplied to the model after applying the
+12,000-character preprocessing limit.
+
+For Llama, Spearman's rank correlation showed a weak negative and
+non-significant relationship between effective README length and
+model--human score difference ($\rho=-0.169$, $p=0.371$, $n=30$).
+For Qwen, the corresponding relationship was similarly weak and
+non-significant ($\rho=-0.143$, $p=0.451$, $n=30$). Thus, neither
+model showed evidence at the repository level that longer README
+files systematically produced relatively higher documentation scores
+in the evaluated sample.
+
+For Llama, dimension-level correlations were also non-significant,
+with coefficients ranging from $\rho=-0.180$ for dependency
+documentation (D4) to $\rho=0.060$ for installation documentation
+(D1). In particular, D2 and D5, which showed pronounced Llama
+underscoring, had weak negative correlations of $\rho=-0.110$ and
+$\rho=-0.135$, respectively.
+
+For Qwen, most dimension-level relationships were likewise weak and
+non-significant. D4 was the exception, showing a negative association
+between effective README length and model--human score difference
+($\rho=-0.392$, $p=0.032$). This direction is consistent with the
+systematic Qwen underscoring observed for D4. However, this result is
+treated as exploratory because it arises from a dimension-level
+analysis across six dimensions with only 30 repositories and no
+multiple-comparison correction. It therefore does not provide a
+basis for concluding that README length causes the D4 disagreement.
+
+Only one of the 30 README files exceeded the 12,000-character input
+limit. Inspection of the excluded portion showed that it consisted
+of reStructuredText definitions for images, badges, logos, and
+associated links rather than substantive documentation corresponding
+to D1--D6. No relevant assessment evidence was identified as lost
+through truncation in this particular case. Nevertheless, this
+observation concerns only one repository, and the fixed sequential
+cutoff may remove relevant sections in other long READMEs.
+
+Overall, the repository-level analyses provide no evidence of a
+systematic README verbosity bias for either evaluated model
+configuration. This result is limited to the present 30-repository
+sample and should not be interpreted as evidence that README length
+or truncation effects cannot occur in a broader repository
+population.
+
+\section{Hybrid FAIRness Profile Analysis}
+
+The hybrid FAIRness profile presents the rule-based indicators
+(F1--R2) and LLM-based documentation quality scores (D1--D6)
+together in a single structured record per repository while
+preserving them as separate assessment dimensions. No overall
+scalar FAIRness score is computed across the two components.
+This section analyses the profiles for the 30 ground truth
+repositories and examines the relationship between the two
+assessment dimensions.
+\subsection{Score Distributions}
+
+Table~\ref{tab:hybrid_summary} presents descriptive scores for the
+rule-based component and the primary Llama-based documentation
+component across the 30 ground truth repositories.
+
+\begin{table}[h]
+\centering
+\caption{Mean rule-based and primary Llama-based documentation scores
+across the 30 ground truth repositories.}
+\label{tab:hybrid_summary}
+\begin{tabular}{lrr}
+\hline
+\textbf{Component} & \textbf{Mean Score} & \textbf{Maximum} \\
+\hline
+Rule-based total & 4.30 & 6 \\
+Llama documentation total & 6.70 & 12 \\
+\hline
+\end{tabular}
+\end{table}
+
+The mean rule-based score across the 30 ground truth repositories was
+4.30 out of 6, slightly higher than the mean of 3.86 across the full
+188-repository dataset. The mean documentation score produced by the
+primary Llama configuration was 6.70 out of 12.
+
+These totals are reported only as descriptive summaries within their
+respective assessment components. They are not combined or interpreted
+as a single overall FAIRness score. Although a corresponding hybrid profile set was also generated using the
+Qwen results, the purpose of the second model evaluation is to assess the
+robustness of the LLM-based assessment findings rather than to replace the
+primary Llama-based profile.
+
+\subsection{Relationship Between Rule-Based and LLM Scores}
+
+To examine whether repositories that score highly on structural FAIR
+indicators also score highly on documentation quality, Spearman's rank
+correlation was computed between the rule-based total and the documentation
+total produced by each LLM configuration across the 30 ground truth
+repositories.
+
+For Llama, the correlation was weak and not statistically significant
+($\rho=0.175$, $p=0.356$). Applying the same analysis to the Qwen-based
+hybrid profiles also yielded a weak, non-significant correlation
+($\rho=0.134$, $p=0.480$). No clear monotonic association was therefore
+detected between the structural and documentation components for either
+model in the evaluated sample.
+
+These results are consistent with the design decision to preserve structural
+FAIR-related indicators and qualitative documentation assessment as
+separate dimensions of the hybrid profile. A repository may achieve a
+high rule-based score through the presence of formal metadata and
+repository artefacts while providing limited inline documentation.
+Conversely, a repository may provide clear and useful README
+documentation while lacking persistent identifiers, structured
+metadata, or explicit citation information.
+
+The Qwen analysis uses the same structural scores and the same
+30 repositories as the Llama analysis, changing only the model-specific
+documentation totals. The similar findings indicate that the absence
+of a clear association in this sample is not specific to the primary
+Llama configuration. However, non-significant correlations in this
+small sample do not establish independence between the two assessment
+components.
+
+\subsection{Complementary Assessment Dimensions}
+
+The evaluated repositories exhibited complementary assessment 
+patterns. Repositories with high rule-based scores but comparatively low
+documentation scores may possess strong structural FAIR-related
+evidence while providing limited inline documentation. Conversely, 
+other repositories achieve higher documentation scores despite 
+lacking formal metadata such as \texttt{CITATION.cff} files or 
+persistent identifiers.
+
+By presenting both dimensions in parallel, the hybrid profile 
+allows users to identify specific FAIRness gaps and prioritise 
+improvements accordingly, rather than receiving a single aggregated 
+score that obscures the nature of any deficiencies.
+
+\subsection{Profile Interpretation}
+
+The hybrid FAIRness profile provides information from both structural
+and documentation-based assessment that is not represented by either
+component alone. A repository with high scores in both components
+shows strong coverage of the assessed structural FAIR-related
+indicators together with strong README documentation according to the
+qualitative assessment rubric.
+
+Conversely, a repository with a high rule-based score but a low
+documentation score may satisfy many of the assessed structural
+indicators while providing limited documentation for practical reuse.
+Similarly, a repository with lower rule-based scores but higher
+documentation scores may provide strong README documentation while
+lacking structural evidence such as persistent identifiers or
+machine-readable citation metadata.
+
+The evaluation with two LLM configurations additionally shows that
+the documentation component is sensitive to the model used to produce
+it. The hybrid representation itself is model-independent in the
+sense that the structural and documentation dimensions remain
+separate, but the reliability analysis demonstrates that individual
+D1--D6 scores should be interpreted with awareness of the underlying
+model configuration and its dimension-specific agreement behaviour.
+
+\section{Baseline Comparison}
+
+This section compares the proposed hybrid assessment framework 
+with two existing FAIR assessment approaches. The software-oriented 
+howfairis tool is evaluated across all 30 ground truth repositories 
+and provides a direct comparison of assessment scope. F-UJI is 
+examined separately through a five-repository pilot to determine 
+whether a data-oriented FAIR assessment tool can provide a 
+meaningful quantitative baseline when applied directly to research 
+software repositories hosted on GitHub.
+
+\subsection{F-UJI Baseline Applicability}
+\label{sec:fuji_baseline}
+
+Before using F-UJI as a quantitative baseline, its applicability 
+to research software repositories was investigated. F-UJI is 
+designed primarily for assessing the FAIRness of research data 
+objects. The pilot therefore examined whether it could meaningfully 
+differentiate research software repositories when provided with 
+plain GitHub repository URLs.
+
+Five ground truth repositories with different rule-based and 
+documentation quality profiles were submitted directly to F-UJI 
+(version 3.5.1, metrics v0.8): \texttt{astropy/astropy} and 
+\texttt{sunpy/sunpy} with rule-based scores of 6/6, 
+\texttt{gonum/gonum} with a rule-based score of 2/6 and an LLM 
+documentation score of 4/12, \texttt{yt-project/yt} with scores 
+of 3/6 and 10/12, respectively, and \texttt{scipy/scipy} with 
+scores of 5/6 and 6/12. Table~\ref{tab:fuji_pilot} presents the 
+results.
+
+\begin{table}[h]
+\centering
+\caption{F-UJI assessment results compared with the proposed 
+framework's rule-based and LLM documentation scores (n=5).}
+\label{tab:fuji_pilot}
+\begin{tabular}{lrrrrrrr}
+\hline
+\textbf{Repository} & \textbf{Rule} & \textbf{LLM} & 
+\textbf{F-UJI} & \textbf{F} & \textbf{A} & 
+\textbf{I} & \textbf{R} \\
+\hline
+\texttt{astropy/astropy} & 6/6 & 4/12 & 42.31\% & 42.86\% & 42.86\% & 33.33\% & 50.00\% \\
+\texttt{sunpy/sunpy}     & 6/6 & 6/12 & 42.31\% & 42.86\% & 42.86\% & 33.33\% & 50.00\% \\
+\texttt{gonum/gonum}     & 2/6 & 4/12 & 42.31\% & 42.86\% & 42.86\% & 33.33\% & 50.00\% \\
+\texttt{yt-project/yt}   & 3/6 & 10/12 & 42.31\% & 42.86\% & 42.86\% & 33.33\% & 50.00\% \\
+\texttt{scipy/scipy}     & 5/6 & 6/12 & 42.31\% & 42.86\% & 42.86\% & 33.33\% & 50.00\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Despite rule-based scores ranging from 2/6 to 6/6 and LLM 
+documentation scores ranging from 4/12 to 10/12, all five 
+repositories received the same F-UJI score of 42.31\% (11/26) 
+and the same FAIR category breakdown. F-UJI also reported that 
+the evaluated resources did not identify themselves as datasets, 
+with the detected resource types including 
+\texttt{softwaresourcecode} and \texttt{object}.
+
+
+Within this pilot, F-UJI therefore provided no differentiation 
+between repositories with substantially different software-specific 
+FAIRness profiles. Inspection of the metric-level outputs suggests 
+that several F-UJI metrics rely on metadata representations that 
+are not directly aligned with repository-level software evidence. 
+For example, the license metric for \texttt{astropy/astropy} 
+failed despite the repository explicitly identifying a BSD 
+3-clause license.
+
+Given the identical results across the five varied repositories 
+and F-UJI's resource-type warning, a quantitative comparison 
+across all 30 ground truth repositories was not pursued. The pilot 
+is instead treated as an applicability finding: when applied
+directly to the tested GitHub repository URLs, F-UJI did not provide
+sufficient differentiation within this pilot to serve as a quantitative
+baseline for the software-oriented assessment performed in this study.
+
+\subsection{howfairis Assessment Results}
+
+The howfairis tool was applied to all 30 ground truth repositories. 
+howfairis evaluates five binary indicators: open repository, 
+license, software registry, citation, and checklist (presence of 
+a fair-software.eu badge). Table~\ref{tab:howfairis} summarises 
+the score distribution.
+
+\begin{table}[h]
+\centering
+\caption{howfairis score distribution across the 30 ground truth 
+repositories.}
+\label{tab:howfairis}
+\begin{tabular}{rrr}
+\hline
+\textbf{Score} & \textbf{Count} & \textbf{Percentage} \\
+\hline
+5/5 & 1  & 3\%  \\
+4/5 & 15 & 50\% \\
+3/5 & 11 & 37\% \\
+2/5 & 3  & 10\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Only one repository (\texttt{Ouranosinc/xclim}) achieved a full 
+score of 5/5. The checklist indicator, which requires the presence 
+of a fair-software.eu badge in the repository README, was satisfied 
+by only one repository in the ground truth set. Consequently, this 
+indicator provided little differentiation between repositories in 
+the evaluated sample. Both the open repository and license 
+indicators passed for all or nearly all repositories, consistent 
+with the rule-based results reported in Section~5.3.
+
+\subsection{Scope Comparison}
+
+Table~\ref{tab:scope} compares the assessment dimensions covered 
+by howfairis, the rule-based component, and the LLM-based component 
+of the proposed framework. F-UJI is not included in this 
+dimension-by-dimension table because the pilot demonstrated that 
+its data-oriented metrics were not directly comparable to the 
+software-specific dimensions evaluated by the proposed framework.
+
+\begin{table}[h]
+\centering
+\caption{Comparison of assessment scope across howfairis, the 
+rule-based component, and the LLM-based component.}
+\label{tab:scope}
+\begin{tabular}{lccc}
+\hline
+\textbf{Dimension} & \textbf{howfairis} & \textbf{Rule-based} & 
+\textbf{LLM-based} \\
+\hline
+Open repository       & \checkmark & $-$ & $-$ \\
+License               & \checkmark & \checkmark (A1) & $-$ \\
+Software registry     & \checkmark & $-$ & $-$ \\
+Citation metadata     & \checkmark & \checkmark (F2, R2) & $-$ \\
+Checklist badge       & \checkmark & $-$ & $-$ \\
+Persistent identifier & $-$ & \checkmark (F1) & $-$ \\
+Dependency file       & $-$ & \checkmark (I1) & $-$ \\
+Installation clarity  & $-$ & $-$ & \checkmark (D1) \\
+Usage clarity         & $-$ & $-$ & \checkmark (D2) \\
+Purpose description   & $-$ & $-$ & \checkmark (D3) \\
+Dependency description & $-$ & $-$ & \checkmark (D4) \\
+Examples/tutorials    & $-$ & $-$ & \checkmark (D5) \\
+Contribution info     & $-$ & $-$ & \checkmark (D6) \\
+\hline
+\end{tabular}
+\end{table}
+
+The comparison shows that howfairis and the proposed framework 
+cover largely complementary assessment dimensions. Both approaches 
+assess licensing and citation-related metadata, which represents 
+the primary overlap between them. The proposed framework 
+additionally evaluates persistent identifiers and dependency 
+specifications through its rule-based component, as well as six 
+documentation quality dimensions through its LLM-based component. 
+These aspects are not assessed by howfairis.
+
+During the evaluation, the software registry indicator appeared to 
+depend on repository badges displayed in the README rather than 
+direct verification of registry entries. As a result, repositories 
+available through a software registry but lacking the corresponding 
+badge received a negative registry score.
+
+\section{Summary of Findings}
+
+The evaluation produced five main findings.
+
+First, the rule-based component showed complete agreement with the
+finalised primary annotations for all six structural indicators in
+the 30-repository ground truth corpus. Precision, recall, and F1-score
+were 1.00 for F1, F2, A1, I1, R1, and R2. The same result was observed
+on the 20-repository pilot-exclusion subset. Because some structural
+annotations in this subset were corrected during final scorer
+validation, this result is interpreted as an internal consistency
+check rather than independent validation evidence.
+
+Second, the reliability of qualitative documentation assessment was
+strongly dependent on both the LLM configuration and the documentation
+dimension. Against the primary annotator, Llama achieved a
+macro-average weighted Cohen's Kappa of 0.329, whereas Qwen achieved
+0.612. Against the second annotator, the corresponding values were
+0.275 and 0.557. Human--human agreement across D1--D6 was 0.709,
+providing contextual evidence that the two human annotators themselves
+did not agree perfectly on all qualitative dimensions.
+
+The dimension-level results further demonstrate this model
+dependence. Qwen showed particularly strong agreement with the primary
+annotator for installation (D1, $\kappa=0.799$), purpose
+(D3, $\kappa=0.789$), and contribution information
+(D6, $\kappa=0.759$). The contrast for purpose was especially
+pronounced: Llama achieved $\kappa=-0.071$, whereas Qwen achieved
+$\kappa=0.789$. Thus, the weak Llama result for this dimension was
+not reproduced by the second model configuration.
+
+At the same time, stronger aggregate Qwen agreement did not eliminate
+dimension-specific difficulties. Dependency documentation (D4) and
+examples or tutorials (D5) remained more difficult, with Qwen
+achieving $\kappa=0.487$ and $\kappa=0.320$, respectively, against
+the primary annotator. Qwen assigned lower D4 scores than the primary
+annotator in 13 of 30 repositories and lower D5 scores in 17 of 30,
+without assigning a higher score in either dimension. Llama also
+showed pronounced underscoring for D5. These results indicate that
+qualitative LLM assessment cannot be characterised by a single
+reliability value; performance varies materially across both model
+configurations and documentation dimensions.
+
+Third, the pilot-exclusion sensitivity analysis showed that the
+model--human agreement findings were not primarily driven by the
+10 repositories used during pilot-phase refinement. Llama's
+macro-average weighted Kappa increased from 0.329 on the complete
+30-repository corpus to 0.373 on the 20-repository subset. Qwen
+remained almost unchanged, from 0.612 to 0.615. The latter result
+provides particularly clear evidence that the stronger Qwen agreement
+was stable to exclusion of the original pilot repositories.
+
+Fourth, model-reported confidence did not provide a reliable
+discriminative signal of assessment correctness. For Llama,
+MEDIUM-confidence predictions achieved higher exact agreement than
+HIGH-confidence predictions, showing that confidence was not
+monotonically related to observed accuracy. Qwen assigned HIGH
+confidence to all 180 dimension-level assessments and produced no
+MEDIUM- or LOW-confidence predictions. Consequently, calibration
+across confidence levels could not be evaluated for Qwen. Despite
+the uniform HIGH-confidence assignment, Qwen exact agreement varied
+from 43.3\% for D5 to 96.7\% for D3. Self-reported confidence should
+therefore not be interpreted as a calibrated probability of
+correctness in the present framework.
+
+Relatedly, no repository-level evidence of systematic README
+verbosity bias was observed for either model configuration.
+The correlation between effective README length and model--human score difference was weak
+and non-significant for Llama ($\rho=-0.169$, $p=0.371$) and Qwen
+($\rho=-0.143$, $p=0.451$). An exploratory Qwen dimension-level
+analysis produced a negative association for D4
+($\rho=-0.392$, $p=0.032$), but this result is not treated as
+confirmatory because of the small sample and multiple
+dimension-level comparisons.
+
+Fifth, the hybrid profile captures complementary aspects of research
+software assessment. The correlation between the rule-based total and
+documentation total was weak and non-significant for both Llama
+($\rho=0.175$, $p=0.356$) and Qwen ($\rho=0.134$, $p=0.480$).
+These findings are consistent with structural FAIR-related evidence
+and qualitative README documentation providing different information,
+although they do not establish statistical independence. The
+framework consequently retains them as separate components rather
+than collapsing them into a single scalar FAIRness score.
+
+The baseline experiments further support this distinction in scope.
+The software-oriented howfairis comparison showed overlap with some
+structural indicators while covering a narrower set of repository
+properties. The F-UJI pilot demonstrated limited applicability of a
+data-oriented FAIR assessment service when applied directly to the
+selected software repositories. These comparisons support the need
+for an assessment design that is explicitly adapted to research
+software while retaining transparent, criterion-level evidence.
+
+Overall, the evaluation answers the two research questions from
+complementary perspectives. For RQ1, the LLM-based component adds
+qualitative information about installation, usage, purpose,
+dependencies, examples, and contribution guidance that is not
+captured by deterministic repository checks. The weak relationship
+between the structural and documentation components further supports
+their complementary role.
+
+For RQ2, the two-model evaluation shows that LLM-based documentation
+assessment can achieve substantial agreement with human judgement for
+some model--dimension combinations, but reliability is neither uniform
+across dimensions nor stable across model configurations. Qwen
+achieved substantially stronger overall agreement than the primary
+Llama configuration in this experiment, while D4 and D5 remained
+comparatively difficult and self-reported confidence did not provide
+a dependable reliability signal. Human review and transparent
+criterion-level evidence therefore remain important when interpreting
+LLM-generated FAIRness assessments.

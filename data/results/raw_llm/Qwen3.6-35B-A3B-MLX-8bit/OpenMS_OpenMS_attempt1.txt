@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "Installation relies entirely on external links for conda and platform builds without inline steps."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "Usage information is only available via external documentation links, with no inline code or commands."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "Clearly describes the software as a C++ library for LC-MS data management in proteomics and metabolomics."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "No explicit list of required or optional dependencies or build environment requirements is provided."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "The README only links to generic documentation and a build tutorial, with no usage examples mentioned."},
+  "D6_contribution": {"score": 1, "confidence": "HIGH", "reasoning": "Community chat links are provided, but explicit contribution guidelines or instructions are absent from the text."}
+}

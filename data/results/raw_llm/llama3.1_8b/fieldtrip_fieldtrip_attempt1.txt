@@ -1,0 +1,19 @@
+{
+  "D1_installation": {"score": 1, "confidence": "MEDIUM", "reasoning": "The[4D[K
+"The README contains incomplete installation steps that mainly link externa[7D[K
+externally."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "No concrete [K
+command, code snippet, workflow, or executable example is present in the RE[2D[K
+README."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README[6D[K
+README clearly explains what the software does and its intended domain or a[1D[K
+audience: \\\"FieldTrip is the MATLAB software toolbox for MEG, EEG and iEE[3D[K
+iEEG analysis...\\\""},
+  "D4_dependencies": {"score": 0, "confidence": "LOW", "reasoning": "No mea[3D[K
+meaningful dependency or environment information is provided."},
+  "D5_examples": {"score": 1, "confidence": "MEDIUM", "reasoning": "The REA[3D[K
+README explicitly references an example gallery at https://www.fieldtriptoo[24D[K
+https://www.fieldtriptoolbox.org but its content is not supplied."},
+  "D6_contribution": {"score": 0, "confidence": "LOW", "reasoning": "Neithe[7D[K
+"Neither contribution nor support information is available."}
+}

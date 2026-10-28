@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides clear installation instructions with \u001b[K a code snippet for installing the package using Pkg.add(\"ClimateTools\") a\u001b[1D\u001b[K and another code snippet for developing the package locally using Pkg.devel\u001b[9D\u001b[K Pkg.develop(path=\"/path/to/ClimateTools\")."
+  },
+  "D2_usage": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README includes a concrete command (using ClimateTool\u001b[11D\u001b[K ClimateTools), code snippets (quick start and climate scenario construction\u001b[12D\u001b[K construction), and workflow examples that demonstrate the software's usage.\u001b[6D\u001b[K usage."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what the software does, stati\u001b[5D\u001b[K stating it is a 'climate-analysis toolkit built on top of YAXArrays.jl for \u001b[K gridded observations, reanalyses, and climate-model simulations.'"
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README lists required dependencies as 'YAXArrays >= 0\u001b[1D\u001b[K 0.7' and mentions Julia 1.10+ as the minimum version supported."
+  },
+  "D5_examples": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README contains a meaningful usage example in the qui\u001b[3D\u001b[K quick start section, demonstrating the main ClimateTools workflow: open dat\u001b[3D\u001b[K data, bias-correct, and compute climate summary indicators."
+  },
+  "D6_contribution": {
+    "score": 0,
+    "confidence": "LOW",
+    "reasoning": "There is no explicit contribution guidance or support inf\u001b[3D\u001b[K information in the README; it primarily focuses on usage examples and docum\u001b[5D\u001b[K documentation links."
+  }
+}

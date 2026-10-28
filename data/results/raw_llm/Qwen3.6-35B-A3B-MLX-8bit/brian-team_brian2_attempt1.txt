@@ -1,0 +1,3 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "The README provides badges and links to external package managers (PyPI, Conda, Debian, Fedora, Spack, AUR, Docker) and references pyproject.toml, but lacks explicit, actionable installation commands or step-by-step instructions within the text."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "The README includes a Quickstart section linking to a mybinder environment, but does not contain any inline code snippets, commands, or

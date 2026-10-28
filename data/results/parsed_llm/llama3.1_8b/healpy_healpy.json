@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The R\u001b[1D\u001b[K README contains a 'Quick installation with Pip' section with an executable \u001b[K pip command."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There is no \u001b[K concrete command, code snippet, workflow, or executable example in the READ\u001b[4D\u001b[K README."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The READ\u001b[4D\u001b[K README clearly explains what the software does and its intended domain or a\u001b[1D\u001b[K audience, stating that it's a Python wrapper for HEALPix and its target aud\u001b[3D\u001b[K audience is anyone interested in handling pixelated data on the sphere."
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The R\u001b[1D\u001b[K README explicitly lists required dependencies (Python, NumPy, Matplotlib, A\u001b[1D\u001b[K Astropy) and optional dependencies (HEALPix C++ and cfitsio C libraries) in\u001b[2D\u001b[K in human-readable form."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The REA\u001b[3D\u001b[K README explicitly references an example gallery or tutorial (mybinder), but\u001b[3D\u001b[K but its content is not supplied."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The R\u001b[1D\u001b[K README provides contribution guidance and support information through GitHu\u001b[5D\u001b[K GitHub issues and StackOverflow questions."
+  }
+}

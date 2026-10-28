@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "Provides a basic `pip install astropy` command but lacks explicit prerequisites and explicitly directs users to an external install guide for more detailed instructions."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "Contains no inline code snippets, commands, or workflows demonstrating how to use the software; only links to external documentation."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "Clearly explains that the repository contains a 'core package for astronomy in Python' designed to 'foster interoperability between packages used in the field' for the astronomy community."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "Does not list any required or optional dependencies; only mentions a dev container configured with required packages without specifying them."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "Does not mention or link to any example gallery, tutorials, cookbooks, or example notebooks."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "Provides contribution guidance (links to CONTRIBUTING.md, developer docs, and Code of Conduct) alongside multiple community/support channels (Slack, Discourse, and mailing lists)."}
+}

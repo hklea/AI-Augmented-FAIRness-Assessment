@@ -1,0 +1,11 @@
+scope,dimension,length_measure,n,rho,p_value
+repository,ALL,original_chars,30,-0.15591940311233007,0.4106402354275369
+repository,ALL,effective_chars,30,-0.15591940311233007,0.4106402354275369
+repository,ALL,original_words,30,-0.16923799719261745,0.3713003103873776
+repository,ALL,effective_words,30,-0.16923799719261745,0.3713003103873776
+dimension,D1_installation,effective_words,30,0.05955928894005543,0.7545574368716038
+dimension,D2_usage,effective_words,30,-0.11035558013833535,0.5615528686986593
+dimension,D3_purpose,effective_words,30,-0.10546786488216738,0.5791162804523009
+dimension,D4_dependencies,effective_words,30,-0.17952724249681679,0.34248237692625944
+dimension,D5_examples,effective_words,30,-0.13462799156103597,0.4781418563763332
+dimension,D6_contribution,effective_words,30,0.01956241820582875,0.9182768670068778

@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides a clear, actionable installation command (`pip install cobra`), recommends using a virtual environment, and specifies an optional dependency command for MATLAB model support. Core installation steps are inline and executable."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README links to external documentation (readthedocs) and support channels but contains no inline code snippets, commands, or executable examples demonstrating how to use the software."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly describes COBRApy as a constraint-based modeling package for genome-scale metabolic network modeling, lists specific methods (FBA, FVA, pFBA, MOMA, etc.), and identifies the target audience as researchers and developers in computational biology."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Only an optional dependency for MATLAB model support is mentioned (`pip install cobra[array]`). Required dependencies are not explicitly listed in human-readable form in the README."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not mention or link to any example gallery, tutorial, cookbook, or example notebooks. It only provides a general link to the online documentation, which does not count as an example per the rubric."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides explicit contribution guidance by linking to contributing guidelines, and includes multiple support/community channels (Google Group, Gitter chat, and StackOverflow guidelines)."
+  }
+}

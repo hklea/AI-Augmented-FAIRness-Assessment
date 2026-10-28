@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README only provides an external link to detailed installation instructions in the User's Guide, with no inline steps or prerequisites listed."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Usage information is only referenced via external links to Read the Docs, with no inline commands, code snippets, or executable examples provided in the README."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains that OpenMC is a Monte Carlo particle transport code for constructive solid geometry and continuous-energy transport using HDF5 cross sections, explicitly identifying its domain and purpose."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README contains no information regarding required or optional dependencies, compilers, or environment setup."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not mention any example gallery, tutorial, cookbook, or example notebooks, nor does it contain inline usage examples."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README mentions that users can contribute by contacting the discussion forum and provides a link to it, but lacks detailed contribution guidelines or specific steps for developers."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 0, "confidence": "HIGH", "reasoning": "The README contains no installation instructions, prerequisites, or setup steps. It only provides badges and links to external documentation and a webpage."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "No concrete commands, code snippets, workflows, or executable examples are provided in the README to demonstrate software usage."},
+  "D3_purpose": {"score": 1, "confidence": "HIGH", "reasoning": "The README provides a brief description ('MIT General Circulation Model master code and documentation'), but it is vague and does not clearly explain what the software does or its intended domain/audience."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "No required or optional dependencies, or environment configuration information, are listed in the README."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "The README does not mention or link to any examples, tutorials, or example galleries. It only links to general documentation and a main webpage, which do not count as examples per the rubric."},
+  "D6_contribution": {"score": 0, "confidence": "HIGH", "reasoning": "There is no contribution guidance, support information, or community channel mentioned in the README."}
+}

@@ -1,0 +1,11 @@
+owner,repo,domain,notes
+scikit-learn,scikit-learn,machine-learning,strong documentation
+numpy,numpy,scientific-computing,strong documentation
+astropy,astropy,astronomy,research-specific well maintained
+biopython,biopython,bioinformatics,research-specific
+networkx,networkx,graph-theory,moderate documentation
+sunpy,sunpy,solar-physics,small research-specific
+nilearn,nilearn,neuroimaging,research-specific moderate docs
+jupyter,nbconvert,scientific-workflows,moderate documentation
+OpenMS,OpenMS,bioinformatics,large research software
+healpy,healpy,astrophysics,moderate/weak docs

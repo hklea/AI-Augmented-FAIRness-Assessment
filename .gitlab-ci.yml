@@ -1,0 +1,19 @@
+stages:
+  - build
+
+build-thesis:
+  stage: build
+  # image: texlive/texlive:latest
+  script:
+    - cd thesis
+    - latexmk -C
+    - latexmk -pdf  -interaction=nonstopmode -file-line-error main.tex
+#hoqa siper --bibtex
+  artifacts:
+    paths:
+      - thesis/main.pdf
+    expire_in: 2 weeks
+  rules:
+    - changes:
+        - thesis/**/*
+    - when: never

@@ -1,0 +1,7 @@
+{
+  "D1_installation": {"score": 2, "confidence": "HIGH", "reasoning": "Provides two complete, actionable installation commands (curl script and conda) with clear instructions on moving the executable to $PATH."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "Lacks an inline usage example or workflow snippet. Only installation commands are provided, with external documentation linked for further usage guidance."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "Clearly states Nextflow is a workflow system for creating scalable, portable, and reproducible workflows, detailing its dataflow model, supported execution platforms (HPC, cloud, Kubernetes), and dependency management capabilities."},
+  "D4_dependencies": {"score": 1, "confidence": "HIGH", "reasoning": "Mentions supported dependency management tools (Conda, Spack, Docker, etc.) and underlying projects (Groovy, GPars), but does not explicitly list required runtime dependencies or system prerequisites for Nextflow itself."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "Does not explicitly reference an example gallery, tutorial, or cookbook. While it links to nf-core workflows, they are not framed as examples or tutorials in the text."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "Explicitly links to a CONTRIBUTING.md file and provides multiple community/support

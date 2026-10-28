@@ -1,0 +1,160 @@
+\section{Motivation}
+
+The increasing importance of open science and reproducibility has 
+led to a growing need for effective management and reuse of digital 
+research outputs, including data, software, and computational 
+workflows. The FAIR principles — Findable, Accessible, Interoperable, 
+and Reusable — were introduced by Wilkinson et al. \cite{wilkinson2016fair} 
+to address these challenges by providing guidelines that enhance the 
+discoverability and reuse of research artifacts. A central goal of 
+the FAIR principles is machine-actionability — the ability of 
+automated agents to discover, evaluate, and act on digital objects 
+without prior knowledge of them.
+
+While initially developed for research data, the FAIR principles are 
+equally applicable to research software, which plays a central role 
+in modern scientific processes. The FAIR for Research Software 
+(FAIR4RS) principles \cite{barker2022fair4rs} extend and adapt the 
+original framework to address the specific characteristics of 
+software, such as executability, versioning, and dependency 
+management. Ensuring that software is FAIR is essential for enabling 
+reproducibility, transparency, and collaboration.
+
+However, in practice, many research software repositories lack 
+essential elements including structured metadata, clear licensing 
+information, persistent identifiers, and comprehensive documentation. 
+Assessing the FAIRness of research software at scale remains a 
+challenging task, particularly for indicators that depend on the 
+quality and completeness of software documentation 
+\cite{chuehong2025frsm}.
+
+Existing FAIRness assessment approaches primarily rely on rule-based 
+checks that evaluate the presence of metadata files, licenses, 
+persistent identifiers, and other objectively measurable indicators 
+\cite{fuji2021}. While these approaches provide valuable automated 
+assessments, they often struggle to evaluate qualitative aspects such 
+as installation guidance, usage instructions, and documentation 
+quality — factors that directly influence software reuse and 
+reproducibility \cite{chuehong2025frsm}.
+
+Recent advances in Large Language Models (LLMs) offer new 
+opportunities for analyzing natural language documentation and 
+supporting FAIRness assessment beyond traditional rule-based methods. 
+By interpreting README files and other documentation artifacts, LLMs have the potential to evaluate aspects that are difficult to capture using deterministic rules alone.
+
+This thesis investigates how LLM-based documentation assessment can
+complement rule-based FAIRness evaluation for research software
+through a hybrid assessment approach that combines automated
+file-based checks with LLM-supported analysis of repository
+documentation. The goal is to investigate whether LLM-based assessment
+can capture qualitative FAIR-related documentation characteristics
+that are not addressed by rule-based methods alone.
+
+\section{Problem Statement}
+
+Current automated methods for evaluating the FAIRness of research
+software repositories are well suited to assessing explicit and
+machine-detectable properties, but are more limited when information
+is expressed in unstructured documentation. Existing automated
+FAIRness assessment approaches commonly rely on deterministic checks
+that evaluate the presence of metadata files, licenses, persistent
+identifiers, and other objectively measurable indicators
+\cite{fuji2021}. However, such approaches are not designed to assess
+qualitative characteristics of software documentation, such as the
+clarity and completeness of installation guidance, usage
+instructions, or dependency information.
+
+As noted by Chue Hong et al. \cite{chuehong2025frsm}, automated tools
+can verify the existence of metadata, but presence alone does not
+establish its quality, relevance, or usefulness.
+
+Research on Mining Software Repositories has shown that README files 
+are the primary documentation artifact for GitHub repositories and 
+contain rich information about a project's purpose, usage, and 
+quality \cite{prana2019readme}. However, the systematic integration of documentation-based information into automated FAIRness assessment workflows remains limited. 
+Rule-based checks can readily verify whether a README file exists, but
+presence-based checks alone do not determine whether it adequately
+describes installation procedures, usage examples, or software
+dependencies. Treude et al. 
+\cite{treude2020beyond} further demonstrate that documentation 
+quality goes beyond mere presence — dimensions such as clarity, 
+understandability, and structure require qualitative assessment that 
+rule-based approaches cannot provide.
+
+The importance of documentation quality extends beyond academic 
+frameworks. Imani et al. \cite{imani2024documentation} found that 
+over 91\% of industry practitioners rely on OSS documentation for 
+software adoption decisions, and that the top reported challenge is 
+not the absence of documentation but the difficulty of finding 
+relevant information within it. This practitioner evidence reinforces 
+the need for assessment methods that evaluate not just the presence 
+but the quality and completeness of documentation content.
+
+Consequently, there is a need to investigate whether a hybrid approach
+that combines rule-based structural checks with LLM-based qualitative
+assessment can extend automated FAIRness evaluation to documentation
+characteristics that are not captured by rule-based methods alone.
+
+\section{Research Objective and Research Questions}
+The primary objective of this thesis is to design, implement, and
+evaluate a prototype system for the automated assessment of FAIRness
+in research software repositories hosted on GitHub. The system
+combines rule-based indicators derived from the FAIR4RS principles
+\cite{barker2022fair4rs} with an LLM-based documentation assessment
+component. The evaluation investigates both the extent to which
+LLM-based assessment complements deterministic structural checks by
+capturing qualitative documentation characteristics and the
+reliability and failure modes of such assessment across two evaluated
+LLM configurations.
+
+The following research questions guide the investigation:
+
+\begin{description}
+    \item[RQ1] To what extent can LLM-based assessment complement
+rule-based FAIRness assessment by capturing qualitative documentation
+characteristics of research software repositories?
+    
+   \item[RQ2] How reliably can LLM-based methods assess qualitative
+documentation dimensions of research software repositories, and what
+failure modes affect their assessments?
+
+\end{description}
+
+The system is implemented as a modular Python prototype focused on 
+GitHub-hosted repositories. Extensibility to other platforms such as 
+Zenodo or Codeberg is considered out of scope for this thesis but is 
+noted as a direction for future work.
+
+\section{Thesis Structure}
+
+The remainder of this thesis is organized as follows.
+
+Chapter 2 reviews the relevant literature, covering the FAIR 
+principles and their adaptation for research software, existing 
+automated FAIRness assessment tools, research on software 
+documentation quality, and recent advances in LLM-based document 
+analysis.
+
+Chapter 3 describes the proposed hybrid assessment approach, 
+including the dataset collection methodology, the rule-based
+component, the LLM-based documentation assessment component, and
+the scoring and output design.
+
+Chapter 4 describes the implementation of the proposed framework,
+including the repository processing pipeline, rule-based assessment
+component, LLM integration, generation of hybrid FAIRness profiles,
+and the web-based prototype for exploring saved results and assessing
+public GitHub repositories.
+
+Chapter 5 presents the evaluation strategy and results, including
+ground-truth validation, quantitative comparison of the evaluated
+LLM configurations against manual annotations, analysis of
+dimension-level scoring behaviour and failure patterns, and
+comparison with existing FAIRness assessment tools.
+
+Chapter 6 discusses the findings in relation to the research
+questions, considers the implications and limitations of the
+approach, and outlines directions for future work.
+
+Chapter 7 concludes the thesis by summarising the main contributions
+and findings.

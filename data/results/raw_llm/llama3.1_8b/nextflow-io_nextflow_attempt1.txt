@@ -1,0 +1,45 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides a clear and complete installation pro[3D[K
+process with two examples: `curl -fsSL https://get.nextflow.io | bash` and [K
+`conda install -c bioconda nextflow`."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides an example of how to use Nextflow in [K
+the quick start section, but no concrete command or code snippet is provide[7D[K
+provided for general usage; however, it links to external documentation."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what Nextflow does and its in[2D[K
+intended domain: 'a workflow system for creating scalable, portable, and re[2D[K
+reproducible workflows'."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions that Nextflow supports many ways to m[1D[K
+manage software dependencies (Conda, Spack, Docker, Podman, Singularity), b[1D[K
+but the required and/or optional dependencies are not explicitly listed in [K
+human-readable form."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No meaningful usage examples or tutorials are mentioned i[1D[K
+in the README; links to external documentation, community forums, and YouTu[5D[K
+YouTube channels are provided."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides contribution guidance with a link to [K
+the `CONTRIBUTING.md` file, but no support or community channel is explicit[8D[K
+explicitly mentioned."
+  }
+}

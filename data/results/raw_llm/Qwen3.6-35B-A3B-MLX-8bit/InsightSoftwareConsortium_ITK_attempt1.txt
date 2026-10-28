@@ -1,0 +1,4 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "Provides explicit pip and conda installation commands and mentions CMake for the C++ core, but lacks required prerequisites or complete build steps."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "No inline code snippets, workflows, or executable examples demonstrating software usage are present; only installation commands are provided."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "Clearly explains that ITK is an 'open-source, cross-platform toolkit for N-dimensional scientific image processing, segmentation, and registration' and details its application in medical imaging contexts

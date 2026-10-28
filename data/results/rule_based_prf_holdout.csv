@@ -1,0 +1,7 @@
+indicator,tp,fp,fn,tn,precision,recall,f1
+F1_persistent_id,14,0,0,6,1.0,1.0,1.0
+F2_metadata_file,10,0,0,10,1.0,1.0,1.0
+A1_license,20,0,0,0,1.0,1.0,1.0
+I1_dependency_file,17,0,0,3,1.0,1.0,1.0
+R1_readme_present,20,0,0,0,1.0,1.0,1.0
+R2_citation,14,0,0,6,1.0,1.0,1.0

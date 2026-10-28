@@ -1,0 +1,81 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# LaTeX
+# =========================
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.idx
+*.ind
+*.ilg
+
+# Ignore compiled PDFs during writing (optional)
+thesis/*.pdf
+!thesis/TU_Chemnitz_positiv_gruen.pdf
+
+# =========================
+# IDE / OS
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# =========================
+# Data
+# =========================
+# Ignore large/generated data
+data/temp/
+data/cache/
+
+# Keep important datasets/results
+!data/annotated/
+!data/results/
+
+# =========================
+# Secrets / config
+# =========================
+*.key
+*.pem
+secrets.py
+config_local.py
+
+thesis/build/
+thesis/main.lot 

@@ -1,0 +1,103 @@
+\begin{tikzpicture}[
+    node distance=1.0cm and 1.2cm,
+    box/.style={
+        draw,
+        rounded corners,
+        rectangle,
+        align=center,
+        minimum height=1.15cm,
+        text width=5.0cm,
+        font=\small
+    },
+    smallbox/.style={
+        draw,
+        rounded corners,
+        rectangle,
+        align=center,
+        minimum height=1.15cm,
+        text width=4.5cm,
+        font=\small
+    },
+    arrow/.style={
+        -{Latex[length=2.5mm]},
+        thick
+    }
+]
+
+% GitHub
+\node[box] (github) {
+    \textbf{GitHub}\\
+    Repository Search and REST API
+};
+
+% Collection
+\node[box, below=of github] (collection) {
+    \textbf{Repository Collection and Filtering}\\
+    Topic search, filtering, deduplication,
+    metadata and README retrieval
+};
+
+% Snapshot
+\node[box, below=of collection] (snapshot) {
+    \textbf{Local Repository Snapshot}\\
+    README content\\
+    \texttt{metadata.json}\\
+    \texttt{fair\_file\_checks.json}
+};
+
+% Rule branch
+\node[smallbox, below left=1.4cm and 0.8cm of snapshot] (rule) {
+    \textbf{Rule-Based Assessment}\\
+    F1--R2\\
+    Six binary structural indicators
+};
+
+% LLM branch
+\node[smallbox, below right=1.4cm and 0.8cm of snapshot] (llm) {
+    \textbf{LLM-Based Assessment}\\
+    D1--D6\\
+    Scores, confidence and reasoning
+};
+
+% Rule output
+\node[smallbox, below=of rule] (ruleout) {
+    \textbf{Rule-Based Results}\\
+    CSV output
+};
+
+% LLM output
+\node[smallbox, below=of llm] (llmout) {
+    \textbf{LLM Results}\\
+    Parsed CSV + raw/JSON outputs
+};
+
+% Hybrid
+\node[box, below=2.0cm of snapshot, yshift=-4.0cm] (hybrid) {
+    \textbf{Hybrid FAIRness Profile Generator}\\
+    Join assessment outputs by repository identifier
+};
+
+% Final profile
+\node[box, below=of hybrid] (profile) {
+    \textbf{Repository FAIRness Profile}\\
+    F1--R2 structural indicators\\
+    D1--D6 documentation scores\\
+    Confidence and reasoning
+};
+
+% Arrows
+\draw[arrow] (github) -- (collection);
+\draw[arrow] (collection) -- (snapshot);
+
+\draw[arrow] (snapshot.south) |- (rule.north);
+\draw[arrow] (snapshot.south) |- (llm.north);
+
+\draw[arrow] (rule) -- (ruleout);
+\draw[arrow] (llm) -- (llmout);
+
+\draw[arrow] (ruleout.south) |- (hybrid.west);
+\draw[arrow] (llmout.south) |- (hybrid.east);
+
+\draw[arrow] (hybrid) -- (profile);
+
+\end{tikzpicture}

@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README provides only a single line of installation in\u001b[2D\u001b[K information (`pip install astropy`), without mentioning required prerequisi\u001b[10D\u001b[K prerequisites."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There is no concrete command, code snippet, workflow, or \u001b[K executable example in the README to demonstrate how to use the software."
+  },
+  "D3_purpose": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README explains that Astropy is a community effort to\u001b[2D\u001b[K to develop a single core package for astronomy in Python, but it does not c\u001b[1D\u001b[K clearly explain its intended domain or audience."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There is no information about required and/or optional de\u001b[2D\u001b[K dependencies provided in human-readable form in the README."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions GitHub Codespaces as a way to start d\u001b[1D\u001b[K developing Astropy, but it does not contain a meaningful usage example, nor\u001b[3D\u001b[K nor explicitly links to an example gallery or tutorial demonstrating softwa\u001b[6D\u001b[K software use."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides contribution guidance and at least on\u001b[2D\u001b[K one support or community channel (Slack), as well as multiple ways to contr\u001b[5D\u001b[K contribute, including code submission, feedback, and documentation updates.\u001b[8D\u001b[K updates."
+  }
+}

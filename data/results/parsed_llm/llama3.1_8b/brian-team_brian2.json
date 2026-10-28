@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not provide any installation instructions\u001b[12D\u001b[K instructions. It only mentions that documentation can be found at http://br\u001b[9D\u001b[K http://brian2.readthedocs.org, but this is not sufficient to score a higher\u001b[6D\u001b[K higher value."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There are no concrete commands, code snippets, workflows,\u001b[10D\u001b[K workflows, or executable examples provided in the README to illustrate how \u001b[K to use Brian2."
+  },
+  "D3_purpose": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README describes Brian2 as '*A clock-driven simulator\u001b[9D\u001b[K simulator for spiking neural networks*', but this description is not very s\u001b[1D\u001b[K specific and does not clearly explain what the software does or its intende\u001b[7D\u001b[K intended domain or audience."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README lists several dependencies, including Python >\u001b[1D\u001b[K >= 3.12, NumPy >= 2.0, and others, but this information is only partially p\u001b[1D\u001b[K present and not clearly organized."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions a link to a quickstart guide, but the\u001b[3D\u001b[K the content of this guide is not provided in the README. It also links to s\u001b[1D\u001b[K some example notebooks on mybinder."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides contribution guidelines and at least \u001b[K one support or community channel (the GitHub issue tracker)."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "D1_installation": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README only mentions external links for installation [K
+instructions and does not provide any actionable steps or prerequisites."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There is no concrete command, code snippet, workflow, or [K
+executable example provided in the README to demonstrate usage."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README clearly explains what Geant4 does (simulation [K
+of particles through matter) and its intended domains (high energy, nuclear[7D[K
+nuclear, accelerator physics, medical science, space science)."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No required or optional dependencies are explicitly liste[5D[K
+listed in the README."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions a link to external documentation and [K
+user guides, but does not provide any inline examples or links to example g[1D[K
+galleries or tutorials demonstrating software use."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides contribution guidance (referencing th[2D[K
+the CONTRIBUTING.rst file) and mentions at least one support channel (the U[1D[K
+User Forum)."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Provides two clear, actionable installation commands via curl and conda, plus instructions to add to PATH."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No inline usage commands, code snippets, or workflow examples are provided in the README."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Clearly describes Nextflow as a workflow system for scalable, portable, and reproducible parallel pipelines across multiple platforms."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Mentions supported dependency managers for workflows but does not explicitly list required runtime dependencies for Nextflow itself."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No examples, tutorials, or example galleries are mentioned or linked in the README."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Provides contribution guidance via a dedicated file and lists multiple community support channels like Slack and a forum."
+  }
+}

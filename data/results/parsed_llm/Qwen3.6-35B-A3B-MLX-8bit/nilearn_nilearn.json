@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Provides complete steps for venv/conda setup, pip install command, and import verification."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Links to HTML documentation but lacks inline usage code snippets or executable examples."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Clearly explains brain volume and surface analysis using GLM and scikit-learn tools."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Lists matplotlib, plotly, and pytest dependencies but points to pyproject.toml for the full list."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "Mentions running examples but does not explicitly link to or reference an example gallery or tutorial."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Links to a contribution guide and describes Wednesday drop-in hours, but lacks inline contribution details."
+  }
+}

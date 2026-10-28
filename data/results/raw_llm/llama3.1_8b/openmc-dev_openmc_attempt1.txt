@@ -1,0 +1,24 @@
+{
+  "D1_installation": {"score": 1, "confidence": "MEDIUM", "reasoning": "Ins[4D[K
+"Installation information exists but is incomplete or mainly links external[8D[K
+externally: The README provides a link to detailed installation instruction[11D[K
+instructions in the User's Guide."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "No usage inf[3D[K
+information is present: There are no concrete commands, code snippets, work[4D[K
+workflows, or executable examples provided."},
+  "D3_purpose": {"score": 1, "confidence": "MEDIUM", "reasoning": "A descri[6D[K
+description of purpose is present but vague or incomplete: The README state[5D[K
+states that the project aims to provide a fully-featured Monte Carlo partic[6D[K
+particle transport code based on modern methods."},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "No me[2D[K
+meaningful dependency or environment information is provided."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "No exampl[6D[K
+examples or tutorials are mentioned: The README does not contain a meaningf[8D[K
+meaningful usage example, and there is no explicit reference to an example [K
+gallery or tutorial."},
+  "D6_contribution": {"score": 1, "confidence": "MEDIUM", "reasoning": "Con[4D[K
+"Contribution guidance is only partially present: The README provides infor[5D[K
+information on reporting bugs through GitHub Issues but also recommends usi[3D[K
+using the discussion forum for common troubleshooting purposes and requesti[8D[K
+requesting feature additions."}
+}

@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No installation instructions are present in the README. T\u001b[1D\u001b[K The only mention of setup is a link to the main webpage ([http://mitgcm.org\u001b[19D\u001b[K ([http://mitgcm.org](http://mitgcm.org))."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No concrete command, code snippet, workflow, or executabl\u001b[9D\u001b[K executable example is present in the README. The only mention of usage is a\u001b[1D\u001b[K a link to the latest documentation ([http://mitgcm.readthedocs.io/en/latest\u001b[40D\u001b[K ([http://mitgcm.readthedocs.io/en/latest/](http://mitgcm.readthedocs.io/en/([http://mitgcm.readthedocs.io/en/latest](http://mitgcm.readthedocs.io/en/latest/))."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what the software does (MIT G\u001b[1D\u001b[K General Circulation Model master code and documentation) and its intended d\u001b[1D\u001b[K domain or audience (not explicitly mentioned, but assumed to be related to \u001b[K oceanography)."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No required or optional dependencies are explicitly liste\u001b[5D\u001b[K listed in human-readable form. The only dependency information is a link to\u001b[2D\u001b[K to the main webpage ([http://mitgcm.org](http://mitgcm.org))."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No meaningful usage examples are provided in the README. \u001b[K The only mention of documentation is a link to the latest documentation ([h\u001b[3D\u001b[K ([http://mitgcm.readthedocs.io/en/latest/](http://mitgcm.readthedocs.io/en/([htp://mitgcm.readthedocs.io/en/latest/](http://mitgcm.readthedocs.io/en/latest/))."
+  },
+  "D6_contribution": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No contribution guidance is provided, and no support or c\u001b[1D\u001b[K community channels are mentioned in the README."
+  }
+}

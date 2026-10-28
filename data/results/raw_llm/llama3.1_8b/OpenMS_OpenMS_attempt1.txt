@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 2, "confidence": "HIGH", "reasoning": "The README provides detailed instructions for building OpenMS on Linux, Windows, and macOS." },
+  "D2_usage": {"score": 2, "confidence": "HIGH", "reasoning": "The README includes a comprehensive documentation section with links to the OpenMS API reference, developer doxygen documentation, and pyOpenMS online documentation."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README clearly states that OpenMS is an open-source software C++ library for LC-MS data management and analyses." },
+  "D4_dependencies": {"score": 1, "confidence": "MEDIUM", "reasoning": "The README mentions the need to install a C++ compiler and other dependencies, but does not provide detailed instructions."},
+  "D5_examples": {"score": 0, "confidence": "LOW", "reasoning": "There are no code examples in the README." },
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "The README lists the main contributors of OpenMS as Eberhard-Karls-Universität in Tübingen, Freie Universität Berlin, and ETH Zürich." }
+}

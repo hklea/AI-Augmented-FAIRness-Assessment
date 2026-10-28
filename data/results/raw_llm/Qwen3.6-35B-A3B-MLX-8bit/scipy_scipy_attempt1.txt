@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "The README directs users to an external install guide (https://scipy.org/install/) but does not provide inline installation steps or prerequisites."},
+  "D2_usage": {"score": 0, "confidence": "HIGH", "reasoning": "The README describes the software's capabilities but does not include any concrete command, code snippet, workflow, or executable example demonstrating usage."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README explicitly states that SciPy is 'open-source software for mathematics, science, and engineering' and lists its core modules (statistics, optimization, integration, linear algebra, etc.), clearly defining its purpose and domain."},
+  "D4_dependencies": {"score": 1, "confidence": "HIGH", "reasoning": "The README mentions that SciPy is 'built to work with NumPy arrays,' which partially indicates a dependency, but it does not provide a complete, explicit list of required or optional dependencies."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "The README provides links to general documentation and development docs but does not explicitly reference an example gallery, tutorial, cookbook, or provide inline usage examples."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "The README provides detailed contribution guidance (including a link to the contributing guide and specific ways to contribute) and explicitly mentions community/support channels (the SciPy development forum and GitHub issues) for asking questions or getting help."}
+}

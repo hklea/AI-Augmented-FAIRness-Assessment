@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research Software Assessment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">F</span><span>Research Software Assessment<small>AI-augmented FAIRness · Thesis demonstration</small></span></a>
+    <nav aria-label="Main navigation"><a class="nav-link" href="#overview">Dataset overview</a><a class="nav-link" href="#languages">Programming languages</a><a class="nav-link" href="#assess">Assess a repository</a></nav>
+  </div></header>
+  <main class="container">
+    <section id="view-overview" class="view" aria-labelledby="overview-title">
+      <div class="page-heading"><div><p class="eyebrow">EXPLORE THE STUDY</p><h1 id="overview-title" tabindex="-1">Two perspectives on research software.</h1><p>Explore structural evidence and README documentation quality across the saved thesis assessments.</p></div><a class="button primary" href="#assess">Assess a repository →</a></div>
+      <div class="model-controls"><label for="saved-model">Saved documentation model</label><select id="saved-model"><option value="llama3.1:8b">Llama 3.1 8B / Local Ollama</option><option value="Qwen3.6-35B-A3B-MLX-8bit">Qwen3.6 35B / University KISTE</option></select><p class="note">Updates documentation scores and confidence results. Structural assessments are shared across models.</p></div>
+      <div id="overview-status" class="status" role="status">Loading saved assessments…</div><div id="overview-results" hidden></div>
+    </section>
+    <section id="view-languages" class="view" hidden aria-labelledby="languages-title">
+      <div class="page-heading"><div><p class="eyebrow">EXPLORE THE DATASET</p><h1 id="languages-title" tabindex="-1">Programming languages</h1><p>Explore repositories grouped by their recorded primary language.</p></div></div>
+      <div class="model-controls"><label for="language-cohort">Dataset</label><select id="language-cohort"><option value="full">Full dataset</option><option value="hybrid">Annotated corpus</option></select></div>
+      <p class="scope-note">Each repository appears once, under its primary language in the saved GitHub metadata. These are language groups, not similarity-based clusters or a breakdown of all code in each repository. Missing language metadata is shown as Unknown.</p>
+      <div id="languages-status" class="status" role="status" hidden></div><div id="languages-results"></div>
+    </section>
+    <section id="view-assess" class="view" hidden aria-labelledby="assess-title">
+      <div class="page-heading"><div><p class="eyebrow">ASSESS YOUR SOFTWARE</p><h1 id="assess-title" tabindex="-1">Start with a GitHub repository.</h1><p>Collect current repository evidence and create an individual assessment.</p></div></div>
+      <form id="assess-form" class="card assess-form">
+        <label for="repo-input">Public GitHub repository</label>
+        <div class="input-row"><input id="repo-input" type="text" placeholder="owner/repo or https://github.com/owner/repo" required autocomplete="off" spellcheck="false" /><button type="submit" id="assess-submit" class="primary">Assess repository</button></div>
+        <label class="checkbox-row"><input type="checkbox" id="run-llm-checkbox" checked />Include README documentation assessment</label>
+        <label for="live-model">Documentation model</label><select id="live-model"><option value="llama3.1:8b">Llama 3.1 8B / Local Ollama</option><option value="Qwen3.6-35B-A3B-MLX-8bit">Qwen3.6 35B / University KISTE</option></select><p id="model-service-status" class="note" role="status">Service availability is checked when this view opens.</p><button type="button" id="refresh-models">Refresh service status</button><p id="model-service-note" class="note"></p>
+        <p class="note">New assessments use current GitHub content and are kept separate from the saved thesis dataset.</p>
+      </form>
+      <div class="scope-note">Six structural indicators and six documentation dimensions, presented as separate scores. This assesses selected FAIR-related evidence, not complete FAIR4RS compliance.</div>
+      <div id="assess-status" class="status" role="status" aria-live="polite" hidden></div><div id="assess-results" hidden></div>
+    </section>
+    <section id="view-report" class="view" hidden aria-label="Saved repository report">
+      <a class="back-link" href="#overview">← Back to dataset overview</a><div id="report-status" class="status" role="status" hidden></div><div id="report-results"></div>
+    </section>
+    <footer>Master’s thesis · Klea Haxhiu · TU Chemnitz<span>Structural evidence + README documentation</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

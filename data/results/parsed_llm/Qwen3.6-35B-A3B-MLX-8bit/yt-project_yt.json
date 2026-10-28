@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Clear installation commands for conda and pip are provided directly in the README."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Only links to external quickstart notebooks are provided, with no inline usage code snippets."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Clearly states it is a Python library for analyzing volumetric data across multiple scientific domains."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No explicit list of required or optional software dependencies is provided in the README."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Explicitly links to quickstart example notebooks, but their content is not included in the provided evidence."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Provides detailed contribution guidelines alongside mailing lists and Slack for community support."
+  }
+}

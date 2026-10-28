@@ -1,0 +1,44 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides explicit installation instructions wi[2D[K
+with `Pkg.add(\"ClimateTools\")` and an additional command for local develo[6D[K
+development using `Pkg.develop(path=\"/path/to/ClimateTools\`)`."
+  },
+  "D2_usage": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README contains concrete code snippets demonstrating [K
+the ClimateTools workflow, such as opening data, bias-correcting simulation[10D[K
+simulations, and computing climate summaries in Quick Start examples."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README clearly explains what ClimateTools.jl is (a cl[2D[K
+climate-analysis toolkit) and its intended domain or audience (climate serv[4D[K
+services workflow)."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README lists required dependencies, including YAXArra[7D[K
+YAXArrays `0.7`, but also mentions Julia 1.10+ as a prerequisite."
+  },
+  "D5_examples": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README includes meaningful usage examples within the [K
+Quick Start section, showing how to use ClimateTools for climate scenario c[1D[K
+construction and bias correction with quantile mapping, extreme-value corre[5D[K
+correction, or time-variability correction."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README mentions 'Contributing' in the header, but no [K
+clear contribution guidance is provided together with at least one support [K
+or community channel. A link to an issue tracker is not visible."
+  }
+}

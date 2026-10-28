@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides complete and actionable installation \u001b[K steps for installing the most recent stable version of yt either with conda\u001b[5D\u001b[K conda from [conda-forge](https://conda-forge.org/) or with pip."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides a concrete command and code snippet f\u001b[1D\u001b[K for installation, but it does not provide an example of how to use the soft\u001b[4D\u001b[K software."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what the software does and it\u001b[2D\u001b[K its intended domain or audience: 'yt is an open-source, permissively-licens\u001b[19D\u001b[K permissively-licensed Python library for analyzing and visualizing volumetr\u001b[8D\u001b[K volumetric data.'"
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README explicitly lists the required dependency (cond\u001b[5D\u001b[K (conda-forge) and provides instructions on how to install it."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README links to a Quickstart example notebooks galler\u001b[6D\u001b[K gallery, but does not provide inline examples or explicitly link to an exam\u001b[4D\u001b[K example gallery or tutorial demonstrating software use and content included\u001b[8D\u001b[K included in the supplied evidence."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides contribution guidance together with a\u001b[1D\u001b[K at least one support or community channel: 'We love contributions! yt is op\u001b[2D\u001b[K open source, built on open source, and we'd love to have you hang out in ou\u001b[2D\u001b[K our community.'"
+  }
+}

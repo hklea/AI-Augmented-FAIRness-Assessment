@@ -1,0 +1,48 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README provides installation instructions for the lat[3D[K
+latest stable version of MNE-Python, but these are mainly links to external[8D[K
+external resources, with one inline code block example. (e.g., 'To install [K
+the latest stable version of MNE-Python with minimal dependencies only, use[3D[K
+use pip in a terminal: ...')"
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No concrete command, code snippet, workflow, or executabl[9D[K
+executable example is present in the README to demonstrate software usage."[7D[K
+usage."
+  },
+  "D3_purpose": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README describes what MNE-Python does (an open-source[11D[K
+open-source Python package for exploring, visualizing, and analyzing human [K
+neurophysiological data), but the description is not very detailed or speci[5D[K
+specific to a particular domain or audience."
+  },
+  "D4_dependencies": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly lists the required dependencies in [K
+human-readable form: 'The minimum required dependencies to run MNE-Python a[1D[K
+are: ...'"
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "Although no inline examples or tutorials are provided, th[2D[K
+the README explicitly references the documentation website for example gall[4D[K
+galleries and tutorials (e.g., 'Documentation encompasses installation inst[4D[K
+instructions, tutorials, and examples for a wide variety of topics...')."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README provides contribution guidelines, but the link[4D[K
+link to these guidelines is external (e.g., 'Please see the contributing gu[2D[K
+guidelines on our documentation website.')."
+  }
+}

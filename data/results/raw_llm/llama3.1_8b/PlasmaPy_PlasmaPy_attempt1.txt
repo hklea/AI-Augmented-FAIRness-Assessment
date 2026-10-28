@@ -1,0 +1,43 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides two sets of instructions for installi[8D[K
+installing PlasmaPy: one using `python -m pip install plasmapy` and another[7D[K
+another for Windows via PowerShell."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "Although no concrete command or code snippet is provided [K
+in the README, it does link to an example gallery of Jupyter notebooks that[4D[K
+that demonstrate software use."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains what PlasmaPy does and its in[2D[K
+intended domain or audience: 'PlasmaPy is an open source, community-develop[17D[K
+community-developed Python package for plasma research and education.'"
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "No explicit list of required dependencies is provided in [K
+human-readable form. However, it does mention the importance of specifying [K
+the Python version number when installing on certain systems."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README explicitly references an example gallery of Ju[2D[K
+Jupyter notebooks but their content is not supplied within the README itsel[5D[K
+itself."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Contribution guidance is provided, along with at least on[2D[K
+one support channel (the mailing list)."
+  }
+}

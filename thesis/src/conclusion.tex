@@ -1,0 +1,114 @@
+This thesis addressed the problem of automated FAIRness assessment
+for research software repositories, motivated by the observation
+that existing tools primarily evaluate structured metadata and
+repository-level artefacts but do not directly assess qualitative
+characteristics of unstructured software documentation. To address
+this gap, a hybrid assessment framework was designed, implemented,
+and evaluated, combining a deterministic rule-based component
+covering six FAIR4RS-derived structural indicators with an LLM-based
+component evaluating six documentation-quality dimensions of
+repository README content.
+
+The framework was applied to a dataset of 188 research software
+repositories collected from GitHub across ten research domains, with
+a manually annotated ground truth corpus of 30 repositories
+constructed to evaluate both assessment components. The rule-based
+component was shown to reproduce its operational definitions
+faithfully against the finalised ground truth and revealed substantial
+variability in the structural FAIR-related indicators assessed across
+the full dataset.
+
+The LLM-based component was evaluated using two model configurations:
+a locally hosted Llama~3.1 8B model and
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}, accessed through a
+university-hosted API. The two configurations produced substantially
+different levels of agreement with the primary human annotator.
+Llama achieved a macro-average weighted Cohen's Kappa of 0.329,
+whereas Qwen achieved 0.612. Against the second annotator, the
+corresponding values were 0.275 and 0.557. These results show that,
+within the evaluated configurations, the reliability of qualitative
+LLM-based documentation assessment varies with both the model
+configuration and the documentation dimension being assessed.
+
+In relation to the two research questions guiding this work, the
+results indicate that LLM-based assessment can complement rule-based
+FAIRness assessment by evaluating qualitative documentation
+characteristics that are not represented by the structural indicators
+considered in this work. The associations between the structural and
+documentation totals were weak and non-significant for both Llama
+($\rho=0.175$, $p=0.356$) and Qwen
+($\rho=0.134$, $p=0.480$). These findings are consistent with the two
+components contributing different information rather than providing
+redundant measurements of the same repository characteristics,
+although they do not establish statistical independence. Their
+combination therefore broadens the information represented in an
+automated research-software FAIRness assessment while preserving the
+distinction between structural and qualitative evidence (RQ1).
+
+For RQ2, the two-model evaluation shows that LLM-based assessment
+reliability is neither uniform across documentation dimensions nor
+stable across model configurations. Qwen showed strong agreement for
+installation, purpose, and contribution information, while dependency
+documentation and examples remained more difficult. Examples (D5)
+showed systematic underscoring under both model configurations, while
+Qwen additionally showed pronounced underscoring for dependency
+documentation (D4). The contrast for purpose description (D3) was
+particularly notable: Llama achieved $\kappa=-0.071$ against the
+primary annotator, whereas Qwen achieved $\kappa=0.789$. This
+demonstrates that a weak result for an individual dimension under one
+model configuration should not automatically be interpreted as an
+inherent limitation of LLM-based assessment for that dimension.
+
+The reliability analyses also identified limitations that persisted
+despite the stronger Qwen agreement. Model-reported confidence did
+not provide a dependable reliability signal. Llama's confidence
+levels were not monotonically associated with observed correctness,
+while Qwen assigned HIGH confidence to all 180 dimension-level
+assessments, preventing confidence from discriminating between more
+and less reliable predictions. At the repository level, no
+statistically significant relationship was observed between README
+length and model--human scoring disagreement for either model
+configuration. These findings reinforce the need to evaluate
+LLM-generated assessments empirically and to retain transparent
+criterion-level evidence rather than relying on model confidence
+alone.
+
+The primary contribution of this thesis is a working hybrid FAIRness
+assessment framework for research software repositories, together
+with a web-based interface for inspecting dataset-level results,
+repository-level profiles, evaluation results, model comparisons,
+and live assessments of GitHub repositories. The implemented
+prototype supports both evaluated model configurations for live
+documentation assessment: the local Llama configuration through
+Ollama and the Qwen configuration through the university-hosted
+KISTE service. The framework preserves structural and
+documentation-based evidence as separate, interpretable dimensions
+rather than collapsing them into a single overall FAIRness score.
+
+Its empirical evaluation against manual ground truth,
+human inter-annotator agreement, and existing FAIR assessment
+approaches characterises both the additional assessment coverage and
+the reliability limitations of the proposed approach. The second
+model evaluation further demonstrates that the choice between the
+evaluated model configurations materially affected the observed
+reliability of qualitative documentation assessment.
+At the same time, recurring difficulties for particular dimensions,
+especially examples and dependency documentation, show that stronger
+aggregate model agreement does not eliminate criterion-specific
+failure patterns.
+
+Taken together, this work demonstrates that combining rule-based and
+LLM-based assessment can broaden the scope of automated FAIRness
+evaluation for research software by bringing structural and
+documentation-based evidence into a common assessment framework.
+However, the results also show that LLM-based assessment should not
+be treated as uniformly reliable: its performance depends on the
+model configuration, the documentation dimension, and the available
+evidence. The hybrid approach therefore provides the greatest value
+when LLM assessment is used as a complement to deterministic checks,
+with explicit criterion-level results that remain open to human
+interpretation. In this way, the framework provides a practical and
+empirically evaluated basis for extending automated FAIRness
+assessment beyond structural repository checks while preserving the
+transparency needed for responsible interpretation of LLM-generated
+assessments.

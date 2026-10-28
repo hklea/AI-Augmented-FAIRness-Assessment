@@ -1,0 +1,227 @@
+%--------------------------------------------------------------------------------------
+%
+%  Global settings, dont change it! (except additional \usepackage commands)
+%  Always use PDFLatex!
+%
+%--------------------------------------------------------------------------------------
+\documentclass[a4paper, 12pt, oneside, BCOR1cm,toc=chapterentrywithdots]{scrbook}
+
+\usepackage{graphicx}
+\usepackage{makeidx}
+\makeindex
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{tocbibind}
+\usepackage{blindtext}
+\usepackage{acronym}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{placeins}
+\usepackage{subcaption}
+\usetikzlibrary{positioning, arrows.meta}
+
+\hypersetup{%
+bookmarksnumbered=true, hyperindex=true,
+bookmarksopen=true, bookmarksopenlevel=1,
+pdfborder=0 0 0
+}
+
+\renewcommand*{\tableofcontents}{%
+    \begingroup
+    \tocsection
+    \tocfile{\contentsname}{toc}
+    \endgroup
+}
+\renewcommand*{\listoffigures}{%
+    \begingroup
+    \tocsection
+    \tocfile{\listfigurename}{lof}
+    \endgroup
+}
+\renewcommand{\listoftables}{
+    \begingroup
+    \tocsection
+    \tocfile{\listtablename}{lot}
+    \endgroup
+}
+
+\begin{document}
+
+%--------titlepage
+\begin{titlepage}
+{
+    \begin{center}
+        \raisebox{-1ex}{\includegraphics[scale=1.5]{TU_Chemnitz_positiv_gruen.pdf}}\\
+    \end{center}
+    \vspace{0.4cm}
+}
+\begin{center}
+\LARGE{\textbf{AI-Augmented FAIRness Assessment of Research Software: A Hybrid Approach}}\\
+\vspace{0.8cm}
+\Large{\textbf{Master Thesis}}\\
+\vspace{0.8cm}
+Submitted in Fulfilment of the\\
+Requirements for the Academic Degree\\
+M.Sc.\\
+\vspace{0.4cm}
+Faculty of Computer Science\\
+Chair of Distributed and Self-organizing Systems
+\end{center}
+\vspace{1.5cm}
+Submitted by: Klea Haxhiu\\
+Student ID: 858214\\
+Submission Date: 28.09.2026\\
+\vspace{0.5cm}\\
+Examiner: Univ.-Prof. Dr. Martin Gaedke\\
+Supervisor: Dr. Sheeba Samuel
+
+\end{titlepage}
+
+%---------------------------------------------------------
+% Abstract
+%---------------------------------------------------------
+\addchap*{Abstract}
+Automated assessment of FAIRness (Findability, Accessibility,
+Interoperability, and Reusability) for research software has so far
+relied primarily on rule-based tools that check for the presence of
+structured metadata and repository artefacts. Such tools cannot assess
+whether documentation --- most directly the README file --- clearly
+communicates what a user needs to understand, install, use, and reuse
+the software. This thesis addresses this limitation by proposing and
+evaluating a hybrid FAIRness assessment framework for research software
+repositories that combines deterministic structural checks with
+large language model (LLM)-based assessment of qualitative
+documentation characteristics.
+
+The rule-based component evaluates six binary structural indicators
+derived from the FAIR4RS principles: persistent identifiers,
+structured metadata, licensing, dependency specifications, README
+presence, and citation information. The LLM-based component evaluates
+six documentation dimensions on a 0--2 ordinal scale: installation,
+usage, purpose, dependencies, examples, and contribution guidance.
+Rather than combining these components into a single scalar score,
+the framework preserves them as a hybrid profile that reports
+structural and documentation-based evidence separately.
+
+The framework was applied to 188 research software repositories
+collected from GitHub across ten research domains, with a manually
+annotated corpus of 30 repositories used for evaluation. The
+rule-based component achieved perfect agreement with the finalised
+structural annotations. Two LLM configurations were evaluated against
+the same qualitative rubric and README evidence: a locally hosted
+Llama~3.1~8B model and
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}. Against the primary annotator,
+their macro-average weighted Kappa values were 0.329 and 0.612,
+respectively, compared with human--human agreement of 0.709. The
+difference between the models, together with substantial variation
+across documentation dimensions, shows that reliability is
+model- and dimension-dependent. In particular, Qwen achieved strong
+agreement for installation, purpose, and contribution information,
+while examples and tutorials remained difficult under both
+configurations and dependency documentation showed systematic
+underscoring for Qwen. Self-reported confidence did not provide a
+validated reliability signal for either configuration. No significant
+repository-level relationship between README length and disagreement
+was observed for either model.
+
+The rule-based and documentation totals showed only weak and
+statistically non-significant relationships for both Llama
+($\rho=0.175$, $p=0.356$) and Qwen
+($\rho=0.134$, $p=0.480$), consistent with the two components
+contributing different information to the assessment, although these
+results do not establish statistical independence.
+
+In addition to the assessment pipeline, a web-based prototype was
+implemented that presents dataset-level results, repository-level
+hybrid profiles with supporting evidence, model comparison and
+agreement statistics, and live assessment of public GitHub
+repositories using either Llama or Qwen. Overall, the results show
+that LLM-based assessment can extend automated FAIRness assessment
+beyond structural repository checks, while its reliability must be
+evaluated empirically for the model, documentation dimension, and
+available evidence rather than assumed from aggregate performance or
+self-reported confidence.
+\par
+\medskip
+\noindent\textbf{Keywords:} FAIR, research software, large language models,
+documentation quality, FAIRness assessment
+%---------------------------------------------------------
+% Table of Contents, List of figures, List of Tables
+%---------------------------------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+
+%---------------------------------------------------------
+% List of Abbreviations
+%---------------------------------------------------------
+\twocolumn
+\addchap{List of Abbreviations}
+\begin{acronym}[FAIR]
+\acro{FAIR}{Findable, Accessible, Interoperable, Reusable}
+\acro{FAIR4RS}{FAIR for Research Software}
+\acro{LLM}{Large Language Model}
+\acro{API}{Application Programming Interface}
+\acro{README}{Read Me}
+\acro{DOI}{Digital Object Identifier}
+\end{acronym}
+\onecolumn
+
+%---------------------------------------------------------
+% Here starts the real work
+%---------------------------------------------------------
+
+\chapter{Introduction}
+\input{src/intro}
+
+\chapter{State of the Art}
+\input{src/sota}
+
+\chapter{Methodology and System Design}
+\input{src/methodology}
+
+\chapter{Implementation}
+\input{src/implementation}
+
+\chapter{Evaluation and Results}
+\input{src/evaluation}
+
+\chapter{Discussion}
+\input{src/discussion}
+
+\chapter{Conclusion}
+\input{src/conclusion}
+
+%---------------------------------------------------------
+% Disclosure of AI assistance
+%---------------------------------------------------------
+\clearpage
+\thispagestyle{empty}
+\vspace*{\fill}
+
+\begin{center}
+{\Large\normalfont Use of AI-Assisted Tools\par}
+\vspace{1.5em}
+\begin{minipage}{0.78\textwidth}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.9\baselineskip}
+\itshape
+
+AI-assisted tools were used in the preparation of this thesis to
+support writing, software development, and analysis. The author
+remains responsible for the content, accuracy, and conclusions of
+the submitted work.
+
+\end{minipage}
+\end{center}
+\vfill
+\clearpage
+
+%---------------------------------------------------------
+% bibliography based on Springer Design
+%---------------------------------------------------------
+\bibliographystyle{splncs03}
+\bibliography{bibliography}
+
+\printindex
+
+\end{document}

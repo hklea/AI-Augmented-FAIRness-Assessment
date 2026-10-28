@@ -1,0 +1,643 @@
+This chapter reviews the literature relevant to the proposed hybrid
+FAIRness assessment framework. It first introduces the FAIR principles
+and their adaptation to research software, before examining existing
+FAIRness assessment approaches, research on software documentation
+quality, and LLM-based document analysis. Based on this literature,
+the chapter derives the requirements for the proposed framework and
+identifies the research gap addressed by this thesis.
+\section{The FAIR Principles}
+
+The FAIR principles were introduced by Wilkinson et al. 
+\cite{wilkinson2016fair} as a minimal, domain-independent framework 
+for improving the findability, accessibility, interoperability, and 
+reusability of digital research objects. The principles were designed 
+to support both human and machine interaction with research outputs, 
+with machine-actionability as a central goal — the ability of 
+automated agents to discover, evaluate, and act on digital objects 
+without prior knowledge of them.
+
+The four FAIR principles are defined as follows.
+
+A digital object is \textbf{Findable} if it is assigned a globally 
+unique and persistent identifier, described with rich metadata, and 
+indexed in a searchable resource.
+
+It is \textbf{Accessible} if it can be retrieved via an open and 
+standardized protocol, and if its metadata remains accessible even 
+when the object itself is no longer available.
+
+\textbf{Interoperability} requires that the object uses formal 
+knowledge representation languages, FAIR vocabularies, and qualified 
+references to other objects.
+
+Finally, an object is \textbf{Reusable} if it has rich attributes, 
+a clear license, detailed provenance, and meets community standards.
+
+An important characteristic of the FAIR principles is that they are 
+modular and independent — they can be adopted incrementally and in 
+any combination. Furthermore, FAIRness is treated as a continuum 
+rather than a binary property: a digital object can be more or less 
+FAIR depending on how completely it satisfies each principle. This 
+continuum directly motivates the development of automated assessment 
+tools capable of measuring FAIRness at scale.
+
+The FAIR principles have become one of the most influential frameworks 
+in research data management and open science. They have been adopted 
+by funding agencies, research infrastructures, publishers, and 
+scientific communities worldwide as a reference framework for 
+improving the management and reuse of digital research outputs. Their 
+widespread adoption has also motivated the development of FAIR 
+assessment tools, metrics, and maturity indicators.
+
+Despite their influence, the FAIR principles intentionally do not 
+prescribe specific technologies, implementation strategies, or minimum 
+compliance requirements. As a result, determining the degree of 
+FAIRness of a digital object can be challenging and often requires 
+interpretation. This has led to the development of automated 
+assessment frameworks and community-specific implementations that 
+translate the principles into measurable indicators.
+
+While the FAIR principles were originally developed for research data, 
+Wilkinson et al. explicitly noted their applicability to other 
+scholarly digital objects including software, workflows, and 
+algorithms. Consequently, while the FAIR principles provide a general 
+conceptual framework, additional guidance is required to address 
+software-specific characteristics and to enable meaningful FAIRness 
+assessment of research software repositories.
+
+\section{FAIR for Research Software}
+
+Although the FAIR principles were originally formulated for research
+data, their application to research software requires software-specific
+interpretation. Research software is a living and complex research
+object whose executability, versioning, dependencies, and continuing
+evolution distinguish it from conventional research data
+\cite{katz2021fair}. These characteristics make a direct application
+of data-oriented FAIR practices insufficient and motivate dedicated
+principles for research software.
+
+To address these challenges, the FAIR for Research Software (FAIR4RS) 
+principles were introduced by Barker et al. \cite{barker2022fair4rs}, 
+building on earlier community discussion of how the FAIR principles 
+apply to software \cite{lamprecht2020fairsoftware}.
+The FAIR4RS principles were developed through a large community 
+consultation process involving approximately 500 contributors from 
+more than 110 organisations, reflecting broad international consensus 
+on the need for software-specific FAIR guidance. The principles adapt 
+the original framework to account for the unique characteristics of 
+software, introducing new sub-principles where necessary.
+
+Under FAIR4RS, software is \textbf{Findable} if it is assigned 
+globally unique and persistent identifiers, with distinct identifiers 
+for different versions and components — an extension not present in 
+the original FAIR principles. Software is \textbf{Accessible} if it 
+can be retrieved via standardised protocols and its metadata remains 
+available even if the software itself becomes unavailable. 
+\textbf{Interoperability} in FAIR4RS extends beyond metadata to 
+include API interactions and references to related software objects. 
+Finally, software is \textbf{Reusable} if it is executable, 
+understandable, modifiable, and integrable into other systems, with 
+clear licensing, provenance, and community standards.
+Software identification and citation are also closely connected to
+FAIRness. The Software Citation Principles emphasise software as a
+legitimate research product and call for citations that support
+credit, attribution, unique identification, persistence, and
+accessibility \cite{smith2016softwarecitation}. These principles
+reinforce the importance of persistent identifiers and citation
+metadata in the FAIR assessment of research software.
+
+Research software plays a critical role in enabling reproducible 
+science, and FAIR4RS therefore positions software discoverability, 
+accessibility, and reusability as essential requirements for 
+transparent and reproducible research workflows.
+
+A key insight of FAIR4RS is that FAIRness for software should begin 
+during development rather than only at publication time. Unlike data, 
+software may be used directly from its development environment, making 
+early adoption of FAIR practices essential for reproducibility and 
+reuse. The principles have received growing institutional support from 
+organisations such as ELIXIR, ARDC, the Netherlands eScience Center, 
+and ZB MED.
+
+Despite this progress, FAIR4RS defines high-level principles without 
+prescribing concrete automated assessment methods. Many FAIR4RS 
+indicators rely on metadata and structural information, while 
+qualitative aspects such as documentation clarity, installation 
+guidance, and usage examples remain difficult to evaluate 
+automatically. This gap between the principles and their practical 
+assessment motivates the development of automated tools capable of 
+evaluating both structured and unstructured aspects of research 
+software repositories.
+
+\section{Existing FAIRness Assessment Approaches}
+
+Several tools and frameworks have been developed to automate the 
+assessment of FAIRness for digital research objects. This section 
+reviews the most relevant approaches, highlighting their capabilities 
+and limitations in the context of research software assessment.
+
+\subsection{FAIR Assessment Frameworks and Maturity Indicators}
+
+The translation of the FAIR principles into measurable criteria has
+been addressed by several general FAIR assessment frameworks.
+Wilkinson et al. \cite{wilkinson2019evaluating} proposed a scalable
+and automated evaluation framework based on community-defined FAIR
+Maturity Indicators and associated compliance tests. The approach
+demonstrates how high-level FAIR principles can be operationalised
+through explicit, machine-actionable tests while retaining
+metric-level assessment results.
+
+The need for consistent operational criteria was further addressed by
+the FAIR Data Maturity Model developed by Bahim et al.
+\cite{bahim2020fairdmm}. The model provides a common set of indicators
+and priorities intended to harmonise FAIR assessment approaches and
+improve comparability between evaluations. Together, these works
+illustrate an important transition from conceptual FAIR principles
+towards explicit and reproducible assessment criteria. However, their
+primary focus is FAIR assessment of data and digital research objects
+rather than qualitative documentation assessment of research software
+repositories.
+
+\subsection{F-UJI}
+
+F-UJI is an automated web-based FAIR assessment tool developed within 
+the FAIRsFAIR initiative \cite{fuji2021}. It evaluates the FAIRness 
+of digital research objects by performing machine-actionable checks 
+against predefined metrics, producing quantitative scores across the 
+four FAIR dimensions. F-UJI accepts persistent identifiers and 
+metadata endpoints as input and evaluates indicators such as metadata 
+presence, persistent identifiers, licensing, semantic vocabularies, 
+provenance information, and accessibility protocols.
+
+F-UJI treats FAIRness as a spectrum rather than a binary property, 
+providing detailed metric-level reporting and evidence traces. It 
+demonstrates that many aspects of FAIR compliance can be assessed 
+automatically through metadata checks. However, F-UJI is primarily 
+metadata-centric and was originally designed for FAIR digital objects 
+and datasets rather than research software repositories specifically. 
+It was not designed for direct GitHub repository assessment and 
+expects persistent identifiers and structured metadata records as 
+input, which many repositories in practice do not provide.
+
+Critically, F-UJI evaluates the existence and machine-readability of 
+metadata rather than its semantic quality or usefulness. Documentation 
+quality, understandability, and usability are not assessed, creating 
+a gap between structural FAIR compliance and meaningful software 
+reusability.
+
+\subsection{FAIR-IMPACT Metrics}
+
+The FAIR-IMPACT initiative extended existing FAIR assessment 
+approaches by defining 17 concrete, measurable FAIR Research Software 
+Metrics (FRSM-01 to FRSM-17) for automated assessment of research 
+software against the FAIR4RS principles \cite{chuehong2025frsm}. 
+These metrics operationalize FAIR4RS into practical automated checks, 
+covering findability, accessibility, interoperability, and 
+reusability indicators at the code, project, and repository level.
+
+The metrics use three compliance levels — Essential, Important, and 
+Useful — and are designed to be domain-agnostic while adaptable to 
+disciplinary contexts. Planned integration into F-UJI demonstrates 
+their practical application potential. However, the FAIR-IMPACT 
+metrics explicitly acknowledge that automated tools can verify the 
+existence of metadata but cannot reliably determine its quality, 
+relevance, or correctness. Qualitative aspects such as documentation 
+clarity and usability remain outside the scope of automated rule-based 
+assessment.
+
+\subsection{FAIR-Aware}
+
+In contrast to automated assessment tools, FAIR-Aware is a 
+human-centred self-assessment tool \cite{akerman2021fairaware} developed within the FAIRsFAIR 
+initiative that focuses on increasing FAIR literacy among researchers. 
+It uses a questionnaire-based approach to help researchers reflect on 
+how FAIR practices can be integrated into their workflows, providing 
+guidance and recommendations rather than automated compliance metrics.
+
+FAIR-Aware demonstrates that FAIRness assessment is not limited to 
+verifying machine-readable metadata. Many FAIR considerations require 
+researchers to interpret community standards, evaluate reuse 
+conditions, and make contextual decisions that depend on domain 
+knowledge and qualitative judgment. This highlights the importance of 
+qualitative reasoning in FAIR evaluation — a dimension that automated 
+rule-based tools cannot fully address.
+
+\subsection{FAIRsharing}
+
+FAIRsharing \cite{sansone2019fairsharing} is a curated registry of FAIR-related standards, 
+repositories, databases, policies, and metadata schemas. It provides 
+centralised infrastructure to support the discovery, adoption, and 
+interconnection of community standards and FAIR-enabling resources 
+across research domains. FAIRsharing demonstrates that FAIRness is 
+deeply connected to the existence and adoption of shared standards 
+and controlled vocabularies — automated FAIR assessment systems rely 
+heavily on this ecosystem infrastructure to validate interoperability 
+and machine-readability. FAIRsharing is particularly relevant for 
+research software because it supports the discovery of community 
+standards, metadata schemas, and domain-specific resources that 
+contribute to software interoperability and reuse.
+
+\subsection{howfairis}
+
+howfairis \cite{spaaks2020howfairis} is a command-line tool developed
+by the Netherlands eScience Center that evaluates a GitHub or GitLab
+repository's compliance with the five fair-software.eu
+recommendations: whether the repository is publicly accessible with
+version control, whether a license file is present, whether the
+software is registered in a community registry, whether citation information is available, for example through a
+\texttt{CITATION.cff} file — a specification providing human- and
+machine-readable citation metadata that developers can include
+directly in a repository \cite{druskat2021cff} — and whether quality
+checklist evidence is present.
+Unlike F-UJI, howfairis operates directly on software repositories rather
+than requiring a persistent identifier or metadata endpoint as input,
+making it directly applicable to GitHub-hosted research software.
+
+Like F-UJI and the FAIR-IMPACT metrics, howfairis restricts its
+assessment to the presence of structural, machine-detectable evidence.
+It does not evaluate the content or clarity of README documentation,
+the completeness of installation or usage instructions, or any other
+qualitative aspect of software reusability.
+
+\subsection{Summary}
+
+Existing FAIRness assessment tools provide valuable automated 
+evaluation capabilities and have significantly advanced the practical 
+application of FAIR principles. However, their primary focus remains 
+on structured metadata and objectively measurable indicators, leaving 
+qualitative aspects of software documentation largely unexplored.
+
+\section{Software Documentation Quality}
+
+While existing FAIRness assessment tools focus on structured metadata 
+and file presence, research on software documentation quality 
+highlights a complementary dimension of software reusability that 
+these tools do not address. README files commonly act as an entry
+point to software documentation and provide information needed to
+understand and use a project. Guidance for scientific software
+documentation recommends providing information such as project
+purpose, installation and configuration instructions, usage guidance,
+licensing information, and links to further documentation
+\cite{lee2018documentation}. More broadly, robust research software
+also depends on practices that make software easier for users outside
+the original development environment to run and reproduce
+\cite{taschuk2017robust}.
+
+\subsection{README Content and Structure}
+
+Prana et al. \cite{prana2019readme} conducted the first large-scale 
+empirical study of GitHub README files, categorising their content 
+into eight types: What, Why, How, When, Who, References, Contribution, 
+and Other. Their study of 393 repositories found that while 
+installation and usage instructions (How) are present in the majority 
+of files, purpose and motivation sections (Why) appear in only 25.7\% 
+of repositories, and project status information (When) in only 21.4\%.
+
+These gaps in purpose and status information are not merely
+documentation style issues; they can affect a user's ability to
+understand the software and determine whether it is suitable for
+reuse, making them relevant to FAIR4RS reusability. Rule-based tools can detect whether 
+a README file exists, but cannot determine whether it contains the 
+information a user needs to evaluate or reuse the software.
+
+\subsection{Beyond Accuracy: Multi-Dimensional Documentation Quality}
+
+Treude et al. \cite{treude2020beyond} proposed a ten-dimensional
+framework for assessing software documentation quality, adapted from
+the information quality literature. Rather than focusing only on
+accuracy and completeness, the framework considers dimensions such as
+clarity, understandability, structure, readability, and conciseness.
+These dimensions illustrate that the presence or completeness of
+documentation alone does not determine its usefulness: a README may
+contain the expected information while still being difficult to
+understand or use. This distinction motivates the inclusion of
+qualitative documentation characteristics alongside structural
+FAIRness checks.
+
+\subsection{Practitioner Perspective on Documentation Quality}
+
+Imani et al. \cite{imani2024documentation} provided empirical 
+evidence from an industry perspective, finding that over 91\% of 
+practitioners rely on OSS documentation for software adoption 
+decisions. Their study identified that the top reported challenge is 
+not the absence of documentation but the difficulty of finding 
+relevant information within it. Nine adoption criteria emerged from 
+practitioner interviews, including ease of use, compatibility, 
+functionality, and presence of usage examples — criteria that closely 
+map to FAIR4RS reusability indicators.
+
+This practitioner evidence reinforces the need for assessment methods 
+that evaluate not just the presence but the quality and completeness 
+of documentation content.
+
+These findings suggest that structured rubrics and explicit scoring 
+criteria are important design considerations for LLM-based assessment 
+systems, particularly when consistency and reliability are required.
+This picture is corroborated by large-scale empirical work on
+documentation quality more broadly. Aghajani et al. \cite{aghajani2019issues}
+mined 878 documentation-related artifacts from GitHub issues, pull
+requests, mailing lists, and Stack Overflow to construct a taxonomy of
+recurring documentation problems, while a companion survey of 146
+practitioners \cite{aghajani2020perspective} found persistent gaps
+between the documentation developers consider important and what is
+actually produced.
+
+The importance of documentation is particularly evident in research
+software specifically. Hermann and Fehr \cite{hermann2022documenting}
+identify good documentation as a prerequisite for software reuse and
+show that research-software documentation practices remain incomplete
+and fragmented in practice. Together, these findings support treating
+documentation content as an explicit component of software
+reusability rather than merely checking whether a README file exists.
+\subsection{Summary}
+
+Research on software documentation quality consistently demonstrates 
+that documentation presence alone is insufficient to ensure software 
+reusability. The content, clarity, and completeness of documentation 
+are critical factors that current automated FAIRness assessment tools 
+do not evaluate. This creates a clear motivation for approaches that combine 
+traditional rule-based indicators with qualitative assessment of 
+documentation content.
+
+\section{LLM-Based Document Analysis}
+
+Recent advances in large language models (LLMs) have opened new 
+possibilities for automated analysis of natural language artifacts 
+in software repositories. This section reviews work on LLM 
+capabilities for software engineering tasks, code documentation 
+generation, and automated evaluation — providing the technical 
+foundation for the AI-based component of this thesis.
+
+\subsection{LLM-Based FAIR Assessment}
+
+A closely related contribution is Fair-Way \cite{sharma2025fairway},
+an open-source framework that applies Large Language Models (LLMs) to
+automate FAIRness assessment of research datasets. Unlike traditional
+rule-based tools, Fair-Way uses LLMs to evaluate FAIRsFAIR Data Object
+Assessment Metrics (DOAM), aiming to improve flexibility across
+heterogeneous metadata formats and domains.
+
+Fair-Way follows a divide-and-conquer strategy, decomposing
+the assessment into fine-grained tasks while splitting large metadata
+files into manageable chunks. The system employs prompt engineering
+techniques including structured JSON output, task decomposition,
+chain-of-thought prompting, and few-shot examples to improve assessment
+reliability and reproducibility. The authors evaluate multiple LLMs,
+reporting GPT-4o as the best-performing model, and compare Fair-Way
+against F-UJI on three datasets from different scientific domains.
+Their results demonstrate performance comparable to, and in several
+assessment metrics exceeding, the rule-based baseline.
+
+Despite these promising results, Fair-Way differs substantially from
+the approach proposed in this thesis. First, it focuses on research
+datasets and FAIRsFAIR DOAM metrics, whereas this work targets research
+software repositories and FAIR4RS-inspired documentation indicators.
+Second, Fair-Way primarily uses LLM-based assessment for the evaluated FAIR
+metrics, whereas the approach in this thesis explicitly separates
+deterministic repository checks from LLM-based qualitative
+documentation assessment. Finally, Fair-Way evaluates dataset metadata, whereas
+this thesis combines rule-based repository analysis with LLM-based
+assessment of GitHub repository documentation to produce a hybrid
+FAIRness evaluation for research software.
+
+These differences highlight an important gap in the current literature.
+While Fair-Way demonstrates the potential of LLMs for automated FAIR
+assessment, the literature reviewed in this thesis does not identify
+an approach that combines rule-based repository analysis with
+LLM-based documentation assessment specifically for research software
+repositories.
+
+\subsection{LLMs for Software Engineering}
+
+Hou et al. \cite{hou2024llmse} conducted a systematic literature 
+review of LLM applications across the software engineering lifecycle, 
+finding that LLMs demonstrate strong performance on tasks involving 
+natural language artifacts such as documentation, code summarization, 
+and explanation generation. A central argument of the review is that 
+many software engineering tasks involving documentation, explanation, 
+and comprehension are fundamentally language understanding problems 
+that benefit from the semantic reasoning capabilities of LLMs.
+
+The review also identifies a consistent recommendation across 
+studies: hybrid approaches combining LLMs with traditional methods 
+are preferable for reliability-critical applications, as LLM 
+limitations such as hallucination, prompt sensitivity, and 
+inconsistent outputs warrant complementary rule-based checks. This 
+directly supports the hybrid architecture proposed in this thesis.
+
+\subsection{LLM-Based Code Documentation Assessment}
+
+Dvivedi et al. \cite{dvivedi2024llm} conducted a comparative study 
+of multiple LLMs for code documentation generation, evaluating 
+outputs on six quality dimensions including accuracy, completeness, 
+relevance, understandability, and readability. Their study found that 
+closed-source models consistently outperform open-source alternatives, 
+and that file-level documentation — analogous to README files — is 
+consistently the most challenging documentation type for LLMs to 
+assess reliably.
+
+The study also validated that checklist-based evaluation rubrics 
+reduce inter-rater subjectivity, achieving only 11.67\% disagreement 
+across raters. This finding supports the use of structured rubrics 
+in LLM-based scoring — the approach adopted in this thesis for 
+evaluating README documentation quality against FAIR4RS indicators.
+
+\subsection{LLM-as-Judge}
+
+Zheng et al. \cite{zheng2023llmjudge} conducted the first systematic 
+empirical study of the LLM-as-a-judge paradigm, evaluating the use 
+of strong LLMs as automated evaluators of open-ended responses. They found that GPT-4 as judge achieves over 80\% agreement with human
+raters, approaching human--human agreement levels in the evaluated
+settings. Their results demonstrate that strong LLMs can achieve
+substantial agreement with human raters in some open-ended evaluation
+settings, while also showing that reliability depends on the
+evaluation setup and model used.
+
+The study also characterised key biases of LLM judges, including 
+position bias, verbosity bias, and self-enhancement bias. For single 
+answer grading — the scenario most relevant to README quality 
+assessment — the study found that absolute scores are less stable 
+than relative comparisons, and that providing structured rubrics with 
+explicit criteria substantially improves scoring reliability. These findings motivate the use of explicit scoring criteria and the
+investigation of potential scoring biases in the LLM-based assessment
+developed in this thesis.
+Other work has explored structured LLM-based evaluation strategies.
+G-Eval uses explicit evaluation criteria together with a structured
+form-filling procedure and reports improved correlation with human
+judgements for natural-language generation evaluation
+\cite{liu2023geval}. Prometheus similarly investigates fine-grained
+LLM evaluation using task-specific score rubrics and reference
+materials \cite{kim2024prometheus}. Liu et al. propose AutoCalibrate,
+a method that automatically drafts and refines scoring criteria for
+an LLM-based evaluator using a small set of human-labelled examples,
+showing that calibrating the scoring criteria themselves --- rather
+than only the model's output --- can improve alignment with expert
+evaluation \cite{liu2024calibrating}. These approaches provide further
+motivation for using explicit, dimension-specific scoring rubrics
+rather than unconstrained LLM judgements.
+
+Beyond judge-style evaluation, prior work has also investigated
+whether language models can reliably assess their own confidence.
+Kadavath et al. \cite{kadavath2022know} show that language models can
+provide informative estimates of their own uncertainty in several
+question-answering settings, while also demonstrating that calibration
+varies across tasks and evaluation conditions. More recent work
+reports that post-alignment LLMs often exhibit overconfidence, where
+expressed confidence does not accurately reflect the model's
+correctness rate, and proposes methods to better calibrate
+self-reported confidence against actual accuracy
+\cite{zhang2024calibrating}. This motivates treating model-reported
+confidence as a quantity that requires empirical validation rather
+than assuming that it reliably reflects assessment correctness.
+
+\subsection{Summary}
+
+LLMs offer capabilities for analysing natural language documentation
+and assessing qualitative aspects of software artefacts that are
+difficult to capture through deterministic presence-based checks.
+However, existing work also highlights limitations including output
+instability, prompt sensitivity, and domain-specific challenges.
+These limitations motivate explicit evaluation of LLM reliability,
+scoring consistency, and failure modes when LLMs are used for
+qualitative assessment.
+
+\section{Requirement Analysis}
+
+The literature reviewed in this chapter suggests a set of concrete
+requirements that an automated FAIRness assessment approach for
+research software should satisfy. This section makes these
+requirements explicit and evaluates the extent to which existing
+tools and the framework proposed in this thesis satisfy each of them.
+
+\subsection{Derived Requirements}
+
+Based on the FAIR4RS principles, existing FAIRness assessment
+approaches, and research on software documentation quality, the
+following requirements are derived for an automated FAIRness
+assessment approach for research software:
+
+\begin{description}
+
+\item[R1 --- Structural FAIR Assessment]
+The approach should automatically assess machine-detectable
+repository characteristics relevant to FAIRness, such as identifiers,
+metadata, licensing, citation information, and other structured
+software artefacts.
+
+\item[R2 --- Research Software Applicability]
+The assessment should address characteristics specific to research
+software rather than being limited to research datasets or generic
+digital objects.
+
+\item[R3 --- Repository-Level Applicability]
+The approach should be applicable directly to software repositories,
+such as GitHub repositories, without requiring a separate dataset
+record or metadata landing page as the primary assessment target.
+
+\item[R4 --- Qualitative Documentation Assessment]
+The approach should assess the content of unstructured software
+documentation, including aspects such as installation, usage,
+purpose, dependencies, examples, and contribution information,
+rather than merely detecting the presence of documentation.
+
+\item[R5 --- Transparent Assessment Evidence]
+Assessment results should provide interpretable evidence or
+explanations that allow users to understand how individual results
+were obtained.
+
+\item[R6 --- Automated and Scalable Execution]
+The assessment should be executable automatically across multiple
+repositories without requiring manual evaluation for every software
+project.
+
+\item[R7 --- Explicit and Reproducible Criteria]
+The assessment should apply predefined and documented criteria so
+that the evaluation procedure can be reproduced and the meaning of
+individual scores or checks remains clear.
+
+\item[R8 --- Reliability Assessment]
+For qualitative assessments involving uncertain judgements, the
+reliability of the assessment should be evaluated empirically.
+Where confidence information is provided by the assessment method,
+its relationship with actual assessment correctness should also be
+validated rather than assumed.
+
+\end{description}
+
+\subsection{Comparison Against Existing Systems}
+
+Table~\ref{tab:requirements} summarises the extent to which F-UJI,
+the FAIR-IMPACT metrics, FAIR-Aware, howfairis, and Fair-Way satisfy
+these requirements, compared with the framework proposed in this
+thesis.
+
+\begin{table}[h]
+\centering
+\caption{Comparison of existing FAIRness assessment approaches against the derived requirements. \checkmark: satisfied; (\checkmark): partially satisfied; --: not satisfied.}
+\label{tab:requirements}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Req.} & \textbf{F-UJI} & \textbf{FAIR-} & \textbf{FAIR-} & \textbf{how-} & \textbf{Fair-} & \textbf{Proposed} \\
+ & & \textbf{IMPACT} & \textbf{Aware} & \textbf{fairis} & \textbf{Way} & \textbf{Framework} \\
+\hline
+R1 & \checkmark & \checkmark & -- & \checkmark & (\checkmark) & \checkmark \\
+R2 & -- & \checkmark & -- & \checkmark & -- & \checkmark \\
+R3 & -- & (\checkmark) & -- & \checkmark & -- & \checkmark \\
+R4 & -- & -- & (\checkmark) & -- & (\checkmark) & \checkmark \\
+R5 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+R6 & \checkmark & \checkmark & -- & \checkmark & \checkmark & \checkmark \\
+R7 & \checkmark & \checkmark & (\checkmark) & \checkmark & \checkmark & \checkmark \\
+R8 & -- & -- & -- & -- & -- & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+The comparison shows that existing approaches address different
+parts of the problem. F-UJI and howfairis provide automated,
+rule-based assessment of machine-detectable evidence, while the
+FAIR-IMPACT metrics extend FAIR assessment towards research
+software-specific characteristics. FAIR-Aware incorporates
+qualitative human reflection but does not provide automated
+repository assessment. Fair-Way demonstrates that LLMs can support
+semantic FAIR assessment of structured and unstructured metadata,
+but its scope is research data rather than software repository
+documentation.
+
+Consequently, the main unresolved combination is direct,
+repository-level research software assessment that preserves
+deterministic structural checks while additionally evaluating the
+qualitative content of software documentation. The framework proposed in this thesis is designed around this
+combination and applies predefined and documented assessment criteria
+for both components (R7). The reliability of its LLM-based component
+is evaluated empirically against manual annotations using agreement
+and error measures. The relationship between model-reported
+confidence and assessment correctness is also examined rather than
+assumed, satisfying R8.
+
+\section{Research Gap}
+
+The preceding analysis shows that existing FAIRness assessment
+approaches address complementary aspects of the assessment problem,
+but do not provide the combination investigated in this thesis.
+Rule-based approaches offer reproducible assessment of
+machine-detectable evidence, while recent LLM-based approaches
+demonstrate the potential for semantic assessment of less structured
+information \cite{hou2024llmse,sharma2025fairway}.
+
+Within the literature reviewed in this thesis, no approach was
+identified that combines deterministic repository-level FAIR checks
+with LLM-based assessment of qualitative README documentation
+specifically for research software. This leaves two questions open:
+whether LLM-based documentation assessment provides useful
+information beyond rule-based repository checks, and how reliably an
+LLM can perform such qualitative assessment.
+
+This thesis addresses this gap through a hybrid assessment approach
+in which the two components serve complementary roles. Deterministic
+rules assess structural repository evidence, while an LLM evaluates
+predefined qualitative documentation dimensions. Rather than merging
+both components into a single FAIRness score, their results are
+reported together in a per-repository hybrid profile. The evaluation
+therefore examines both the complementary contribution of the
+LLM-based component and the reliability and failure modes of its
+qualitative judgements.

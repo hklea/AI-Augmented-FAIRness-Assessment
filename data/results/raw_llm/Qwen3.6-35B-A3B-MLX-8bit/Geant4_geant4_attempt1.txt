@@ -1,0 +1,8 @@
+{
+  "D1_installation": {"score": 1, "confidence": "HIGH", "reasoning": "The README directs users to an external 'Installation Guide' for detailed instructions on building and installing, but provides no inline steps, prerequisites, or executable commands within the README itself."},
+  "D2_usage": {"score": 1, "confidence": "HIGH", "reasoning": "Usage information is only available via external links to the Geant4 website and User Documentation Site. No inline code snippets, commands, workflows, or executable examples are present in the README."},
+  "D3_purpose": {"score": 2, "confidence": "HIGH", "reasoning": "The README clearly explains the software's function and domain: 'Geant4 is a toolkit for the simulation of the passage of particles through matter. Its areas of application include high energy, nuclear and accelerator physics, as well as studies in medical and space science.'"},
+  "D4_dependencies": {"score": 0, "confidence": "HIGH", "reasoning": "The README does not list any required or optional software, library, hardware, or environment dependencies."},
+  "D5_examples": {"score": 0, "confidence": "HIGH", "reasoning": "The README does not mention or link to any example gallery, tutorial, cookbook, or example notebooks. It only references general documentation and usage guides, which do not count as examples per the rubric."},
+  "D6_contribution": {"score": 2, "confidence": "HIGH", "reasoning": "The README provides contribution guidance by linking to a 'Contribution Guide' and includes a dedicated support/community channel via the 'User Forum' and 'Bugzilla Tracker' for questions and bug reports."}
+}

@@ -1,0 +1,651 @@
+This chapter interprets the results presented in Chapter~5 in
+relation to the two research questions defined in Chapter~1,
+positions the proposed approach against related work, and reflects
+on the limitations and threats to validity of the study. The
+following sections address RQ1 and RQ2 in turn, before discussing
+the findings in relation to existing work, their practical
+implications, the limitations of the study, and directions for
+future work.
+
+\section{RQ1: LLM-Based Assessment as a Complement to Rule-Based Assessment}
+
+RQ1 asked to what extent LLM-based assessment can complement
+rule-based FAIRness assessment by capturing qualitative documentation
+characteristics of research software repositories. The results
+presented in Chapter~5 support a qualified but consistent answer:
+the LLM-based component adds assessment coverage beyond the structural
+indicators evaluated by the rule-based component by addressing
+qualitative characteristics of README documentation that deterministic
+repository checks do not capture.
+
+The clearest evidence for this complementarity is the difference in
+assessment scope. The rule-based component evaluates the presence of
+structural FAIR-related evidence such as persistent identifiers,
+metadata files, licenses, dependency specifications, README files,
+and citation information. The LLM-based component instead evaluates
+installation clarity, usage clarity, purpose description, dependency
+documentation, examples or tutorials, and contribution guidance.
+These dimensions address different properties of the repository and
+are therefore retained separately in the hybrid profile.
+
+The descriptive relationship between the structural and documentation
+components provides additional evidence for this distinction. For the
+primary Llama-based profile, the rule-based and documentation totals
+showed only a weak and statistically non-significant association
+across the 30 ground truth repositories
+($\rho=0.175$, $p=0.356$). This result does not establish statistical
+independence between the two components, but it is consistent with
+them capturing different aspects of the assessed repositories rather
+than providing redundant measurements of the same characteristics.
+
+The example profile presented in Section~4.6 illustrates this
+difference concretely. \texttt{astropy/astropy} satisfies all six
+rule-based indicators (6/6) while receiving a comparatively low
+documentation score from the primary Llama configuration (4/12).
+A purely rule-based assessment therefore indicates that the repository
+satisfies all six structural indicators evaluated in this work,
+whereas the documentation component identifies limited concrete
+installation and usage guidance within the README evidence supplied
+to the model. This illustrates the motivation for the hybrid design:
+the presence of structural FAIR-related artefacts does not by itself
+describe the clarity and completeness of documentation available to
+a prospective software user.
+
+The baseline comparison in Chapter~5 provides further evidence of
+the difference in scope. The six documentation-quality dimensions
+evaluated by the LLM-based component are not represented in howfairis,
+which focuses on structural properties such as licensing, citation,
+software-registry information, and checklist-style evidence. The
+F-UJI pilot points in the same direction from a different perspective.
+When applied directly to five GitHub repositories with substantially
+different structural and documentation profiles, F-UJI returned the
+same overall FAIRness score for all five. Within this limited pilot,
+it therefore did not distinguish between repositories whose
+software-oriented profiles differed substantially, consistent with
+its primary design for assessing research data objects.
+
+Complementarity should, however, be distinguished from reliability.
+The two evaluated LLM configurations produced substantially different
+levels of agreement with the human annotations. Against the primary
+annotator, Llama achieved a macro-average weighted Kappa of 0.329,
+whereas Qwen achieved 0.612; against the second annotator, the
+corresponding values were 0.275 and 0.557. Human--human agreement was
+0.709. The documentation component should therefore not be interpreted
+as a uniformly reliable substitute for human judgement merely because
+it extends the assessment scope. Instead, the results show that
+qualitative documentation assessment can provide complementary
+information while its reliability remains dependent on the model
+configuration and the documentation dimension being assessed.
+
+RQ1 can therefore be answered in terms of assessment coverage rather
+than replacement. The LLM-based component complements deterministic
+FAIR-related checks by evaluating qualitative documentation
+characteristics that are otherwise absent from the implemented
+structural assessment. The hybrid profile makes these additional
+characteristics visible without collapsing them into the structural
+scores or a single aggregate FAIRness value. The reliability with
+which the qualitative dimensions can be assessed is a separate
+question and is addressed by RQ2.
+
+\section{RQ2: Reliability of LLM-Based Assessment and Its Failure Modes}
+
+RQ2 asked how reliably LLM-based methods can assess qualitative documentation
+dimensions of research software repositories, and what failure modes affect
+their assessments. The two-model evaluation shows that there is
+no single reliability level that characterises LLM-based assessment
+in this setting. Agreement depends substantially on the model
+configuration and the documentation dimension being assessed, while
+the disagreement patterns additionally reveal limitations associated
+with the evidence available to the model.
+
+The clearest model-level difference is observed in the aggregate
+agreement results. Against the primary annotator, Llama achieved a
+macro-average weighted Kappa of 0.329, whereas Qwen achieved 0.612.
+Against the second annotator, the corresponding values were 0.275
+and 0.557. Human--human agreement across the six documentation
+dimensions was 0.709. The human value provides useful context for
+interpreting model--human agreement, but it should not be treated as
+a formal upper bound on model performance. The difference between
+the two LLM configurations nevertheless demonstrates that conclusions
+about the reliability of qualitative documentation assessment cannot
+be generalised from the behaviour of a single model.
+
+The dimension-level results reinforce this conclusion. Against the
+primary annotator, Qwen achieved its strongest agreement for
+installation (D1, $\kappa=0.799$), purpose
+(D3, $\kappa=0.789$), and contribution information
+(D6, $\kappa=0.759$). Usage documentation reached
+$\kappa=0.516$, while dependencies (D4, $\kappa=0.487$) and examples
+(D5, $\kappa=0.320$) remained more difficult. Llama showed a
+different pattern, with substantially weaker aggregate agreement and
+particularly low agreement for usage, purpose, and examples.
+
+Purpose description (D3) provides the clearest illustration of model
+sensitivity. Llama achieved a negative weighted Kappa
+($\kappa=-0.071$) against the primary annotator despite 86.7\% exact
+agreement. The primary human scores were strongly concentrated at
+score 2, with 28 of 30 repositories receiving that score, making
+Kappa sensitive to the small number of disagreements. Qwen, however,
+agreed with the primary annotator on 29 of 30 repositories and
+achieved $\kappa=0.789$. Against the second annotator, Qwen achieved
+100\% exact agreement and $\kappa=1.000$. The weak Llama result for
+D3 was therefore not reproduced by the second model configuration.
+This indicates that the Llama D3 result should not be interpreted as
+evidence that purpose description is inherently unsuitable for
+LLM-based assessment.
+
+At the same time, the stronger Qwen results did not remove
+dimension-specific failure patterns. Examples and tutorials (D5)
+remained difficult under both configurations. Relative to the primary
+annotator, both Llama and Qwen assigned lower D5 scores in 17 of the
+30 repositories. Qwen never assigned a higher D5 score than the
+primary annotator and achieved only $\kappa=0.320$ for this dimension.
+Against the second annotator, the pattern was even more pronounced:
+Qwen assigned lower D5 scores in 26 of 30 repositories and achieved
+$\kappa=0.133$.
+
+Dependency documentation (D4) was an additional source of systematic
+disagreement for Qwen. The model assigned a lower D4 score than the
+primary annotator in 13 of 30 repositories and never assigned a
+higher score, despite its substantially stronger aggregate agreement
+relative to Llama. These results show that improvement at the
+model level does not imply uniformly reliable assessment across all
+documentation dimensions.
+
+One plausible contributor to some of the underscoring is the
+README-only evidence policy. The automated assessment was restricted
+to the supplied README text and did not follow external documentation
+links. This is particularly relevant for dimensions such as usage
+(D2) and examples (D5), for which repositories may direct users to
+external guides, tutorials, or example galleries. Human annotators
+could account for references to such resources according to the
+annotation procedure, whereas the automated assessment was restricted
+to the README text supplied to the model. The observed disagreement
+is therefore partly shaped by the evidence boundary imposed by the
+assessment design. However, the two-model results also show that
+evidence scope alone cannot explain all disagreement, since the
+models produced substantially different agreement levels while
+operating under the same README-only policy.
+
+The pilot-exclusion sensitivity analysis provides additional evidence
+that the model-level findings were not primarily driven by the
+repositories used during pilot-phase refinement. Llama's
+macro-average weighted Kappa increased from 0.329 on the complete
+30-repository corpus to 0.373 after excluding the 10 pilot
+repositories. Qwen remained almost unchanged, from 0.612 to 0.615.
+The stability of the Qwen result in particular indicates that its
+observed agreement was not primarily attributable to the original
+pilot overlap.
+
+Model-reported confidence did not provide a dependable reliability
+signal under either configuration. For Llama, confidence was not
+monotonically associated with observed correctness: MEDIUM-confidence
+predictions achieved higher exact agreement and lower MAE than
+HIGH-confidence predictions overall. Qwen exhibited a different
+limitation by assigning HIGH confidence to all 180 dimension-level
+assessments. Confidence calibration across levels could therefore not
+be evaluated for Qwen, and the uniform confidence label did not
+distinguish dimensions with substantially different observed
+agreement. For example, Qwen exact agreement ranged from 43.3\% for
+D5 to 96.7\% for D3 despite every assessment being labelled HIGH
+confidence. Self-reported confidence should therefore not be treated
+as a calibrated probability of correctness in the present framework.
+
+README length likewise did not explain the overall disagreement
+patterns. At the repository level, the relationship between effective
+README length and model--human score difference was weak and
+non-significant for both Llama ($\rho=-0.169$, $p=0.371$) and Qwen
+($\rho=-0.143$, $p=0.451$). An exploratory dimension-level analysis
+for Qwen identified a negative association for D4
+($\rho=-0.392$, $p=0.032$), but this result was obtained from a
+secondary analysis across six dimensions on only 30 repositories and
+without multiple-comparison correction. It therefore does not provide
+sufficient evidence for a general README-length effect.
+
+Taken together, the answer to RQ2 is that LLM-based qualitative
+documentation assessment can achieve substantial agreement with human
+judgement for some model--dimension combinations, but its reliability
+is model-dependent, dimension-dependent, and sensitive to the
+available evidence. The contrast between Llama and Qwen demonstrates
+that poor agreement observed for one model should not automatically
+be attributed to the assessment task itself, while the recurring
+difficulties for D4 and D5 show that stronger aggregate model
+performance does not eliminate criterion-specific weaknesses.
+Self-reported confidence also does not provide a validated mechanism
+for identifying unreliable assessments. LLM-generated documentation
+scores should therefore be interpreted together with criterion-level
+evidence and empirical reliability results rather than treated as
+uniformly dependable automated judgements.
+
+\section{Comparison with Related Work}
+
+The results of this thesis can be situated against two strands of
+related work introduced in Chapter~2: automated LLM-based FAIR
+assessment, represented most directly by Fair-Way, and the broader
+LLM-as-judge literature on using language models as automated
+evaluators.
+
+Fair-Way \cite{sharma2025fairway} is the closest related system,
+applying LLMs to automate FAIR assessment against the FAIRsFAIR DOAM
+metrics for research datasets. Its authors report that GPT-4o, the
+strongest model evaluated, reaches an exact match accuracy of 0.905
+against their benchmark, while smaller and open-source models show
+lower performance. These results are not directly comparable to the
+agreement values reported in this thesis because the studies evaluate
+different constructs, use different scoring scales and metrics, and
+target different resource types. Fair-Way evaluates FAIR-related
+dataset metadata, whereas the LLM-based component developed here
+assesses qualitative README documentation for research software using
+an ordinal rubric.
+
+Nevertheless, the two-model evaluation in this thesis is consistent
+with Fair-Way's broader observation that model choice can materially
+affect LLM-based assessment performance. Under the same six
+documentation dimensions and README-only evidence policy, Llama
+achieved a macro-average weighted Kappa of 0.329 against the primary
+annotator, whereas Qwen achieved 0.612. The contrast was especially
+pronounced for purpose description (D3), where the corresponding
+values were $-0.071$ and 0.789. These results provide direct evidence
+within the present task that reliability depends partly on the model
+configuration rather than solely on the assessment rubric or evidence
+source.
+
+The present evaluation remains considerably narrower than a systematic
+model benchmark. Only two model configurations were evaluated, and
+they differ in model family, scale, execution environment, and output
+handling. The results therefore do not establish a general performance
+ordering between LLM families or show that one model class is
+intrinsically more suitable for FAIRness assessment. Instead, they
+demonstrate that conclusions obtained from a single model
+configuration may not generalise even when the assessment dimensions,
+evidence policy, and scoring rubric are held constant.
+
+More substantively, this thesis differs from Fair-Way in scope and
+architecture rather than only in observed model performance. Fair-Way
+targets research datasets and evaluates structured and semi-structured
+metadata using an LLM-based pipeline. Its authors identify hybrid
+approaches combining LLM assessment with rule-based verification as
+a direction for further work, motivated in part by the limitations
+of relying exclusively on generative model outputs. The framework
+developed in this thesis investigates such a hybrid design in the
+context of research software repositories: deterministic rules are
+used for structural FAIR-related indicators, while LLMs are restricted
+to qualitative characteristics of unstructured README documentation.
+
+The complementarity finding discussed in Section~6.1 provides
+empirical support for this separation of responsibilities. The
+rule-based component evaluates repository properties for which
+explicit deterministic evidence can be defined, whereas the LLM-based
+component addresses documentation characteristics requiring semantic
+interpretation. The weak and non-significant relationship observed
+between the structural total and the primary Llama-based documentation
+total is consistent with the two components contributing different
+information to the resulting profile rather than acting as duplicate
+measures of the same repository properties.
+
+The results also relate to the broader LLM-as-judge literature.
+Zheng et al.\ \cite{zheng2023llmjudge} report that strong language
+models can achieve high agreement with human evaluators in some
+open-ended evaluation settings while also identifying systematic
+sources of unreliability such as position bias, verbosity bias, and
+self-enhancement bias. The present study differs substantially in
+task design: the models evaluate repository documentation against a
+fixed six-dimension ordinal rubric rather than comparing free-form
+responses. Nevertheless, both studies illustrate that aggregate
+agreement alone is insufficient for characterising the reliability
+of an LLM-based evaluator.
+
+In the present experiment, no statistically significant
+repository-level verbosity effect was observed for either evaluated
+model configuration. The relationship between effective README length
+and model--human score difference was weak for both Llama
+($\rho=-0.169$, $p=0.371$) and Qwen
+($\rho=-0.143$, $p=0.451$). An exploratory Qwen result for dependency
+documentation (D4) showed a negative dimension-level association, but
+the small sample and multiple dimension-level comparisons do not
+support treating this as evidence of a general verbosity effect.
+
+Instead, the dominant reliability findings in this thesis were
+model- and dimension-specific. Examples and tutorials (D5) remained
+difficult under both model configurations, while Qwen also showed
+systematic underscoring for dependency documentation (D4). In
+addition, the README-only evidence policy limits what the models can
+assess when repositories place relevant material in external
+documentation. These findings represent task-specific limitations of
+the assessment setup rather than evidence for a general bias of
+LLM-based evaluators.
+
+The confidence results provide a further connection to the broader
+problem of trusting automated LLM judgements. Neither evaluated
+configuration produced a self-reported confidence signal that could
+be treated as a calibrated estimate of correctness. Llama confidence
+was not monotonically associated with observed agreement, while Qwen
+assigned HIGH confidence to every dimension-level assessment. This
+reinforces the importance of validating reliability empirically rather
+than inferring it from the model's own expression of certainty.
+
+Overall, the comparison with related work positions the contribution
+of this thesis primarily in its hybrid architecture and
+software-specific assessment scope rather than in direct numerical
+performance against existing systems. Fair-Way demonstrates the
+potential of LLM-based FAIR assessment and the importance of model
+choice in a research-data setting, while the present work evaluates
+a combination of deterministic structural assessment and semantic
+documentation assessment for research software. The two-model results
+further show that model sensitivity must be considered explicitly
+when interpreting the reliability of the qualitative component.
+
+\section{Implications}
+
+The findings of this thesis carry several practical implications for
+how a hybrid FAIRness assessment framework of this kind should be
+used and interpreted, beyond the specific numerical results reported
+in Chapter~5.
+
+The most direct implication concerns how the two assessment
+components should be consumed together. Because the rule-based and
+LLM-based components were designed to capture different types of
+evidence, and the observed scores showed only a weak relationship
+(Section~6.1), a hybrid profile is most useful when read as two
+separate signals rather than as a single quality indicator. A
+repository with a high rule-based score should not be assumed to
+have well-documented, easily reusable software, and a repository
+with a low rule-based score is not necessarily poorly documented.
+The example presented in Section~4.6 makes this concrete: a
+repository can satisfy every structural indicator evaluated in
+this work while still leaving a new user with limited concrete
+guidance on how to install and use the software. Presenting
+the two dimensions separately, rather than combining them into an
+overall FAIRness score, allows this kind of gap to remain visible
+rather than being averaged away.
+
+A second implication concerns how the LLM-based scores themselves
+should be interpreted. The two-model evaluation shows that their
+reliability cannot be represented by a single general performance
+level. Llama achieved a macro-average weighted Kappa of 0.329 against
+the primary annotator, whereas Qwen achieved 0.612 under the same
+documentation dimensions and evidence policy. At the same time,
+agreement varied considerably across individual dimensions for both
+models. LLM-generated documentation scores should therefore be
+interpreted with reference to the model configuration and the
+dimension being assessed rather than treated as uniformly reliable
+automated judgements.
+
+This distinction has practical consequences for human review. The
+stronger Qwen agreement demonstrates that qualitative documentation
+assessment can be substantially more reliable under one model
+configuration than another, but persistent dimension-specific
+disagreements remain. In particular, examples and tutorials (D5)
+showed systematic underscoring under both configurations, while
+dependency documentation (D4) showed pronounced underscoring for
+Qwen. Low scores in such dimensions should therefore be interpreted
+together with the available criterion-level evidence, especially when
+relevant documentation may be located outside the README supplied to
+the model.
+
+A related implication concerns the confidence labels produced
+alongside each score. Neither evaluated configuration provided a
+self-reported confidence signal that could be used as a validated
+estimate of assessment reliability. For Llama, HIGH-confidence
+predictions did not consistently outperform MEDIUM-confidence
+predictions. Qwen exhibited a different limitation by assigning HIGH
+confidence to all 180 dimension-level assessments, despite substantial
+variation in observed agreement across dimensions. The confidence
+field should therefore be treated as contextual model output rather
+than as a calibrated probability of correctness or an automatic basis
+for deciding which assessments require human review.
+
+A more appropriate review strategy would use the assessment evidence
+and empirically observed dimension-level reliability alongside the
+predicted score. Dimensions with recurring disagreement patterns can
+be treated more cautiously, while the deterministic structural
+indicators remain directly traceable to explicit repository evidence.
+This preserves the practical benefit of automated semantic assessment
+without hiding the uncertainty identified through the evaluation.
+
+Finally, the baseline comparison suggests a practical positioning
+for the proposed approach relative to existing tools rather than a
+claim of outright superiority. Where howfairis provides fast,
+purely structural checks and F-UJI is designed for research data
+objects rather than software repositories, the LLM-based component
+of this framework adds a distinct assessment
+layer --- documentation quality as experienced by a prospective user
+--- that is not directly represented by either tool in the
+comparisons conducted in this thesis. This suggests the two kinds of
+tools are better viewed as complementary than as competitors: an
+organisation or repository maintainer seeking fast, deterministic
+structural FAIR-related checks may use a tool such as howfairis,
+while the qualitative documentation assessment introduced
+in this thesis addresses a different, additional question that such
+tools do not answer.
+
+\section{Limitations and Threats to Validity}
+
+This section discusses the limitations of the study and the threats
+to validity that should be considered when interpreting its results.
+
+\textbf{Limited model scope.}
+The LLM-based component was evaluated using two model configurations:
+a locally hosted Llama~3.1 8B model and
+\texttt{Qwen3.6-35B-A3B-MLX-8bit}, accessed through a
+university-hosted API. The substantial difference in agreement between
+the two configurations demonstrates that model choice affects the
+observed reliability of the assessment. However, evaluating two
+configurations is still insufficient to establish model-independent
+properties of LLM-based documentation assessment or a general
+performance ordering across model families. The models also differ in
+architecture, scale, execution environment, and output handling.
+The findings should therefore be interpreted as characterising the
+two evaluated configurations under the assessment setup used in this
+thesis rather than as estimates of LLM performance in general.
+
+\textbf{Qwen output-recovery procedure.}
+The initial Qwen evaluation successfully produced valid assessments
+for 23 of the 30 repositories, while seven responses failed output
+parsing because the returned content was incomplete or malformed.
+For the recovery run, the maximum output-token allowance was increased
+from 4{,}096 to 16{,}000 tokens and the output instruction was amended
+to request that each reasoning field contain only one short sentence.
+The 23 successful original assessments were retained, while only the
+seven failed repositories were evaluated again under the modified
+output constraint. The substantive D1--D6 rubric, README evidence,
+input-length limit, score scale, and temperature remained unchanged.
+Nevertheless, the final Qwen result set was produced under two
+slightly different output-generation configurations. This introduces
+a minor protocol variation that should be considered when interpreting
+the Qwen agreement results, even though the modification concerned
+response generation and formatting rather than the assessment
+criteria themselves.
+
+\textbf{Input truncation strategy.} README content exceeding
+12{,}000 characters was truncated using a fixed sequential cutoff
+rather than a token-based or section-aware strategy, as described in
+Chapter~4. Within the 30-repository ground truth corpus, only one
+README exceeded this threshold, and manual inspection of the
+truncated portion showed no loss of relevant D1--D6 evidence in that
+particular case. This single instance does not establish that fixed
+character-based truncation is safe in general; a section-aware
+strategy that preserves installation, usage, dependency, example, and
+contribution content specifically would be more robust for longer
+or differently structured READMEs than the corpus evaluated here.
+
+\textbf{Representativeness of the ground truth corpus.} The mean
+rule-based score across the 30-repository ground truth corpus (4.30
+out of 6) was somewhat higher than the mean across the full
+188-repository dataset (3.86 out of 6). Because the ground truth
+corpus was constructed to maximise diversity across research domains
+and programming-language ecosystems rather than sampled at random
+from the full dataset, it may not be fully representative of the
+broader population of repositories to which the rule-based scorer
+was subsequently applied. Agreement and validation results reported
+against the ground truth corpus should accordingly be interpreted as
+characterising performance on a deliberately diverse but non-random
+sample, rather than as an unbiased estimate of performance across
+the full dataset.
+
+\textbf{Partial exclusion logging.} During dataset construction, the
+keyword-based exclusion step was logged explicitly, recording the
+specific repositories removed for containing predefined
+non-software-related keywords. Repositories excluded for being forks,
+archived, or inactive since before the collection cutoff date were
+filtered during the initial collection stage but were not separately
+logged. Consequently, a complete, itemised record of every excluded
+repository and its specific exclusion reason is not available for
+the full 198-to-188 filtering process, limiting the transparency of
+this step relative to the ideal of a fully auditable exclusion trail.
+
+\textbf{Ground truth correction process.} Corrections made to the
+ground truth annotations during validation --- including the
+dependency-file schema correction and the license-annotation
+correction for \texttt{rust-ml/linfa} discussed in Chapter~5 --- were
+applied directly to the annotation records rather than being tracked
+in a separate change log. While each correction was traceable to a
+specific, documented cause and was applied consistently using the
+finalised annotation guidelines, the absence of a separate audit
+trail means that the sequence of corrections cannot be independently
+reconstructed from the released annotation files alone.
+
+\textbf{Scale of the ground truth corpus.} The 30 manually annotated
+repositories enable the agreement and validation analyses reported in
+this thesis, but Kappa and correlation estimates computed on a sample
+of this size carry non-trivial uncertainty, as illustrated by the
+prevalence-effect result observed for D3 in Section~6.2. A larger
+annotated corpus would allow for more precise estimates and a more
+fine-grained analysis of agreement across research domains and
+programming languages.
+
+\textbf{README-only evidence scope.} The LLM-based assessment was
+restricted to the README content supplied to the model and did not
+retrieve or inspect documentation available through external links.
+This restriction ensured that every repository was evaluated against
+a consistent and reproducible evidence source, but it also limits the
+construct being measured. In particular, repositories that place
+usage guides, tutorials, example galleries, or other documentation
+outside the README may receive lower scores even when such resources
+are available to users.
+The qualitative error analysis in Section~6.2 indicates that this
+evidence restriction is particularly relevant to dimensions such as
+D2 and D5, for which documentation is frequently referenced through
+external guides, tutorials, or example resources. However, the
+substantial differences observed between the two model configurations
+under the same README-only policy show that evidence scope alone does
+not explain the observed disagreement. The reported LLM scores should
+therefore be interpreted as assessments of documentation available
+directly from the README rather than of the complete documentation
+ecosystem of a repository.
+
+\textbf{Subjectivity of qualitative ground truth.} The documentation
+dimensions D1--D6 require human judgement about the completeness and
+clarity of repository documentation. Although the substantial
+agreement between the two human annotators
+($\kappa=0.709$) provides evidence that the rubric can be applied
+with reasonable consistency, disagreement remained for individual
+dimensions and repositories. The manual annotations should therefore
+not be treated as an error-free absolute ground truth, but as a
+reference assessment produced according to the operationalised rubric
+defined in Chapter~3. This uncertainty should be considered when
+interpreting LLM--human disagreement, since some differences may
+reflect ambiguity in the assessment task itself rather than model
+error alone.
+
+\textbf{Scope of the baseline comparison.} The comparison with
+existing FAIR assessment tools was limited in scope. While howfairis
+was applied to the ground truth repositories, the F-UJI analysis was
+conducted as a five-repository pilot because the tool is primarily
+designed for research data objects rather than GitHub software
+repositories. The identical F-UJI scores observed in this pilot are
+therefore illustrative of the behaviour encountered for the selected
+repositories and should not be interpreted as a comprehensive
+benchmark of F-UJI against the proposed framework.
+
+\section{Future Work}
+
+The findings and limitations discussed in this chapter point to
+several directions for extending the proposed framework.
+
+\textbf{Extending the multi-model evaluation.}
+The evaluation of Llama~3.1 8B and
+\texttt{Qwen3.6-35B-A3B-MLX-8bit} demonstrated that model
+configuration can substantially affect agreement with human
+annotations. Future work should extend this comparison to a broader
+set of model families, sizes, and deployment settings while keeping
+the documentation rubric and evaluation procedure fixed. A larger
+model comparison would help determine which of the observed
+dimension-specific patterns recur across models and which are
+associated primarily with individual model configurations. It would
+also provide a stronger basis for investigating whether particular
+documentation dimensions require different prompting strategies or
+assessment mechanisms.
+
+\textbf{Extension to other hosting platforms.}
+The current implementation is limited to repositories hosted on
+GitHub. The framework could be extended to other research-software
+hosting and archival platforms, such as Zenodo or Codeberg, which
+would require adapting the repository collection and
+evidence-extraction components to platform-specific metadata and APIs.
+
+\textbf{Section-aware and token-based input handling.} The current
+implementation applies a fixed character-based truncation cutoff to
+README content, as described in Chapter~4. Future work could
+implement a section-aware preprocessing strategy that identifies and
+preserves content relevant to each documentation dimension ---
+installation, usage, dependencies, examples, and contribution
+guidance --- regardless of its position in the README, together with
+a token-based length limit that more directly reflects the model's
+actual context capacity.
+
+\textbf{Addressing the external-link limitation.}
+The README-only evidence policy prevents the LLM-based component from
+evaluating documentation available through external links, which is
+particularly relevant to dimensions such as usage guidance and
+examples. Future work could investigate retrieving and incorporating
+linked documentation --- such as dedicated usage guides, tutorials,
+or example galleries --- into the assessment evidence. Such an
+extension would make it possible to test directly how much of the
+observed disagreement is attributable to the restricted evidence
+scope rather than to the model configuration itself. Any retrieval
+strategy would need to preserve reproducibility, clearly record the
+evidence supplied to the model, and control the additional assessment
+cost.
+
+\textbf{Repeated-run stability analysis.} The current evaluation
+reports scores from a single inference run per repository. Running
+the LLM-based assessment repeatedly for the same repositories would
+allow score consistency and dimension-level variation across runs to
+be measured directly, complementing the model-reported confidence
+analysis in Chapter~5.
+
+\textbf{Scaling and diversifying the ground truth corpus.} Expanding
+the manually annotated corpus beyond 30 repositories, with a
+sampling strategy closer to the composition of the full dataset,
+would reduce the estimation uncertainty discussed in Section~6.5 and
+allow agreement and validation results to be reported with greater
+confidence, including analysis broken down by research domain and
+programming-language ecosystem.
+
+\textbf{Pipeline integration and extended user-facing presentation.}
+The current implementation consists of independently executable
+components, as described in Chapter~4. Future work could integrate
+these components behind a single command-line interface, reducing
+the need to invoke each processing stage separately, and package the
+framework for straightforward execution against a GitHub repository.
+The web-based prototype introduced in Chapter~4 could additionally be
+extended with further usability and presentation improvements ---
+for example, batch live-assessment of multiple repositories or
+export of hybrid profiles in machine-readable form --- building on
+the dataset overview, repository-level, and live assessment views
+already implemented.
+
+\textbf{Improved uncertainty and review mechanisms.}
+Neither evaluated model configuration produced a self-reported
+confidence signal that reliably distinguished correct from less
+reliable assessments. Future work should therefore investigate
+uncertainty measures derived from observable model behaviour rather
+than relying solely on self-reported confidence. Possible approaches
+include consistency across repeated inference runs, agreement between
+multiple model configurations, or evidence-based checks that compare
+the generated score with the supporting documentation excerpts.
+Such signals could support a human-review mechanism in which
+uncertain, unstable, or conflicting assessments are flagged for
+inspection while deterministic structural indicators remain fully
+automated.

@@ -1,0 +1,47 @@
+{
+  "D1_installation": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README only mentions that detailed installation instr[5D[K
+instructions can be found in the User's Guide, but does not provide any act[3D[K
+actionable steps or required prerequisites."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README mentions that complete documentation on usage [K
+is hosted on Read the Docs, but does not provide a concrete command, code s[1D[K
+snippet, workflow, or executable example in the README itself."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains that OpenMC is a Monte Carlo [K
+particle transport code based on modern methods and its intended domain or [K
+audience is not explicitly stated but implied to be in the field of nuclear[7D[K
+nuclear energy."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README mentions that OpenMC uses HDF5 format cross se[2D[K
+sections, which implies a dependency on the HDF5 library, but does not expl[4D[K
+explicitly list required and/or optional dependencies in human-readable for[3D[K
+form."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README only mentions that complete documentation on u[1D[K
+usage is hosted on Read the Docs, but does not provide a meaningful usage e[1D[K
+example or explicitly link to an example gallery or tutorial demonstrating [K
+software use."
+  },
+  "D6_contribution": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README mentions that contribution guidance is provide[7D[K
+provided together with at least one support or community channel, but the c[1D[K
+contribution information is not explicitly stated in the README itself."
+  }
+}

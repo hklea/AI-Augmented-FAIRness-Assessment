@@ -1,0 +1,11 @@
+repo,F1_persistent_id,F2_metadata_file,A1_license,I1_dependency_file,R1_readme_present,R2_citation,rule_based_total
+astropy_astropy,1,1,1,1,1,1,6
+biopython_biopython,1,0,1,1,1,1,5
+healpy_healpy,1,0,1,1,1,1,5
+jupyter_nbconvert,0,0,1,1,1,0,3
+networkx_networkx,0,0,1,1,1,0,3
+nilearn_nilearn,1,1,1,1,1,1,6
+numpy_numpy,1,0,1,1,1,0,4
+OpenMS_OpenMS,1,1,1,0,1,1,5
+scikit-learn_scikit-learn,1,1,1,1,1,1,6
+sunpy_sunpy,1,1,1,1,1,1,6

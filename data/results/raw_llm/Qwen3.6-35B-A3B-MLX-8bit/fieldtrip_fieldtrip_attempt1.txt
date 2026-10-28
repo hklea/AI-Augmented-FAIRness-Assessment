@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README provides complete, actionable installation steps including cloning or downloading the repository, unzipping, adding to the MATLAB path, calling `ft_defaults`, and adding commands to `startup.m`, along with specific warnings about path setup."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README lacks inline code snippets or concrete usage examples, but explicitly links to external documentation and tutorials at https://www.fieldtriptoolbox.org."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains that FieldTrip is a MATLAB toolbox for MEG, EEG, and iEEG analysis, detailing its domain, target audience (researchers), and core functionalities like time-frequency analysis and source reconstruction."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README only mentions MATLAB as the base environment and notes that external toolboxes are handled by `ft_defaults`, but does not explicitly list required or optional dependencies in human-readable form."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly references and links to external tutorials and documentation but does not include the tutorial content or examples within the README itself."
+  },
+  "D6_contribution": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README contains copyright and authorship information but provides no contribution guidelines, instructions for submitting code, or links to support/community channels."
+  }
+}

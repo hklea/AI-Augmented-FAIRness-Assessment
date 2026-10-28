@@ -1,0 +1,45 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides a link to the `installation guide` in[2D[K
+in the documentation, but does not include complete and actionable installa[8D[K
+installation steps within the README itself."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There are links to a tutorial and an example gallery, but[3D[K
+but no concrete command, code snippet, workflow, or executable example is p[1D[K
+present in the README."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "The README clearly explains that `sunpy` is a Python soft[4D[K
+software package that provides fundamental tools for accessing, loading and[3D[K
+and interacting with solar physics data in Python."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "MEDIUM",
+    "reasoning": "There is no explicit listing of required or optional depe[4D[K
+dependencies in human-readable form within the README; however, links to a [K
+`stable documentation` and a `changelog` are provided."
+  },
+  "D5_examples": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "The README explicitly references an example gallery, but [K
+its content is not supplied within the README itself; instead, it links to [K
+external documentation where these examples can be found."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README provides contribution guidance together with a[1D[K
+at least one support or community channel (the chat room), but the contribu[8D[K
+contribution information is partially presented in various places of the RE[2D[K
+README and not collected in a single section."
+  }
+}

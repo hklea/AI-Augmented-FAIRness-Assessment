@@ -1,0 +1,32 @@
+{
+  "D1_installation": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "For the installation instructions, see `our install guide\u001b[5D\u001b[K guide <https://scipy.org/install/>`__. This is an external link alone, whic\u001b[4D\u001b[K which generally supports a score of 1."
+  },
+  "D2_usage": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There are no concrete command, code snippet, workflow, or\u001b[2D\u001b[K or executable examples in the README."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "SciPy (pronounced “Sigh Pie”) is an open-source software \u001b[K for mathematics, science, and engineering. It includes modules for statisti\u001b[8D\u001b[K statistics, optimization, integration, linear algebra, Fourier transforms, \u001b[K signal and image processing, ODE solvers, and more."
+  },
+  "D4_dependencies": {
+    "score": 1,
+    "confidence": "MEDIUM",
+    "reasoning": "There is no explicit list of required or optional depende\u001b[7D\u001b[K dependencies in human-readable form. However, the README mentions that SciP\u001b[4D\u001b[K SciPy is built to work with NumPy arrays."
+  },
+  "D5_examples": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "There are no meaningful usage examples, and the links pro\u001b[3D\u001b[K provided do not demonstrate software use."
+  },
+  "D6_contribution": {
+    "score": 2,
+    "confidence": "MEDIUM",
+    "reasoning": "The README clearly explains how to contribute to SciPy, i\u001b[1D\u001b[K including a list of ways to contribute (e.g., writing code, reviewing pull \u001b[K requests, triaging issues). There is also at least one support or community\u001b[9D\u001b[K community channel mentioned (the forum)."
+  }
+}

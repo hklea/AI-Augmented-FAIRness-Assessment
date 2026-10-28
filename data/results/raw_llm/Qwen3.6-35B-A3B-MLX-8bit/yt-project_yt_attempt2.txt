@@ -1,0 +1,20 @@
+{
+  "D1_installation": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Provides clear, copy-pasteable installation commands for both conda and pip. While explicit system prerequisites are not listed in the text, the installation steps are complete and actionable for a standard Python package."
+  },
+  "D2_usage": {
+    "score": 1,
+    "confidence": "HIGH",
+    "reasoning": "No inline code snippets, commands, or executable examples are present in the README. Usage guidance relies entirely on external links to Jupyter notebooks."
+  },
+  "D3_purpose": {
+    "score": 2,
+    "confidence": "HIGH",
+    "reasoning": "Clearly explains that yt is a Python library for analyzing and visualizing volumetric data, and explicitly lists its intended domains including astrophysics, seismology, nuclear engineering, molecular dynamics, and oceanography."
+  },
+  "D4_dependencies": {
+    "score": 0,
+    "confidence": "HIGH",
+    "reasoning": "The README does not list any required

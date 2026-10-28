@@ -1,0 +1,18 @@
+{
+    "LICENSE": true,
+    "LICENSE.md": false,
+    "LICENSE.txt": false,
+    "LICENSE.rst": false,
+    "COPYING": false,
+    "COPYING.txt": false,
+    "CITATION.cff": true,
+    "CITATION.md": false,
+    "CITATION": false,
+    "codemeta.json": false,
+    "requirements.txt": false,
+    "environment.yml": false,
+    "setup.py": false,
+    "pyproject.toml": true,
+    "package.json": true,
+    "Cargo.toml": false
+}
